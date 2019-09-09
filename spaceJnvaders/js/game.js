@@ -15,16 +15,15 @@ const Game = function() {
       enemySpeed:10,
       shouldStepDown:0.01,
       changeDirection:false,
-      height:2251,
+      height:3000,
       width:4000,
   
       collideObject:function(object) {
   
-        if (object.x < 0) { object.x = 0; object.velocity_x = 0; return true; }
-        else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0; return true; }
-        if (object.y < 0) { object.y = 0; object.velocity_y = 0; return true; }
-        else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; return true; }
-        return false;
+        if (object.x < 0) { object.x = 0; object.velocity_x = 0; }
+        else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0; }
+        if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
+        else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
       },
   
       collideBullet:function(object, bullet) {
@@ -51,7 +50,7 @@ const Game = function() {
           var spacing_x = 170;
           var spacing_y = 100;
           var initial_x = margin*28;
-          var initial_y = 100;
+          var initial_y = 200;
           for(var i = 0; i < columns; i++){
               for (var j = 0; j < rows; j++){
                   var invader_x = initial_x + ((spacing_x+width)*i) + spacing_x;
@@ -303,7 +302,7 @@ const Game = function() {
     this.velocity_y = 0;
     this.width      = 160;
     this.x          = 4000/2 - this.width/2;
-    this.y          = 2251-this.height;
+    this.y          = 3000-this.height;
     this.currentBullet = undefined;
     this.score = 0
     this.lives = 5

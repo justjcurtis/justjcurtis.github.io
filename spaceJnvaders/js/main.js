@@ -34,10 +34,10 @@ window.addEventListener("load", function(event) {
     }
 
     var renderHud = function(){
-        var size = 50
+        var size = 100
         var color = "#1fbcff"
         var w = 4000
-        var h = 2251
+        var h = 3000
 
         display.drawText("Lives : " + game.world.player.lives, w*0.1, h*0.05, size, color)
         display.drawText("Score : " + game.world.player.score, w*0.3, h*0.05, size, color)
