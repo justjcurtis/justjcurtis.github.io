@@ -1,9 +1,9 @@
 window.addEventListener("load", function(event) {
     var loading = true;
 
-    var moveLeft = false;
-    var moveRight = false;
-    var shoot = false;
+    var moveLeftTrigger = false;
+    var moveRightTrigger = false;
+    var shootTrigger = false;
     "use strict";
 
     var keyDownUp = function(event) {
@@ -71,10 +71,10 @@ window.addEventListener("load", function(event) {
   
     var update = function() {
       if(loading){return;}
-      if (controller.left.active || moveLeft) { game.world.player.moveLeft(); }
-      if (controller.right.active || moveRight) { game.world.player.moveRight(); }
-      if (controller.spacebar.active || shoot) { game.world.player.shoot(game.world.level); controller.spacebar.active = false; }
-      shoot = false;
+      if (controller.left.active || moveLeftTrigger) { game.world.player.moveLeft(); }
+      if (controller.right.active || moveRightTrigger) { game.world.player.moveRight(); }
+      if (controller.spacebar.active || shootTrigger) { game.world.player.shoot(game.world.level); controller.spacebar.active = false; }
+      shootTrigger = false;
       game.update();
   
     };
@@ -98,7 +98,7 @@ window.addEventListener("load", function(event) {
         instructions.classList.remove("hide")
         instructions.classList.add("show")
     
-        await sleep(2000);
+        await sleep(4000);
         instructions.classList.remove("show")
         instructions.classList.add("hide")
 
@@ -122,26 +122,26 @@ window.addEventListener("load", function(event) {
     window.addEventListener("keyup",   keyDownUp);
     window.addEventListener("resize",  resize);
 
-    var left = document.getElementById("left");
-    var right = document.getElementById("right");
-    var shoot = document.getElementById("shoot");
+    var leftTouch = document.getElementById("left");
+    var rightTouch = document.getElementById("right");
+    var shootTouch = document.getElementById("shoot");
     
-    left.addEventListener("touchstart", function(){
-        moveLeft = true;
+    leftTouch.addEventListener("touchstart", function(){
+        moveLeftTrigger = true;
     });
-    left.addEventListener("touchend", function(){
-        moveLeft = false;
-    });
-
-    right.addEventListener("touchstart", function(){
-        moveRight = true;
-    });
-    right.addEventListener("touchend", function(){
-        moveRight = false;
+    leftTouch.addEventListener("touchend", function(){
+        moveLeftTrigger = false;
     });
 
-    shoot.addEventListener("touchstart", function(){
-        shoot = true;
+    rightTouch.addEventListener("touchstart", function(){
+        moveRightTrigger = true;
+    });
+    rightTouch.addEventListener("touchend", function(){
+        moveRightTrigger = false;
+    });
+
+    shootTouch.addEventListener("touchstart", function(){
+        shootTrigger = true;
     })
   
     resize();
