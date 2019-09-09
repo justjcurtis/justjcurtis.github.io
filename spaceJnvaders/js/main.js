@@ -1,5 +1,5 @@
 window.addEventListener("load", function(event) {
-
+    var loading = true;
     "use strict";
 
     var keyDownUp = function(event) {
@@ -60,13 +60,13 @@ window.addEventListener("load", function(event) {
       display.render();
       if(game.world.player.score > 0){
         var instructions = document.getElementById("instructions");
-        instructions.classList.add("hidden");
+        instructions.classList.add("hide");
       }
   
     };
   
     var update = function() {
-  
+      if(loading){return;}
       if (controller.left.active) { game.world.player.moveLeft(); }
       if (controller.right.active) { game.world.player.moveRight(); }
       if (controller.spacebar.active) { game.world.player.shoot(game.world.level); controller.spacebar.active = false; }
@@ -74,7 +74,38 @@ window.addEventListener("load", function(event) {
       game.update();
   
     };
-  
+    var sleep = function(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+    var load = async function(){
+        var header = document.getElementById("sJHeader");
+        var instructions = document.getElementById("instructions");
+        var gameCanvas = document.getElementById("gameCanvas");
+        
+        instructions.classList.add("hide")
+        gameCanvas.classList.add("hide")
+
+        await sleep(2000);
+        gameCanvas.classList.remove("invisible")
+        instructions.classList.remove("invisible")
+
+        header.classList.add("hide")
+
+        instructions.classList.remove("hide")
+        instructions.classList.add("show")
+    
+        await sleep(2000);
+        instructions.classList.remove("show")
+        instructions.classList.add("hide")
+
+        await sleep(2000);
+        gameCanvas.classList.remove("hide")
+        gameCanvas.classList.add("show")
+
+        await sleep(2000);
+        loading = false;
+    }
+
     var controller = new Controller();
     var display    = new Display(document.querySelector("canvas"));
     var game       = new Game();
@@ -89,6 +120,8 @@ window.addEventListener("load", function(event) {
   
     resize();
   
+    load();
+
     engine.start();
   
   });

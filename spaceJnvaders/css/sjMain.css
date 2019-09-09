@@ -3,32 +3,59 @@ body{
 }
 canvas {
     max-width: 100%;
-    max-height: 10%;
     display: block;
     margin: 0 auto;
-    margin-top: 10px;
     margin-bottom: 0;
  }
 
 #sJHeader{
+    position: absolute;
+    top: 40%;
+    left: 32.5%;
 	color: #ff0000;
 	font-weight: 600;
-	letter-spacing: 0.7em;
+    letter-spacing: 0.7em;
 }
 #instructions{
-    text-align: center;
-    margin-top: 2em;
-    margin-bottom: 0;
+    position: absolute;
+    top: 40%;
+    left: 37.5%;
 }
-.hidden {
+.invisible{
+    visibility: hidden;
+}
+.hide {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s 2s, opacity 2s linear;
 }
-
+.show {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 2s linear;
+}
+#gameCanvas{
+    margin-top: 10%;
+}
 html, body, main {
     max-height: 100%;
     max-width: 100%;
     overflow-x: hidden;
     margin: 0;
+    padding: 0;
+}
+.textContainer{
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.canvasContainer{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
 }

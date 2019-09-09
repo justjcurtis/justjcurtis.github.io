@@ -45,12 +45,16 @@
 		</nav>
 	</header>
 	<main>
-		<h1 class="text-center" id="sJHeader">Space Jnvaders</h1>
-		<div id="instructions">
-			<p>Use Left and right to move and space bar to shoot</p>
-			<p>Good Luck!</p>
-		</div>
-		<canvas></canvas>
+        <div class="textContainer">
+            <h1 class="text-center" id="sJHeader">Space Jnvaders</h1>
+            <div id="instructions" class="invisible">
+                <p>Use Left and right to move and space bar to shoot</p>
+                <p>Good Luck!</p>
+            </div>
+        </div>
+        <div class="canvasContainer">
+            <canvas id="gameCanvas" class="invisible"></canvas>
+        </div>
 	</main>
 </body>
 <script src="../js/main.js"></script>
