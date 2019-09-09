@@ -23,7 +23,7 @@ const Display = function(canvas) {
     }
 
     this.drawText = function(text, x, y, size, color) {
-      this.buffer.font = size + "px Arial";
+      this.buffer.font = "bold " + size + "pt Arial";
       this.buffer.fillStyle = color;
       this.buffer.fillText(text, x, y);
     };
