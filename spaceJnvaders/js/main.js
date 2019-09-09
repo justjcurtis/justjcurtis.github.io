@@ -1,5 +1,9 @@
 window.addEventListener("load", function(event) {
     var loading = true;
+
+    var moveLeft = false;
+    var moveRight = false;
+    var shoot = false;
     "use strict";
 
     var keyDownUp = function(event) {
@@ -67,10 +71,10 @@ window.addEventListener("load", function(event) {
   
     var update = function() {
       if(loading){return;}
-      if (controller.left.active) { game.world.player.moveLeft(); }
-      if (controller.right.active) { game.world.player.moveRight(); }
-      if (controller.spacebar.active) { game.world.player.shoot(game.world.level); controller.spacebar.active = false; }
-  
+      if (controller.left.active || moveLeft) { game.world.player.moveLeft(); }
+      if (controller.right.active || moveRight) { game.world.player.moveRight(); }
+      if (controller.spacebar.active || shoot) { game.world.player.shoot(game.world.level); controller.spacebar.active = false; }
+      shoot = false;
       game.update();
   
     };
@@ -117,6 +121,28 @@ window.addEventListener("load", function(event) {
     window.addEventListener("keydown", keyDownUp);
     window.addEventListener("keyup",   keyDownUp);
     window.addEventListener("resize",  resize);
+
+    var left = document.getElementById("left");
+    var right = document.getElementById("right");
+    var shoot = document.getElementById("shoot");
+    
+    left.addEventListener("touchstart", function(){
+        moveLeft = true;
+    });
+    left.addEventListener("touchend", function(){
+        moveLeft = false;
+    });
+
+    right.addEventListener("touchstart", function(){
+        moveRight = true;
+    });
+    right.addEventListener("touchend", function(){
+        moveRight = false;
+    });
+
+    shoot.addEventListener("touchstart", function(){
+        shoot = true;
+    })
   
     resize();
   
