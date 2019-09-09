@@ -164,9 +164,6 @@ const Game = function() {
                 this.enemies[bullet.owner].currentBullet = undefined;
             }
         });
-        if(this.player.lives < 1){
-            gameover = true;
-        }
         this.collideObject(this.player);
 
         if(this.player.shooting){
@@ -210,6 +207,7 @@ const Game = function() {
         }
         if(this.player.lives < 1){
             this.enemies = undefined;
+            this.level = 1;
         }else{
             if(this.player.score > this.highscore){
                 this.highscore = this.player.score;
