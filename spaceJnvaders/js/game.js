@@ -10,7 +10,7 @@ const Game = function() {
   
       player:new Game.Player(),
       highscore:0,
-      level:1,
+      level:4,
       enemies:undefined,
       enemySpeed:10,
       shouldStepDown:0.01,
@@ -101,11 +101,11 @@ const Game = function() {
         }
         if(this.changeDirection){
             var ssd = false;
-            if(Math.random()<this.shouldStepDown){
+            if(Math.random() + (this.level*5/100 - 0.01) <this.shouldStepDown){
                 ssd = true;
             }
         }
-        var chanceToShoot = (0.002+(0.001*(1-(this.enemies.length/40))));
+        var chanceToShoot = (0.001+this.level/10000+(0.001*(1-(this.enemies.length/40))));
         var eIndex = 0
         var dead = []
         var enemyBullets = []
@@ -152,7 +152,7 @@ const Game = function() {
             dead = [];
         }
         this.shouldStepDown = (1-(this.enemies.length/40))+(3/40)
-        this.enemySpeed = Math.min(20+(50*(1-(this.enemies.length/40))), 60)/2
+        this.enemySpeed = 18+(50*(1-(this.enemies.length/40))) + (this.level/2)
         this.changeDirection = false;
   
         this.player.velocity_x *= this.friction;
@@ -198,13 +198,15 @@ const Game = function() {
         }
         if(this.enemies.length == 0){
             this.player.score = Math.round(this.player.score * 1.61803399);
-            this.player.lives += Math.ceil(level/2);
+            this.player.lives += Math.ceil(this.level/2);
             this.level ++;
             this.enemies = undefined;
         }
-        var low = this.lowestEnemy(this.enemies);
-        if(low.y + low.height >= this.height){
-            this.player.lives = 0;
+        if(this.enemies){
+            var low = this.lowestEnemy(this.enemies);
+            if(low.y + low.height >= this.height){
+                this.player.lives = 0;
+            }
         }
         if(this.player.lives < 1){
             this.enemies = undefined;
@@ -212,6 +214,7 @@ const Game = function() {
             if(this.player.score > this.highscore){
                 this.highscore = this.player.score;
             }
+            this.player.speed = 11 + (2*(this.level));
         }
       }
   
@@ -249,7 +252,7 @@ const Game = function() {
   
       if (!this.shooting) {
         this.shooting = true;
-        this.currentBullet = new Game.Bullet(this.x + this.width/2 -1, this.y, 1, 300*(speedModifier/5), false, id);
+        this.currentBullet = new Game.Bullet(this.x + this.width/2 -1, this.y, 1, 60+(speedModifier*10), false, id);
         this.currentBullet.fire()
       }
     },
@@ -273,7 +276,7 @@ const Game = function() {
       this.x = x;
       this.y = y;
       this.height = 50;
-      this.width = 5;
+      this.width = 7;
       this.velocity_y = 0;
       this.speed = speed;
       this.visible = true;
@@ -298,6 +301,7 @@ const Game = function() {
     this.height     = 160;
     this.shooting    = false;
     this.jumping = true;
+    this.speed = 13;
     this.velocity_x = 0;
     this.velocity_y = 0;
     this.width      = 160;
@@ -317,7 +321,7 @@ const Game = function() {
   
       if (!this.shooting) {
         this.shooting = true;
-        this.currentBullet = new Game.Bullet(this.x + this.width/2 -1, this.y, -1, 500*(speedModifier/5), true, 1111);
+        this.currentBullet = new Game.Bullet(this.x + this.width/2 -1, this.y, -1, 100+(speedModifier*10), true, 1111);
         this.currentBullet.fire()
       }
     },
@@ -342,8 +346,8 @@ const Game = function() {
       this.lives = 5;
     },
   
-    moveLeft:function()  { this.velocity_x -= 13; },
-    moveRight:function() { this.velocity_x += 13; },
+    moveLeft:function()  { this.velocity_x -= this.speed; },
+    moveRight:function() { this.velocity_x += this.speed; },
   
     update:function() {
   

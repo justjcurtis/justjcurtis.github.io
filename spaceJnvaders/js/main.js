@@ -35,14 +35,16 @@ window.addEventListener("load", function(event) {
 
     var renderHud = function(){
         var size = 100
-        var color = "#1fbcff"
+        var blue = "#1fbcff"
+        var red = "#ff0000"
         var w = 4000
         var h = 3000
 
-        display.drawText("Lives : " + game.world.player.lives, w*0.1, h*0.05, size, color)
-        display.drawText("Score : " + game.world.player.score, w*0.3, h*0.05, size, color)
-        display.drawText("High Score : " + game.world.highscore, w*0.6, h*0.05, size, color)
-        display.drawText("Enemies : " + game.world.enemies.length, w*0.8, h*0.05, size, color)
+        display.drawText("Lives : " + game.world.player.lives, w*0.1, h*0.05, size, blue)
+        display.drawText("Score : " + game.world.player.score, w*0.3, h*0.05, size, blue)
+        display.drawText(game.world.level, w*0.475, h*0.05, size, red)
+        display.drawText("High Score : " + game.world.highscore, w*0.55, h*0.05, size, blue)
+        display.drawText("Enemies : " + game.world.enemies.length, w*0.85, h*0.05, size, blue)
     }
 
     var render = function() {
@@ -69,9 +71,7 @@ window.addEventListener("load", function(event) {
       if (controller.right.active) { game.world.player.moveRight(); }
       if (controller.spacebar.active) { game.world.player.shoot(game.world.level); controller.spacebar.active = false; }
   
-      try{
-          game.update();
-      }catch{}
+      game.update();
   
     };
   
