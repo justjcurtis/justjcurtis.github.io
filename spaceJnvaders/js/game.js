@@ -152,7 +152,7 @@ const Game = function() {
             dead = [];
         }
         this.shouldStepDown = (1-(this.enemies.length/40))+(3/40)
-        this.enemySpeed = 18+(50*(1-(this.enemies.length/40))) + (this.level/2)
+        this.enemySpeed = 18+(10*this.level*(1-(this.enemies.length/80))) + (this.level/2)
         this.changeDirection = false;
   
         this.player.velocity_x *= this.friction;
