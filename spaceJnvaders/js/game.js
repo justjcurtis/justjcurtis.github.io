@@ -10,7 +10,7 @@ const Game = function() {
   
       player:new Game.Player(),
       highscore:0,
-      level:4,
+      level:1,
       enemies:undefined,
       enemySpeed:10,
       shouldStepDown:0.01,
