@@ -308,7 +308,7 @@ const Game = function() {
     this.currentBullet = undefined;
     this.score = 0
     this.lives = 5
-    this.imgSrc = "./assets/Player.png"
+    this.imgSrc = "./assets/player.png"
   
   };
   
