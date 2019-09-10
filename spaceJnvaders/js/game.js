@@ -308,6 +308,7 @@ const Game = function() {
     this.currentBullet = undefined;
     this.score = 0
     this.lives = 5
+    this.imgSrc = "./assets/Player.png"
   
   };
   
@@ -319,7 +320,7 @@ const Game = function() {
   
       if (!this.shooting) {
         this.shooting = true;
-        this.currentBullet = new Game.Bullet(this.x + this.width/2 -1, this.y, -1, 100+(speedModifier*10), true, 1111);
+        this.currentBullet = new Game.Bullet(this.x + this.width/2 -1, this.y+77, -1, 100+(speedModifier*10), true, 1111);
         this.currentBullet.fire()
       }
     },

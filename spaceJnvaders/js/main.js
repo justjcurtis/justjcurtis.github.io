@@ -20,7 +20,8 @@ window.addEventListener("load", function(event) {
     };
   
     var renderPlayer = function(){
-        display.drawRectangle(game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height, game.world.player.color);
+        //display.drawRectangle(game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height, game.world.player.color);
+        display.drawSpriteFrame(game.world.player.imgSrc, game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height);
         if(game.world.player.shooting) { display.drawRectangle(game.world.player.currentBullet.x, game.world.player.currentBullet.y, game.world.player.currentBullet.width, game.world.player.currentBullet.height, game.world.player.currentBullet.color) }
     }
 

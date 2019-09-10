@@ -28,9 +28,15 @@ const Display = function(canvas) {
       this.buffer.fillText(text, x, y);
     };
 
-    this.fillImage = function(image) {
+    this.drawSpriteFrame = function(src, x, y, width, height){
       var img = new Image();
-      img.src = image;
+      img.src = src;
+      this.buffer.drawImage(img, 0, 0, img.width, img.height, x, y, width, height); 
+    }
+
+    this.fillImage = function(src) {
+      var img = new Image();
+      img.src = src;
       this.buffer.drawImage(img, 0, 0);
   
     };
