@@ -9,6 +9,8 @@ let searchDone = false;
 let search = false;
 let autoloop = true;
 let revisitRate = 0.5;
+let run = false;
+let generationIndex = 0;
 
 function setup() {
   w = windowWidth;
@@ -22,10 +24,14 @@ function setup() {
 
 function keyPressed(){
   if(key == "a"){
-    autoloop = !autoloop;
+    autoloop = !autoloop
     return;
   }
   progress()
+}
+
+function touchEnded(){
+  run = !run
 }
 
 function progress(){
@@ -54,14 +60,22 @@ function reset(){
 }
 
 function draw() {
+  if(!run && generationIndex == 1){
+    return;
+  }
   background(51);
   if(!generationDone){
+    generationIndex = 0
     for(let i = 0; i<floor((divisions/25)*20); i++){
       if(start){
         search = false;
         searchDone = false;
         maze.generate(revisitRate);
         generationDone = maze.generated
+        generationIndex = 1
+        if(!run){
+          break;
+        }
       }
     }
   }else{
@@ -71,17 +85,17 @@ function draw() {
         seeker.setGrid(maze.grid, maze.cols, maze.rows)
       }
       for(let i = 0; i<floor((divisions/25)*6); i++){
-      // for(let i = 0; i<100000; i++){
-        let result = seeker.seek();
-        if(result){
-          if(result[0]||result[1]){
-            if(!searchDone){
-              if(autoloop){
-                setTimeout(()=>{
+        // for(let i = 0; i<100000; i++){
+          let result = seeker.seek();
+          if(result){
+            if(result[0]||result[1]){
+              if(!searchDone){
+                if(autoloop){
+                  setTimeout(()=>{
+                    searchDone = true;
+                  }, 3000)
+                }else{
                   searchDone = true;
-                }, 1500)
-              }else{
-                searchDone = true;
               }
             }
           }
