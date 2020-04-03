@@ -1,14 +1,16 @@
 let p;
-let run;
+let run = true;
 let proposedObstical;
 let drawing = false;
 
 let bestTimeP;
 let genP;
 let hitP;
-
+let instructions = document.getElementById("instructions")
+let startTime;
 
 function setup() {
+  startTime = millis();
   let cnv = createCanvas(worldSize, worldSize)
   cnv.style('display', 'block');
   cnv.style('margin', 'auto');
@@ -19,6 +21,7 @@ function setup() {
   genP.addClass("infop")
   bestTimeP.addClass("infop")
   hitP.addClass("infop")
+  p.load();
 }
 
 function keyPressed(){
@@ -31,9 +34,6 @@ function keyPressed(){
 }
 
 function mouseClicked(e){
-  // if(e.target.className.includes("btn")){
-  //   toggleMenu()
-  // }
   if(run){
     return
   }
@@ -70,6 +70,11 @@ function mouseClicked(e){
 }
 
 function draw() {
+  if(startTime + 1000 - millis() < 0){
+    instructions.classList.add("hide");
+  }else{
+    return;
+  }
   background(50)
   if(run){
     p.update()

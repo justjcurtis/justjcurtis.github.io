@@ -7,3 +7,8 @@
 .infop{
 	text-align: center;
 }
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 4s, opacity 4s linear;
+}
