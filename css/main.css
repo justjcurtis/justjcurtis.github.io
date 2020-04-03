@@ -103,15 +103,22 @@
 }
 
 .nav-item:nth-child(2) {
-	transition-delay: 0.2s;
+	transition-delay: 0.15s;
 }
 
 .nav-item:nth-child(3) {
-	transition-delay: 0.3s;
+	transition-delay: 0.2s;
 }
 
 .nav-item:nth-child(4) {
-	transition-delay: 0.4s;
+	transition-delay: 0.25s;
+}
+
+.nav-item:nth-child(5) {
+	transition-delay: 0.3s;
+}
+.nav-item:nth-child(6) {
+	transition-delay: 0.35s;
 }
 
 * {

@@ -1,0 +1,9 @@
+#instructions{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+.infop{
+	text-align: center;
+}
