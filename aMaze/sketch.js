@@ -30,7 +30,7 @@ function keyPressed(){
   progress()
 }
 
-function touchEnded(){
+function touchStarted(){
   run = !run
 }
 
