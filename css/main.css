@@ -352,3 +352,15 @@ main#home h1 {
 	max-width: 1.2em;
 	max-height: 1.2em;
 }
+@media screen and (min-width: 600px) {
+	.mobile-only {
+	  visibility: hidden;
+	  display: none;
+	}
+}
+@media screen and (max-width: 600px) {
+	.pc-only {
+	  visibility: hidden;
+	  display: none;
+	}
+}
