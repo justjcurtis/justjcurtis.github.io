@@ -10,6 +10,7 @@ let showMenu = false;
 menuBtn.addEventListener('click', toggleMenu);
 
 function toggleMenu() {
+  console.log("hit")
   if (!showMenu) {
     menuBtn.classList.add('close');
     menu.classList.add('show');

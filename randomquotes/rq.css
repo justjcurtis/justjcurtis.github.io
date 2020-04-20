@@ -1,0 +1,90 @@
+.bg{
+    padding-top: 10%;
+    background-color: #ccc;
+    color: #ccc;
+    height: 100vh;
+    cursor: pointer;
+  }
+  .wrapper{
+    height:100%;
+    margin-bottom: -60px;
+    padding-bottom: 90px;
+  }
+  #qBlck{
+    position: relative;
+    height: 100%;
+    background-color: #fff;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 15px;
+    padding-top: 40px;
+    margin-bottom: 0;
+  }
+  #qb {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #FFF;
+    border: none;
+    float: right;
+    clear: both;
+    background-color: #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+  }
+  .qa{
+    float: right;
+    margin-right: 30px;
+    font-style: italic;
+  }
+  .qq{
+    font-size: 24px
+  }
+  .note{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+  }
+  .jumbotron{
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 10px;
+  }
+  .footer{
+    padding-top: 10px;
+    bottom : 0;
+    height: 60px;
+    text-align: center;
+    border-top: 1px solid #333;
+    margin-top: auto;
+  }
+  .cb{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    position: relative;
+    text-align: center;
+  }
+  #tweet{
+    float: left;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  #copy{
+    float: left;
+    font-size: 22px;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 0px;
+  }
+  a strong{
+    color: #ccc;
+  }
