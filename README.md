@@ -1,4 +1,4 @@
-# v2
+# justjcurtis.dev
 
 ## Project setup
 ```
