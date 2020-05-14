@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Landing from '../views/Home.vue'
+import Projects from '../views/Projects.vue'
 
 Vue.use(VueRouter)
 
@@ -8,13 +9,12 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Landing,
-    props: true
+    component: Landing
   },
   {
-    path: '/home',
-    name: 'un',
-    component: () => import('../views/something.vue')
+    path: '/Projects',
+    name: 'Projects',
+    component: Projects
   }
 ]
 
