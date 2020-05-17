@@ -1,8 +1,8 @@
 const scrollAnimationObserver = new IntersectionObserver((entries, scrollAnimationObserver) =>{
     entries.forEach(entry=>{
-        if(entry.isIntersecting){
+        if(entry.intersectionRatio > 0){
             entry.target.classList.add('enter')
-            scrollAnimationObserver.unobserve(entry);
+            scrollAnimationObserver.unobserve(entry.target);
         }
     })
 });

@@ -1,10 +1,29 @@
 <template>
   <div>
-    <div class="section landing" v-bind:class="{flyaway:hasLanded}"></div>
-    <div class="section hey">
+    <div class="section landing" v-if="!this.preLanded" v-bind:class="{flyaway:hasLanded}"></div>
+    <div class="section hey" v-if="this.preLanded || this.typingFinished">
+      <h1 class="typing">Hey, I'm Jacson.</h1>
+      <div>
+        <vue-typed-js
+          :loop="true"
+          :smartBackspace="true"
+          :typeSpeed="50"
+          :backSpeed="40"
+          :cursorChar="'|'"
+          :strings="[
+            'Desktop.', 
+            'Mobile.', 
+            'Web.', 
+            'Fun.'
+            ]"
+        >
+          <h1>I write code for <span class="typing" style='color: #FF9C40;'></span></h1>
+        </vue-typed-js>
+      </div>
+    </div>
+    <div class="section hey" v-if="!this.preLanded && !this.typingFinished">
       <div ref="a">
         <vue-typed-js
-          @onReset="reset()"
           @onComplete="cursorStep()"
           :typeSpeed="50"
           :startDelay="1000"
@@ -36,7 +55,7 @@
     <div class="home section"></div>
     <div class="triggerSpacer" v-bind:class="{hide:hasLanded}" />
     <span
-      v-on:landed="landed()"
+      v-on:landed="land()"
       ref="landertrigger"
       v-landertrigger
       v-bind:class="{hide:hasLanded}"
@@ -45,16 +64,22 @@
 </template>
 
 <script>
-var hlc = false;
+import {mapGetters, mapActions} from 'vuex'
 export default {
+  created(){
+    this.preLanded = this.hasLanded;
+  },
+  computed:mapGetters(["hasLanded"]),
   data() {
     return {
-      hasLanded: hlc,
-      cursorPos: 0
+      cursorPos: 0,
+      preLanded: false,
+      typingFinished: false,
     };
   },
   name: "Home",
   methods: {
+    ...mapActions(["land"]),
     cursorStep() {
       if (this.cursorPos == 0) {
         this.$refs.a.firstChild.lastChild.remove();
@@ -63,12 +88,9 @@ export default {
       } else if (this.cursorPos == 1) {
         setTimeout(() => {
           this.$refs.b.firstChild.lastChild.remove();
-        }, 5500);
+          this.typingFinished = true;
+        }, 500);
       }
-    },
-    landed() {
-      hlc = true;
-      this.hasLanded = true;
     },
   }
 };
@@ -83,7 +105,7 @@ export default {
 }
 .home {
   position: fixed;
-  background-color: #242d83;
+  background-color: #191c31;
 }
 .triggerSpacer {
   z-index: -100;
@@ -94,6 +116,7 @@ export default {
   position: fixed;
   top: 30vh;
   left: 10vw;
+  text-align: left;
 }
 .lander-trigger {
   height: 1px;
@@ -111,28 +134,56 @@ export default {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
-@keyframes left {
-  from {
-    transform: translateX(0);
+@media all and (orientation:portrait) {
+  @keyframes left {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-100vh) translateY(+60px);
+    }
   }
-  to {
-    transform: translateX(-100vw) translateX(+60px);
+  @keyframes offscreen {
+    from {
+      transform: translateY(-100vh) translateY(+60px);
+    }
+    to {
+      transform: translateY(-100vh);
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
 }
-@keyframes offscreen {
-  from {
-    transform: translateX(-100vw) translateX(+60px);
+@media all and (orientation:landscape) {
+  @keyframes left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100vw) translateX(+60px);
+    }
   }
-  to {
-    transform: translateX(-100vw);
+  @keyframes offscreen {
+    from {
+      transform: translateX(-100vw) translateX(+60px);
+    }
+    to {
+      transform: translateX(-100vw);
+    }
   }
-}
-@keyframes fade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
+  @keyframes fade {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
 }
 </style>

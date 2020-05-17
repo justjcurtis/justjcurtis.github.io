@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layout/Navbar";
 
 export default {
   components: {
@@ -31,6 +31,10 @@ body {
   font-size: 32px;
 }
 
+h1 {
+  font-size: 1.6em;
+}
+
 #app::-webkit-scrollbar {
   width: 0 !important;
 }
@@ -48,4 +52,25 @@ body {
   margin: 0;
   padding: 0;
 }
+.content{
+  top:0;
+  z-index: 1;
+  padding: 1em;
+}
+@media(orientation:portrait) {
+  .content{
+    margin:0;
+    margin-top: 60px;
+    width: calc(100%-40px);
+  }
+}
+
+@media(orientation:landscape) {
+  .content{
+    margin:0;
+    margin-left: 60px;
+    width: calc(100% - 100px);
+  }
+}
+.pointer {cursor: pointer;}
 </style>

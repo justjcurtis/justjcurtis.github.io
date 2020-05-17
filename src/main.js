@@ -6,20 +6,7 @@ import ScrollAnimation from './directives/scrollAnimation'
 import LanderTrigger from './directives/landerTrigger'
 import VueTypedJs from 'vue-typed-js'
 import store from './store'
-// import Vuex from 'vuex'
 
-// Vue.use(Vuex)
-
-// const vuexStore = new Vuex.Store({
-//   state: {
-//     count: 0
-//   },
-//   mutations: {
-//     increment (state) {
-//       state.count++
-//     }
-//   }
-// })
 
 Vue.use(VueTypedJs)
 Vue.use(router)
