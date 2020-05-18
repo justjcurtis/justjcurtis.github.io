@@ -115,7 +115,7 @@ export default {
               maze.generate(revisitRate);
               generationDone = maze.generated;
               generationIndex = 1;
-              if (!run) {
+              if (!run || generationDone) {
                 break;
               }
             }
