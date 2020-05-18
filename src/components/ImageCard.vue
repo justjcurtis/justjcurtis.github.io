@@ -1,25 +1,24 @@
 <template>
   <div>
-    <div class="scroll-tracker" v-scrollAnimation></div>
-    <div ref="card" class="flip-card">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <img ref="img" class="pointer" @click="flip()" :src="src" />
-        </div>
-        <div ref="cardBack" class="flip-card-back pointer" @click="flip()">
-          <h1>{{title}}</h1>
-          <p>{{short}}</p>
-          <p>{{long}}</p>
-          <div class="icon-wrapper">
-            <router-link
-              v-if="!goto"
-              :to="{name:'projectDetail', params: { id: title }}"
-            >
-               <fa-icon class="icon" :icon="['fas', 'rocket']" />
-            </router-link>
-            <a v-if="goto" :href="goto" target="_blank">
-               <fa-icon class="icon" :icon="['fas', 'rocket']" />
-            </a>
+    <div v-masonry-tile class="item">
+      <div class="scroll-tracker"></div>
+      <div ref="card" class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img ref="img" class="pointer" @click="flip()" :src="src" />
+          </div>
+          <div ref="cardBack" class="flip-card-back pointer" @click="flip()">
+            <h1>{{title}}</h1>
+            <p>{{short}}</p>
+            <p>{{long}}</p>
+            <div class="icon-wrapper">
+              <router-link v-if="!goto" :to="{name:'projectDetail', params: { id: title }}">
+                <fa-icon class="icon" :icon="['fas', 'rocket']" />
+              </router-link>
+              <a v-if="goto" :href="goto" target="_blank">
+                <fa-icon class="icon" :icon="['fas', 'rocket']" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -69,6 +68,63 @@ export default {
 </script>
 
 <style scoped>
+.item {
+  width: 23%;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+h1 {
+  font-size: 1.5vw;
+}
+p {
+  font-size: 1.1vw;
+}
+.icon {
+  font-size: 3vw;
+}
+@media (max-width: 1000px) {
+  .item {
+    width: 30%;
+  }
+  h1 {
+    font-size: 1.2em;
+  }
+  p {
+    font-size: 0.8em;
+  }
+  .icon {
+    font-size: 5vw;
+  }
+}
+@media (max-width: 640px) {
+  .item {
+    width: 45%;
+  }
+  h1 {
+    font-size: 1.2em;
+  }
+  p {
+    font-size: 0.8em;
+  }
+  .icon {
+    font-size: 7vw;
+  }
+}
+@media (max-width: 400px) {
+  .item {
+    width: 90%;
+  }
+  h1 {
+    font-size: 1.2em;
+  }
+  p {
+    font-size: 0.8em;
+  }
+  .icon {
+    font-size: 9vw;
+  }
+}
 img {
   width: 100%;
 }
@@ -131,7 +187,6 @@ img {
 
 .icon {
   display: block;
-  font-size: 3.5vw;
   position: relative;
   color: #191c31;
 }
@@ -151,20 +206,14 @@ h1,
   margin: 0.5em;
   justify-content: center;
 }
-h1{
-  font-size: 2.4vw;
-}
-p{
-  font-size: 1.6vw;
-}
-.scroll-tracker{
+.scroll-tracker {
   height: 1px;
   background: transparent;
   margin: 0;
   padding: 0;
   width: 1px;
 }
-a{
+a {
   z-index: 1;
   display: inline-block;
 }

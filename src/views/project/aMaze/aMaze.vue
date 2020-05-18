@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="content">
       <div class="p5sketch">
           <h1 class="mobile">aMaze</h1>
         <vue-p5 @sketch="sketch" />
@@ -15,7 +14,6 @@
           </span>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -87,8 +85,9 @@ export default {
           h = window.innerHeight * 0.9;
         }else{
           w = window.innerWidth * 0.9;
-          h = window.innerHeight * 0.6;
+          h = window.innerHeight * 0.5;
         }
+        
         let MazeMargin = 50;
         divisions = 25;
         maze = new Maze(
@@ -165,6 +164,7 @@ h1 {
 }
 @media (orientation: landscape) {
   .p5sketch {
+    padding-top: 1em;
     display: flex;
     justify-content: start;
     width: 100%;
@@ -200,7 +200,7 @@ h1 {
     display: block;
     justify-content: start;
     width: 100%;
-    height: 90vh;
+    height: 100%;
   }
   .p5Canvas {
     display: block;
@@ -218,19 +218,20 @@ h1 {
     margin-top: 0;
     margin-left: 1em;
     margin-right: 1em;
-    font-size: 2vw;
+    font-size: 0.8em;
     text-align: start;
   }
   .highlight > p {
     margin-right: 1em;
     margin-top: 0;
     color: #ff9c40;
-    font-size: 2vw;
+    font-size: 0.8em;
     text-align: start;
     margin-left: 1em;
   }
   h1{
     margin: 0;
+    margin-top: 1em;
   }
 }
 </style>

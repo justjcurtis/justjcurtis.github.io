@@ -1,58 +1,23 @@
 <template>
   <div>
-    <div class="section root">
-    </div>
-      <div class="grid">
-        <div>
-          <img src="https://unsplash.it/200/330" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/300/380" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/300/200" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/300" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/400" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/280/350" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/360" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/300" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/250/320" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/200" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/330" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/340" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/350" />
-        </div>
-        <div>
-          <img src="https://unsplash.it/200/250" />
-        </div>
+    <div class="section bg"></div>
+    <div class="container">
+      <div class="avatar-wrapper">
+        <img id="avatar" src="../assets/avatar_1.jpg" />
       </div>
+      <Timeline id="timeline" />
+    </div>
   </div>
 </template>
 
 <script>
+import Timeline from "../components/Timeline";
 import { mapActions } from "vuex";
 export default {
   name: "About",
+  components: {
+    Timeline
+  },
   created() {
     this.land();
   },
@@ -61,49 +26,59 @@ export default {
   }
 };
 </script>
-<style scoped>
-.root {
-  z-index: -1;
-  position: fixed;
-  background: #197c31;
-}
-.grid {
-  top:0;
-  z-index: 1;
-  padding: 1em;
-  column-count: 4;
-}
 
-@media all and (orientation:portrait) {
-  .grid{
-    margin:0;
-    margin-top: 60px;
+<style scoped>
+.bg {
+  z-index: -1;
+  position: Fixed;
+  background: #191c31;
+  overflow: hidden;
+}
+#avatar {
+  position: fixed;
+  margin-left: -100px;
+  margin-top: 1em;
+  width: 200px;
+  border-radius: 50%;
+}
+.container {
+  padding: 1em;
+  top: 0;
+}
+.avatar-wrapper {
+  z-index: 9;
+  top: 0;
+  position: fixed;
+  height: 200px;
+  background: linear-gradient(
+    rgba(25, 28, 49, 1),
+    rgba(25, 28, 49, 1),
+    rgba(25, 28, 49, 1),
+    rgba(25, 28, 49, 0)
+  );
+  width: 100%;
+  margin-left: -60px;
+  padding-left: 1em;
+}
+#timeline {
+  margin-top: 220px;
+}
+@media (orientation: portrait) {
+  #avatar {
+    width: 160px;
+  }
+  .avatar-wrapper {
+    top: 60px;
+    margin-left: 0px;
+    height: 200px;
+  }
+  #timeline {
+    margin-top: 220px;
   }
 }
-
-@media all and (orientation:landscape) {
-  .grid{
-    margin:0;
+@media (orientation: landscape) {
+  .container {
     margin-left: 60px;
   }
-}
-@media(max-width: 800px){
-  .grid{
-    column-count: 3;
-  }
-}
-@media(max-width: 600px){
-  .grid{
-    column-count: 2;
-  }
-}
-@media(max-width: 400px){
-  .grid{
-    column-count: 1;
-  }
-}
-img {
-  width: 100%;
-  margin-bottom: 1em;
 }
 </style>

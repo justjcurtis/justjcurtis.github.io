@@ -50,26 +50,20 @@ h1 {
   height: 100vh;
   width: 100%;
   margin: 0;
-  padding: 0;
-}
-.content{
-  top:0;
-  z-index: 1;
-  padding: 1em;
+  max-width: 100%;
 }
 @media(orientation:portrait) {
-  .content{
-    margin:0;
-    margin-top: 60px;
-    width: calc(100%-40px);
+  .section{
+    padding-top: 60px;
+    width: 100%;
+    height: calc(100vh - 60px);
   }
 }
 
 @media(orientation:landscape) {
-  .content{
-    margin:0;
-    margin-left: 60px;
-    width: calc(100% - 100px);
+  .section{
+    padding-left: 60px;
+    width: calc(100% - 60px);
   }
 }
 .pointer {cursor: pointer;}
