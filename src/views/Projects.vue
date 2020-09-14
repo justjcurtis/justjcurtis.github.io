@@ -3,7 +3,7 @@
     <div class="section root"></div>
     <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item" class="masonry">
       <ImageCard
-        :src="'https://picsum.photos/200/280'"
+        :src="'/aMaze.png'"
         :title="'aMaze'"
         :short="'A maze generation and solving demonstration.'"
         :long="'I used random walk and A* algorithms to generate mazes that are random, solvable and find the optimal path in the least amount of search steps.'"
