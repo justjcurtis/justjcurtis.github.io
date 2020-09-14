@@ -1,42 +1,50 @@
 <template>
   <div>
     <div class="timeline">
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'left'"
         :date="'2018 - Present'"
         :text="'Mobile software developer @ Ideagen using C# Javascript & Xamarin.Forms.'"
       />
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'right'"
         :date="'2017'"
         :text="'Gymnastics coaching @ Camp Awosting CT & Owner and Biomechanics coach @ FitFix'"
       />
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'left'"
         :date="'2014 - 2016'"
         :text="'Studying Physics BSC @ Open University'"
       />
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'right'"
         :date="'2012 - 2014'"
         :text="'Studying Physics, Maths, Philosophy, Psychology & Law & Bilborough College'"
       />
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'left'"
         :date="'2012 - 2016'"
         :text="'Got back into coding teaching myself Python, JavaScript, HTML & CSS, revisited computer science fundementals learning Linux & bash.'"
       />
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'right'"
         :date="'2005-2009'"
         :text="'Began teaching myself to code, starting with batch files & VB.NET - Quickly moving on to C# & Java.'"
       />
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'left'"
         :date="'2000 - 2012'"
         :text="'School & Internatonal level gymnast representing Team GB Under 16s'"
       />
-      <TimelineContent 
+      <TimelineContent
+        v-scrollAnimation 
         :side="'right'"
         :date="'1995'"
         :text="'Born.'"
