@@ -27,14 +27,14 @@
         :long="'A simple SpaceInvaders clone I made from scratch with a custom physics and game engine.'"
       />
       <ImageCard
-        :src="'https://picsum.photos/200/300'"
+        :src="'/bonemeal.png'"
         :title="'BoneMeal'"
         :short="'A dividend growth companion for Freetrade.io'"
         :long="'I use BoneMeal to help me find and pick stocks to add to my dividend growth portfolio. I made this public for the freetrade community and my friends.'"
         :goto="'https://bonemeal.app'"
       />
       <ImageCard
-        :src="'https://picsum.photos/200/280'"
+        :src="'/funemployed.png'"
         :title="'Funemployed'"
         :short="'An online Funemployed clone'"
         :long="'During the Covid-19 lockdown I created this Funemployed clone to take allow people to play together over video call or in their homes.'"
