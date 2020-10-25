@@ -1,9 +1,11 @@
 <template>
   <div>
     <div
+      v-touch:swipe.up="land"
       class="section landing"
       v-if="!this.preLanded"
       v-bind:class="{ flyaway: hasLanded }"
+      
     ></div>
     <div class="section hey" v-if="this.preLanded || this.typingFinished">
       <h1 class="typing">Hey, I'm Jacson.</h1>

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vue2TouchEvents from 'vue2-touch-events'
 import App from './App.vue'
 import router from './router'
 import VueTypedJs from 'vue-typed-js'
@@ -10,6 +11,7 @@ import LanderTrigger from './directives/landerTrigger'
 import store from './store'
 
 
+Vue.use(Vue2TouchEvents)
 Vue.use(VueTypedJs)
 Vue.use(router)
 Vue.use(VueMasonryPlugin)
