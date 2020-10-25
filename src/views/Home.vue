@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="home section">
-      <img id="avatar" src="../assets/avatar.jpg" />
+      <img id="avatar" src="../assets/avatar_2.jpg" />
     </div>
     <div class="triggerSpacer" v-bind:class="{ hide: hasLanded }" />
     <span
