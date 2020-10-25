@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="section landing" v-if="!this.preLanded" v-bind:class="{flyaway:hasLanded}"></div>
+    <div
+      class="section landing"
+      v-if="!this.preLanded"
+      v-bind:class="{ flyaway: hasLanded }"
+    ></div>
     <div class="section hey" v-if="this.preLanded || this.typingFinished">
       <h1 class="typing">Hey, I'm Jacson.</h1>
       <div>
@@ -10,14 +14,11 @@
           :typeSpeed="50"
           :backSpeed="40"
           :cursorChar="'|'"
-          :strings="[
-            'Desktop.', 
-            'Mobile.', 
-            'Web.', 
-            'Fun.'
-            ]"
+          :strings="['Desktop.', 'Mobile.', 'Web.', 'Fun.']"
         >
-          <h1>I write code for <span class="typing" style='color: #FF9C40;'></span></h1>
+          <h1>
+            I write code for <span class="typing" style="color: #ff9c40; background-color: #191c31;"></span>
+          </h1>
         </vue-typed-js>
       </div>
     </div>
@@ -33,7 +34,7 @@
           <h1 class="typing"></h1>
         </vue-typed-js>
       </div>
-      <div ref="b" style="visibility: hidden;">
+      <div ref="b" style="visibility: hidden">
         <vue-typed-js
           @onComplete="cursorStep()"
           :smartBackspace="true"
@@ -42,34 +43,36 @@
           :startDelay="3000"
           :cursorChar="'|'"
           :strings="[
-            'I write code for <span style=\'color: #FF9C40;\'>Desktop.<span>', 
-            'I write code for <span style=\'color: #FF9C40;\'>Mobile.</span>', 
-            'I write code for <span style=\'color: #FF9C40;\'>Web.</span>', 
-            'I write code for <span style=\'color: #FF9C40;\'>Fun.</span>'
-            ]"
+            'I write code for <span style=\'color: #FF9C40; background-color: #191c31;\'>Desktop.<span>',
+            'I write code for <span style=\'color: #FF9C40; background-color: #191c31;\'>Mobile.</span>',
+            'I write code for <span style=\'color: #FF9C40; background-color: #191c31;\'>Web.</span>',
+            'I write code for <span style=\'color: #FF9C40; background-color: #191c31;\'>Fun.</span>',
+          ]"
         >
           <h1 class="typing"></h1>
         </vue-typed-js>
       </div>
     </div>
-    <div class="home section"></div>
-    <div class="triggerSpacer" v-bind:class="{hide:hasLanded}" />
+    <div class="home section">
+      <img id="avatar" src="../assets/avatar.jpg" />
+    </div>
+    <div class="triggerSpacer" v-bind:class="{ hide: hasLanded }" />
     <span
       v-on:landed="land()"
       ref="landertrigger"
       v-landertrigger
-      v-bind:class="{hide:hasLanded}"
+      v-bind:class="{ hide: hasLanded }"
     />
   </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
-  created(){
+  created() {
     this.preLanded = this.hasLanded;
   },
-  computed:mapGetters(["hasLanded"]),
+  computed: mapGetters(["hasLanded"]),
   data() {
     return {
       cursorPos: 0,
@@ -92,11 +95,16 @@ export default {
         }, 500);
       }
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
+#avatar {
+  margin: 18vh 64vw;
+  width: 30vh;
+  border-radius: 30vh;
+}
 .landing {
   position: fixed;
   background-color: #2f303a;
@@ -134,7 +142,7 @@ export default {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
-@media all and (orientation:portrait) {
+@media all and (orientation: portrait) {
   @keyframes left {
     from {
       transform: translateY(0);
@@ -160,7 +168,7 @@ export default {
     }
   }
 }
-@media all and (orientation:landscape) {
+@media all and (orientation: landscape) {
   @keyframes left {
     from {
       transform: translateX(0);

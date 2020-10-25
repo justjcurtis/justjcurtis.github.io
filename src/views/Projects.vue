@@ -9,22 +9,24 @@
         :long="'I used random walk and A* algorithms to generate mazes that are random, solvable and find the optimal path in the least amount of search steps.'"
       />
       <ImageCard
-        :src="'https://picsum.photos/200/260'"
+        :src="'/randomquotes.png'"
         :title="'RandomQuotes'"
         :short="'A random quote generator.'"
         :long="'With twitter and clipboard itergration, you get random quotes to share, remember or save.'"
+        :goto="'https://justjcurtis.dev/randomquotes'"
       />
-      <ImageCard
+      <!-- <ImageCard
         :src="'https://picsum.photos/200/300'"
         :title="'SmartRockets'"
         :short="'Genetically smart rockets.'"
         :long="'I created a simple neuro-evolution implementation which allows the rockets to find and optimise their path to the target over generations.'"
-      />
+      /> -->
       <ImageCard
-        :src="'https://picsum.photos/200/260'"
+        :src="'/spacejnvaders.png'"
         :title="'SpaceJnvaders'"
         :short="'A custom SpaceInvaders implementation.'"
         :long="'A simple SpaceInvaders clone I made from scratch with a custom physics and game engine.'"
+        :goto="'https://justjcurtis.dev/spaceJnvaders'"
       />
       <ImageCard
         :src="'/bonemeal.png'"

@@ -3,9 +3,6 @@
     <div class="project-wrapper" v-if="(id == 'aMaze')">
       <aMaze />
     </div>
-    <div class="project-wrapper" v-if="(id == 'RandomQuotes')">
-      <randomQuotes />
-    </div>
     <div class="project-wrapper" v-if="(id == 'SmartRockets')">
       <smartRockets />
     </div>
@@ -17,7 +14,6 @@
 
 <script>
 import aMaze from "./project/aMaze/aMaze.vue";
-import randomQuotes from "./project/randomQuotes/randomQuotes.vue";
 import smartRockets from "./project/smartRockets/smartRockets.vue";
 import spaceJnvaders from "./project/spaceJnvaders/spaceJnvaders.vue";
 import { mapActions } from "vuex";
@@ -26,7 +22,6 @@ export default {
   props: ["id"],
   components: {
     aMaze,
-    randomQuotes,
     smartRockets,
     spaceJnvaders
   },
