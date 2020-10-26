@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div
+      v-touch:swipe.up="land">
     <div
-      v-touch:swipe.up="land"
       class="section landing"
       v-if="!this.preLanded"
       v-bind:class="{ flyaway: hasLanded }"
@@ -103,9 +103,9 @@ export default {
 
 <style scoped>
 #avatar {
-  margin: 18vh 64vw;
-  width: 30vh;
-  border-radius: 30vh;
+  margin: 22vh 63vw;
+  width: 25vh;
+  border-radius: 25vh;
 }
 .landing {
   position: fixed;
@@ -116,6 +116,7 @@ export default {
 .home {
   position: fixed;
   background-color: #191c31;
+  height: 100vh;
 }
 .triggerSpacer {
   z-index: -100;
@@ -194,6 +195,9 @@ export default {
     to {
       opacity: 0;
     }
+  }
+  #avatar{
+    margin-left: 425px;
   }
 }
 </style>

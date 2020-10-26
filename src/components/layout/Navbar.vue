@@ -46,7 +46,7 @@ export default {
     height: 60px;
     width: 300px;
     position: fixed;
-    left: 40%;
+    left: 33%;
     top: 0;
   }
   .icon {

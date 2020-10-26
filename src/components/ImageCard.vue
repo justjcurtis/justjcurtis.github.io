@@ -102,13 +102,13 @@ p {
     width: 45%;
   }
   h1 {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
   p {
-    font-size: 0.8em;
+    font-size: 0.75em;
   }
   .icon {
-    font-size: 7vw;
+    font-size: 6vw;
   }
 }
 @media (max-width: 400px) {
@@ -116,13 +116,13 @@ p {
     width: 90%;
   }
   h1 {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
   p {
-    font-size: 0.8em;
+    font-size: 0.75em;
   }
   .icon {
-    font-size: 9vw;
+    font-size: 7vw;
   }
 }
 img {
