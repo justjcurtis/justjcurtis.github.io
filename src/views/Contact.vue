@@ -20,10 +20,7 @@
         </span>
       </div>
       <div class="standoff">
-        <form
-          action="https://formspree.io/f/justjcurtis@gmail.com"
-          method="POST"
-        >
+        <form action="https://formspree.io/f/xqkgqvgq" method="POST">
           <p>Your email:</p>
           <input type="text" name="_replyto" />
           <p>Your message:</p>
