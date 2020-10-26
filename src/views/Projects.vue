@@ -29,6 +29,13 @@
         :goto="'https://justjcurtis.dev/spaceJnvaders'"
       />
       <ImageCard
+        :src="'/sort.png'"
+        :title="'Sort'"
+        :short="'Sorting algorithms demonstrated visually.'"
+        :long="'A visual demo of selection, bubble & quick sort. All slowed down to allow comprehensible viewing.'"
+        :goto="'https://justjcurtis.dev/sort'"
+      />
+      <ImageCard
         :src="'/bonemeal.png'"
         :title="'BoneMeal'"
         :short="'A dividend growth companion for Freetrade.io'"

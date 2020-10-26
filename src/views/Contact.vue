@@ -124,7 +124,7 @@ export default {
   }
   .standoff {
     display: inline-block;
-    margin: 3vh auto;
+    margin: 3vh auto 0 auto;
     padding: 15px;
     border-radius: 1em;
     background: #191c31;
