@@ -46,7 +46,7 @@
         :src="'/funemployed.png'"
         :title="'Funemployed'"
         :short="'An online Funemployed clone'"
-        :long="'During the Covid-19 lockdown I created this Funemployed clone to take allow people to play together over video call or in their homes.'"
+        :long="'During the first Covid-19 lockdown I created this Funemployed clone to enable people to play together over video call or in their homes.'"
         :goto="'https://justjcurtis.dev/funemployed'"
       />
     </div>
