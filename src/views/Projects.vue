@@ -49,6 +49,13 @@
         :long="'During the first Covid-19 lockdown I created this Funemployed clone to enable people to play together over video call or in their homes.'"
         :goto="'https://justjcurtis.dev/funemployed'"
       />
+      <ImageCard
+        :src="'/boids.png'"
+        :title="'Boids'"
+        :short="'Boids with neuroevolution built in'"
+        :long="'This is my implementation of boids using a custom implementation of neuroevolution which allows the boid population to optimise to the hunters & food around them.'"
+        :goto="'https://justjcurtis.dev/boids'"
+      />
     </div>
     <div class="grid" v-if="false">
       
