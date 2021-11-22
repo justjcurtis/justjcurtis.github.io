@@ -3,8 +3,15 @@
     <div class="timeline">
       <TimelineContent
         v-scrollAnimation 
+        :side="'right'"
+        :date="'2021 - Present'"
+        :text="'Software engineer @ The Economist using React Native.'"
+      />
+    <div class="timeline">
+      <TimelineContent
+        v-scrollAnimation 
         :side="'left'"
-        :date="'2018 - Present'"
+        :date="'2018 - 2021'"
         :text="'Mobile software developer @ Ideagen using C# Javascript & Xamarin.Forms.'"
       />
       <TimelineContent
