@@ -1,4 +1,4 @@
-import { CONSTRUCTION_PERCENTAGE } from "../../constants"
+import { CONSTRUCTION_PERCENTAGE } from "../../data/constants"
 
 const WipPage = ({ pagename }) => {
     return (

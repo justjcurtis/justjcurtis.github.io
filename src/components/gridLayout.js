@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { debounce } from "../utils/helpers"
-import { getProjects } from "../utils/projects"
+import { getProjects } from "../data/projects"
 import { ProjectCard } from "./projectCard"
 
 const styles = {
