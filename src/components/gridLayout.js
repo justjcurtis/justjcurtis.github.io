@@ -12,13 +12,13 @@ const styles = {
 
 const GridLayout = () => {
     const projects = getProjects()
-    const getFilteredProjects = (filter) => filter.length < 3 ? projects : projects.filter(p => [p.title, p.description, p.long, p.tags.join(' ')].join(' ').includes(filter))
+    const getFilteredProjects = (filter) => filter.length < 3 ? projects : projects.filter(p => [p.title, p.description, p.long ? p.long : '', p.tags ? p.tags.join(' ') : ''].join(' ').toLowerCase().includes(filter))
     const filter = useRef('')
     const filterInputRef = useRef()
     const [filteredProjects, setFilteredProjects] = useState([...projects])
 
     const handleFilterKeyUp = () => debounce(() => {
-        filter.current = filterInputRef.current.value
+        filter.current = filterInputRef.current.value.toLowerCase()
         setFilteredProjects(getFilteredProjects(filter.current))
     })
 
