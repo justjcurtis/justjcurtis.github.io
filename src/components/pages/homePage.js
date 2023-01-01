@@ -9,7 +9,12 @@ const styles = {
     },
     imageContainer: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        minHeight: 150,
+        minWidth: 150,
+        maxHeight: 150,
+        maxWidth: 150,
+        overflowy: 'hidden'
     },
     topContainer: {
         display: 'flex',
