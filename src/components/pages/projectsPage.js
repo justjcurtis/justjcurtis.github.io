@@ -1,8 +1,8 @@
-import { WipPage } from "./wipPage"
+import { GridLayout } from "../gridLayout"
 
 const ProjectsPage = () => {
     return (
-        <WipPage pagename={'Projects'} />
+        <GridLayout />
     )
 }
 
