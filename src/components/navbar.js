@@ -1,4 +1,12 @@
 import { Link } from "react-router-dom"
+const iconImagePath = require('../assets/favicon.png')
+
+const styles = {
+    icon: {
+        height: '80%',
+        marginRight: 10
+    }
+}
 
 const Navbar = () => {
 
@@ -18,7 +26,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbar-center">
-                <Link className="btn btn-ghost normal-case text-xl" to="/">JustJCurtis</Link>
+                <Link className="btn btn-ghost normal-case text-xl" to="/"><img style={styles.icon} src={iconImagePath} alt="icon" />JustJCurtis</Link>
             </div>
             <div className="navbar-end">
                 <a href="https://github.com/justjcurtis" target="_blank" rel="noreferrer" className="btn btn-ghost btn-circle">
