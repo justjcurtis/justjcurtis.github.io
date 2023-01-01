@@ -7,25 +7,15 @@ const styles = {
         flex: 1,
         backgroundImage: `url(${backgroundImagePath})`,
     },
-    imageContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        minHeight: 150,
-        minWidth: 150,
-        maxHeight: 150,
-        maxWidth: 150,
-        overflowy: 'hidden'
-    },
     topContainer: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-evenly',
     },
     avatarImage: {
-        minHeight: 150,
-        minWidth: 150,
-        maxHeight: 150,
-        maxWidth: 150,
+        height: 150,
+        width: 150,
+        marginLeft: 10,
     },
     subtext: {
         width: '100%',
@@ -41,7 +31,7 @@ const HomePage = () => {
                     <h1 className="mb-5 text-5xl font-bold">Hi 👋🏼</h1>
                     <div style={styles.topContainer}>
                         <p style={styles.subtext} className="text-left mb-5">Welcome to my personal site, <Link to={'/projects'}><span className='underline'>here</span></Link> you can find, things I've made in my own time & links to my other places on the internet.</p>
-                        <div style={styles.imageContainer}><img style={styles.avatarImage} className="ml-5 mb-5 mask mask-hexagon-2" src={avatarImagePath} alt="just j curtis" /></div>
+                        <img style={styles.avatarImage} className="mask mask-circle" src={avatarImagePath} alt="just j curtis" />
                     </div>
                 </div>
             </div>
