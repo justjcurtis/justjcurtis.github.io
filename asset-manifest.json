@@ -1,16 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.cc17fbc8.css",
-    "main.js": "/static/js/main.f35a0b9c.js",
+    "main.css": "/static/css/main.999956d0.css",
+    "main.js": "/static/js/main.7ae98522.js",
+    "static/media/bouncer.png": "/static/media/bouncer.7329dcafe62952d8f2f5.png",
+    "static/media/other projects.png": "/static/media/other projects.36a40727043769a779e3.png",
+    "static/media/flappyneat.png": "/static/media/flappyneat.d795eb77b7e6a5906e52.png",
     "static/media/background.jpg": "/static/media/background.d226be45e238c6011a1f.jpg",
+    "static/media/wordish.png": "/static/media/wordish.2e9069c2aa50ce6ea238.png",
+    "static/media/wordcode.png": "/static/media/wordcode.78262304c9aa0aa08667.png",
     "static/media/favicon.png": "/static/media/favicon.12c60a4860169b2dc0a8.png",
+    "static/media/markovjnr.png": "/static/media/markovjnr.650ccc996dba01419302.png",
+    "static/media/timer.png": "/static/media/timer.63aea4d05bca06a44967.png",
+    "static/media/alientext.png": "/static/media/alientext.0b7ae07bbf9cd47dcb85.png",
     "static/media/portrait_alt.jpg": "/static/media/portrait_alt.693c1e79949e482bae21.jpg",
     "index.html": "/index.html",
-    "main.cc17fbc8.css.map": "/static/css/main.cc17fbc8.css.map",
-    "main.f35a0b9c.js.map": "/static/js/main.f35a0b9c.js.map"
+    "main.999956d0.css.map": "/static/css/main.999956d0.css.map",
+    "main.7ae98522.js.map": "/static/js/main.7ae98522.js.map"
   },
   "entrypoints": [
-    "static/css/main.cc17fbc8.css",
-    "static/js/main.f35a0b9c.js"
+    "static/css/main.999956d0.css",
+    "static/js/main.7ae98522.js"
   ]
 }
