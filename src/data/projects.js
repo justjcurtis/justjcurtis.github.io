@@ -60,6 +60,13 @@ const projects = [
         tags: [tags.ai, tags.game, tags.demo],
     },
     {
+        title: 'SpaceJnvaders',
+        description: 'Space invaders clone written from scratch in vanilla javascript.',
+        long: 'Use space, left & right or tap bottom-middle, bottom-left & right (on mobile) - to fire & move. Each level gets more difficult.',
+        link: "https://justjcurtis.dev/spaceJnvaders",
+        tags: [tags.game, tags.fun],
+    },
+    {
         title: 'Other projects',
         description: "Other projects I've worked on are available on github.",
         link: "https://github.com/justjcurtis",
