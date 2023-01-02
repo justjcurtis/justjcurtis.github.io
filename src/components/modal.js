@@ -1,4 +1,8 @@
 const Modal = ({ id, title, description, link }) => {
+    const handleLinkClicked = () => {
+        window.open(link, "_blank")
+    }
+
     return (
         <>
             <input type="checkbox" id={id} className="modal-toggle" />
@@ -8,7 +12,7 @@ const Modal = ({ id, title, description, link }) => {
                     <p className="py-4">{description}</p>
                     <div className="modal-action">
                         <label htmlFor={id} className="btn">Close</label>
-                        <a href={link} target={'_blank'} className="btn" rel="noreferrer">Go 🚀</a>
+                        <label onClick={handleLinkClicked} htmlFor={id} className="btn">Go 🚀</label>
                     </div>
                 </div>
             </div>
