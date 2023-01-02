@@ -100,9 +100,7 @@ const getProjects = () => projects.map(p => {
     try {
         imgpath = require(`../assets/projects/${p.title.toLowerCase()}.png`)
     }
-    catch (err) {
-
-    }
+    catch (err) { }
     return { ...p, imgpath }
 })
 
