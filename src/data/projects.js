@@ -1,6 +1,7 @@
 const tags = {
     ai: 'ai',
     demo: 'demo',
+    data: 'data',
     fun: 'fun',
     game: 'game',
     sim: 'sim',
@@ -60,11 +61,32 @@ const projects = [
         tags: [tags.ai, tags.game, tags.demo],
     },
     {
+        title: 'Boids',
+        description: 'Boids with neuroevolution & preditor/prey mechanic',
+        long: 'The color of each boid is representitive of it\'s genetic compositon. the red boids have no genes & will simply hunt the prey boids. When all prey boids are dead the best 50% will breed to produce the next generation.',
+        link: "https://justjcurtis.dev/boids",
+        tags: [tags.sim, tags.fun, tags.ai],
+    },
+    {
+        title: 'Sort',
+        description: 'Various sorting algorithms implemented & visualised from scratch',
+        long: 'Selection sort, bubble sort & quick sort; implemented & visualised from scratch for your viewing pleasure 📺',
+        link: "https://justjcurtis.dev/sort",
+        tags: [tags.data, tags.visual],
+    },
+    {
         title: 'SpaceJnvaders',
         description: 'Space invaders clone written from scratch in vanilla javascript.',
         long: 'Use space, left & right or tap bottom-middle, bottom-left & right (on mobile) - to fire & move. Each level gets more difficult.',
         link: "https://justjcurtis.dev/spaceJnvaders",
         tags: [tags.game, tags.fun],
+    },
+    {
+        title: 'RandomQuotes',
+        description: 'Random quote generator with history mechanism',
+        long: 'click on the left side of the screen to go back & on the right side for a new quote',
+        link: "https://justjcurtis.dev/randomquotes",
+        tags: [tags.fun],
     },
     {
         title: 'Other projects',
