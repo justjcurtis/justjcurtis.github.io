@@ -19,7 +19,7 @@ const Timeline = () => {
                     <div className="ml-0 md:ml-12 lg:w-2/3 sticky">
                         <div className="container mx-auto w-full h-full">
                             <div className="relative wrap overflow-hidden p-10 h-full">
-                                <div className="border-2-2 bg-accent w-1 absolute h-full"
+                                <div className="border-2-2 bg-accent w-1 absolute h-full rounded-3xl"
                                     style={{ right: '50%' }}></div>
                                 {timeline.map((t, i) => <div key={i}><TimeLeaf date={t.date} title={t.title} text={t.text} isRight={i % 2 !== timeline.length % 2} /></div>)}
                             </div>
