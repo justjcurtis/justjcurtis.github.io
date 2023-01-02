@@ -16,7 +16,15 @@ const Navbar = () => {
         { title: 'Projects', to: '/projects' },
         { title: 'About', to: '/about' },
     ]
-    const ListItemLink = (title, to, location, mx = 0) => <li key={title} className={`rounded-md mx-${mx} ${location === to ? 'bg-secondary text-neutral-focus' : ''}`}><Link className="text-center inline" to={to}>{title}</Link></li>
+
+    const loseActiveFocus = () => {
+        const elem = document.activeElement;
+        if (elem) elem?.blur();
+
+    };
+
+    const ListItemLink = (title, to, location, mx = 0) => <li key={title} onClick={loseActiveFocus} className={`rounded-md mx-${mx} ${location === to ? 'bg-secondary text-neutral-focus' : ''}`}><Link className="text-center inline" to={to}>{title}</Link></li>
+
     return (
         <div className="navbar fixed z-[100] bg-base-100">
             <div className="navbar-start">
