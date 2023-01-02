@@ -30,7 +30,7 @@ const HomePage = () => {
                 <div className="max-w-md">
                     <h1 className="mb-5 text-5xl font-bold"><span className='text-primary bg-primary-content rounded-md px-1'>Hi 👋🏼</span></h1>
                     <div style={styles.topContainer}>
-                        <p style={styles.subtext} className="text-left mb-5">Welcome to my personal site, <Link to={'/projects'}><span className='text-secondary underline'>here</span></Link> you can find, things I've made & links to my other places on the internet. Along with some info <Link to={'/about'}><span className='text-secondary underline'>about me</span></Link>.</p>
+                        <p style={styles.subtext} className="text-left mb-5">Welcome to my personal site. You can find, <Link to={'/projects'}><span className='text-secondary underline'>things I've made</span></Link>. There are links to my other places on the internet in the top right. You can also see some info <Link to={'/about'}><span className='text-secondary underline'>about me</span></Link> too.</p>
                         <img style={styles.avatarImage} className="mask mask-circle" src={avatarImagePath} alt="just j curtis" />
                     </div>
                 </div>
