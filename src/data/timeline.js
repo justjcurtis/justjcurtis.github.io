@@ -12,7 +12,7 @@ const getAge = () => {
 const timeline = [
     {
         date: '2021 - Present',
-        title: 'devExperience++;',
+        title: 'devExp++',
         text: 'Software engineer @ The Economist using React Native, GraphQL, AWS & Firebase.'
     },
     {
