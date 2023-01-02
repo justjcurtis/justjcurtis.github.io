@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { Modal } from "./modal"
 
 const ProjectCard = ({ title, description, link, long, imgpath, status, tags = [] }) => {
@@ -8,10 +9,14 @@ const ProjectCard = ({ title, description, link, long, imgpath, status, tags = [
             return
         }
     }
+    const [opacity, setOpacity] = useState(0)
+    setTimeout(() => {
+        setOpacity(100)
+    }, 0)
     return (
         <>
             <label onClick={cardClicked} htmlFor={title}>
-                <div className="card w-50 bg-base-100 shadow-xl h-[600px]">
+                <div className={`card w-50 bg-base-100 shadow-xl h-[600px] transition-all ease-in duration-300 opacity-${opacity}`}>
                     <figure>{imgpath ? <img className="h-[400px] object-cover" src={imgpath} alt={title} /> : <div className="text-center h-80"><h1 className="mt-20 text-3xl text-primary">Image coming soon..</h1></div>}</figure>
                     <div className="card-body">
                         <h2 className="card-title text-primary bg-primary-content rounded-md px-1">
