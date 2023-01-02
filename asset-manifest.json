@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.0ffb8aae.css",
-    "main.js": "/static/js/main.21828c07.js",
+    "main.js": "/static/js/main.651f4e1c.js",
     "static/media/spacejnvaders.png": "/static/media/spacejnvaders.fbdc00f5befabad4c6e9.png",
     "static/media/bouncer.png": "/static/media/bouncer.7329dcafe62952d8f2f5.png",
     "static/media/other projects.png": "/static/media/other projects.36a40727043769a779e3.png",
@@ -20,10 +20,10 @@
     "static/media/portrait_alt.jpg": "/static/media/portrait_alt.693c1e79949e482bae21.jpg",
     "index.html": "/index.html",
     "main.0ffb8aae.css.map": "/static/css/main.0ffb8aae.css.map",
-    "main.21828c07.js.map": "/static/js/main.21828c07.js.map"
+    "main.651f4e1c.js.map": "/static/js/main.651f4e1c.js.map"
   },
   "entrypoints": [
     "static/css/main.0ffb8aae.css",
-    "static/js/main.21828c07.js"
+    "static/js/main.651f4e1c.js"
   ]
 }
