@@ -18,7 +18,7 @@ const Navbar = () => {
     ]
     const ListItemLink = (title, to, location, mx = 0) => <li key={title} className={`rounded-md mx-${mx} ${location === to ? 'bg-secondary text-neutral-focus' : ''}`}><Link className="text-center inline" to={to}>{title}</Link></li>
     return (
-        <div onClick={() => console.log('clicked')} className="navbar fixed z-[100] bg-base-100">
+        <div className="navbar fixed z-[100] bg-base-100">
             <div className="navbar-start">
                 <div className="invisible w-0 md:w-full md:visible">
                     <ul className="menu menu-horizontal px-1">
