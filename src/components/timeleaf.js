@@ -1,7 +1,7 @@
 const TimeLeaf = ({ date, title, text, isRight = false }) => {
     return (
         <div className={`mb-8 flex justify-between items-center w-full ${isRight ? 'left-timeline' : 'flex-row-reverse right-timeline'}`}>
-            <div style={{ marginLeft: isRight ? '50%' : 0, marginRight: isRight ? 0 : '50%' }} className={`w-full h-1 bg-gradient-to-${isRight ? 'r' : 'l'} from-accent to-transparent`} />
+            <div style={{ marginLeft: isRight ? '50%' : '-70%', marginRight: isRight ? '-70%' : '50%' }} className={`w-full h-1 bg-gradient-to-${isRight ? 'r' : 'l'} from-accent via-transparent to-transparent`} />
             <div className="order-1 w-5/12"></div>
             <div className={`order-1  w-5/12 px-1 py-4 ${isRight ? 'text-left' : 'text-right'}`}>
                 <p className={`mb-3 text-base text-accent ${isRight ? 'text-left' : 'text-right'}`}>{date}</p>
