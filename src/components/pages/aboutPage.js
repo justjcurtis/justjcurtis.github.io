@@ -1,8 +1,8 @@
-import { WipPage } from "./wipPage"
+import { Timeline } from "../timeline"
 
 const AboutPage = () => {
     return (
-        <WipPage pagename={'About'} />
+        <Timeline />
     )
 }
 
