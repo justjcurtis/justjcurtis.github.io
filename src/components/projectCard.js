@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Modal } from "./modal"
 
 const ProjectCard = ({ title, description, link, long, imgpath, status, tags = [] }) => {
