@@ -2,7 +2,7 @@ import { CONSTRUCTION_PERCENTAGE } from "../../data/constants"
 
 const WipPage = ({ pagename }) => {
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero flex-1 bg-base-200">
             <div className="hero-content text-center">
                 <div className="max-w-md">
                     <h1 className="text-5xl font-bold">Contruction In Progress 🛠</h1>

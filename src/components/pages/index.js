@@ -1,7 +1,7 @@
 import { HomePage } from "./homePage";
 import { ProjectsPage } from "./projectsPage"
 import { AboutPage } from "./aboutPage"
-import { ContactPage } from "./contactPage"
 import { WipPage } from "./wipPage";
+import { NotFoundPage } from "./notFoundPage";
 
-export { HomePage, ProjectsPage, AboutPage, ContactPage, WipPage }
+export { HomePage, ProjectsPage, AboutPage, NotFoundPage, WipPage }
