@@ -33,12 +33,12 @@ const timeline = [
     {
         date: '2012 - 2014',
         title: 'Further education',
-        text: 'Studying Physics, Maths, Philosophy, Psychology & Law & Bilborough College'
+        text: 'Studying Physics, Maths, Philosophy, Psychology & Law @ Bilborough College'
     },
     {
         date: '2012 - 2016',
         title: 'var i = new Engineer();',
-        text: 'Got back into coding teaching myself to code with Python, JavaScript, HTML & CSS. I revisited computer science fundementals and started learning Linux & bash.'
+        text: 'Got back into teaching myself to code with Python, JavaScript, HTML & CSS. I revisited computer science fundementals and started learning Linux & bash.'
     },
     {
         date: '2005 - 2009',
