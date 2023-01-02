@@ -12,7 +12,7 @@ const ProjectCard = ({ title, description, link, long, imgpath, status, tags = [
     const [opacity, setOpacity] = useState(0)
     setTimeout(() => {
         setOpacity(100)
-    }, 0)
+    }, Math.random() * 250)
     return (
         <>
             <label onClick={cardClicked} htmlFor={title}>
