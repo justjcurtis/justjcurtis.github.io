@@ -1,5 +1,6 @@
-import { useState } from "react"
 import { Modal } from "./modal"
+import { motion as m } from "framer-motion"
+import { useRef } from "react"
 
 const ProjectCard = ({ title, description, link, long, imgpath, status, tags = [] }) => {
     const cardClicked = () => {
@@ -9,14 +10,11 @@ const ProjectCard = ({ title, description, link, long, imgpath, status, tags = [
             return
         }
     }
-    const [opacity, setOpacity] = useState(0)
-    setTimeout(() => {
-        setOpacity(100)
-    }, Math.random() * 250)
+    const trandom = useRef(Math.random())
     return (
         <>
             <label onClick={cardClicked} htmlFor={title}>
-                <div className={`card w-50 bg-base-100 shadow-xl h-[600px] transition-all ease-in duration-300 opacity-${opacity}`}>
+                <m.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 * trandom.current }} className={`card w-50 bg-base-100 shadow-xl h-[600px]`}>
                     <figure>{imgpath ? <img className="h-[400px] object-cover" src={imgpath} alt={title} /> : <div className="text-center h-80"><h1 className="mt-20 text-3xl text-primary">Image coming soon..</h1></div>}</figure>
                     <div className="card-body">
                         <h2 className="card-title text-primary bg-primary-content rounded-md px-1">
@@ -28,7 +26,7 @@ const ProjectCard = ({ title, description, link, long, imgpath, status, tags = [
                             {tags.map((t, i) => <div key={i} className="badge badge-outline badge-accent">{t}</div>)}
                         </div>
                     </div>
-                </div >
+                </m.div >
             </label>
             {long && <Modal id={title} link={link} title={title} description={long} />}
         </>
