@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.217d59a4.css",
-    "main.js": "/static/js/main.9970b8b2.js",
+    "main.css": "/static/css/main.ad200daf.css",
+    "main.js": "/static/js/main.2f0583c0.js",
     "static/media/spacejnvaders.png": "/static/media/spacejnvaders.fbdc00f5befabad4c6e9.png",
     "static/media/bouncer.png": "/static/media/bouncer.7329dcafe62952d8f2f5.png",
     "static/media/other projects.png": "/static/media/other projects.36a40727043769a779e3.png",
@@ -19,11 +19,11 @@
     "static/media/alientext.png": "/static/media/alientext.0b7ae07bbf9cd47dcb85.png",
     "static/media/portrait_alt.jpg": "/static/media/portrait_alt.693c1e79949e482bae21.jpg",
     "index.html": "/index.html",
-    "main.217d59a4.css.map": "/static/css/main.217d59a4.css.map",
-    "main.9970b8b2.js.map": "/static/js/main.9970b8b2.js.map"
+    "main.ad200daf.css.map": "/static/css/main.ad200daf.css.map",
+    "main.2f0583c0.js.map": "/static/js/main.2f0583c0.js.map"
   },
   "entrypoints": [
-    "static/css/main.217d59a4.css",
-    "static/js/main.9970b8b2.js"
+    "static/css/main.ad200daf.css",
+    "static/js/main.2f0583c0.js"
   ]
 }
