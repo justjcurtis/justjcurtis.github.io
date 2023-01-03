@@ -8,7 +8,6 @@ const styles = {
     }
 }
 
-
 const Navbar = () => {
     const location = useLocation().pathname
     const links = [
@@ -23,7 +22,12 @@ const Navbar = () => {
 
     };
 
-    const ListItemLink = (title, to, location, mx = 0) => <li key={title} onClick={loseActiveFocus} className={`rounded-md mx-${mx} ${location === to ? 'bg-secondary text-neutral-focus' : ''}`}><Link className="text-center inline" to={to}>{title}</Link></li>
+    const ListItemLink = (title, to, location, mx = 0) => {
+        const activeClasses = location === to ? 'bg-secondary text-neutral-focus' : ''
+        return (
+            <li key={title} onClick={loseActiveFocus} className={`rounded-md mx-${mx} ${activeClasses}`}><Link className="text-center inline" to={to}>{title}</Link></li>
+        )
+    }
 
     return (
         <div className="navbar fixed z-[100] bg-base-100">
