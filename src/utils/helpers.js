@@ -6,4 +6,6 @@ const debounce = (callback, timeout = 300) => {
     };
 }
 
-export { debounce }
+const getRandomInt = (max, min = 0) => min + Math.floor(Math.random() * (max - min + 1));
+
+export { debounce, getRandomInt }

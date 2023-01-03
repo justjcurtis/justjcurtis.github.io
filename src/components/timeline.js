@@ -2,13 +2,14 @@ import { useRef } from "react"
 import { getTimeline } from "../data/timeline"
 import { TimeLeaf } from "./timeleaf"
 import { motion as m } from 'framer-motion'
+import { StarryNight } from "./starryNight"
 
 const Timeline = () => {
     const timeline = getTimeline()
     const bottomEl = useRef()
     return (
         <section>
-            <div className="bg-neutral-focus text-white py-8">
+            <StarryNight>
                 <div className="container mx-auto flex flex-col items-start md:flex-row my-12 md:my-24">
                     <m.div initial={{ x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="flex flex-col w-full sticky md:w-80  md:top-36 lg:w-1/3 mt-2 md:mt-12 px-8">
                         <p className="ml-2 text-accent uppercase tracking-loose">Timeline</p>
@@ -30,7 +31,7 @@ const Timeline = () => {
                         </div>
                     </m.div>
                 </div>
-            </div>
+            </StarryNight>
         </section>
     )
 }
