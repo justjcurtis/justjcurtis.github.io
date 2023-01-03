@@ -1,5 +1,5 @@
 const tags = {
-    ai: 'ai',
+    ai: 'AI',
     demo: 'demo',
     data: 'data',
     fun: 'fun',
@@ -42,7 +42,7 @@ const projects = [
     {
         title: 'AlienText',
         description: 'Visualiser for cistercian numerals, with alphanumeric support.',
-        long: 'Convert numbers or text to cistercian in real time, ⚠️ this one is due a makover though ☠️.',
+        long: 'Convert numbers or text to cistercian in real time, ⚠️ this one is due a makeover though ☠️.',
         link: "https://justjcurtis.dev/AlienText",
         tags: [tags.demo, tags.fun],
     },
@@ -56,14 +56,14 @@ const projects = [
     {
         title: 'FlappyNeat',
         description: 'Flappy bird clone to demo my N.E.A.T implementation (JustNeat on npm).',
-        long: 'Hit space or click/tap to start the sim. With ai turned on, 1000 birds will begin playing the game. Once they all die their performance will be ranked and the top 50% will breed to create the next generation of 1000 birds. A random birds "brain" can be seen in the bottom right. Turn off ai to play the game yourself.',
+        long: 'Hit space or click/tap to start the sim. With AI turned on, 1000 birds will begin playing the game. Once they all die, their performance will be ranked and the top 50% will breed to create the next generation of 1000 birds. A random bird\'s "brain" can be seen in the bottom right. Turn off AI to play the game yourself.',
         link: "https://justjcurtis.dev/FlappyNeat",
         tags: [tags.ai, tags.game, tags.demo],
     },
     {
         title: 'Boids',
         description: 'Boids with neuroevolution & predator/prey mechanic.',
-        long: 'The color of each boid is representitive of it\'s genetic compositon. the red boids have no genes & will simply hunt the prey boids. When all prey boids are dead the best 50% will breed to produce the next generation.',
+        long: 'The color of each boid is representative of its genetic compositon. The red boids have no genes & will simply hunt the prey boids. When all prey boids are dead, the best 50% will breed to produce the next generation.',
         link: "https://justjcurtis.dev/boids",
         tags: [tags.sim, tags.fun, tags.ai],
     },
@@ -84,7 +84,7 @@ const projects = [
     {
         title: 'RandomQuotes',
         description: 'Random quote generator with history mechanism.',
-        long: 'click on the left side of the screen to go back & on the right side for a new quote.',
+        long: 'Click on the left side of the screen to go back & on the right side for a new quote.',
         link: "https://justjcurtis.dev/randomquotes",
         tags: [tags.fun],
     },
