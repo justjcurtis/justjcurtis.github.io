@@ -25,7 +25,7 @@ const styles = {
 
 const HomePage = () => {
     return (
-        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }} exit={{ opacity: 0 }} style={styles.hero} className="hero">
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={styles.hero} className="hero">
             <div className="hero-overlay bg-opacity-70 backdrop-blur-sm"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="max-w-md">
