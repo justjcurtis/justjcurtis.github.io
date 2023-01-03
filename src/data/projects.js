@@ -21,7 +21,7 @@ const projects = [
     },
     {
         title: 'WordCode',
-        description: 'An algorithm for hashing english words.',
+        description: 'An algorithm for hashing English words.',
         long: 'Enter a word to see the hash of that word generated in real time 🌈.',
         link: "https://justjcurtis.dev/wordcode",
         tags: [tags.demo, tags.tool],

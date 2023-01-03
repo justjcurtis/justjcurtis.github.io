@@ -23,7 +23,7 @@ const timeline = [
     {
         date: '2017',
         title: 'Working',
-        text: 'Gymnastics coaching @ Camp Awosting CT & Personal trainer @ Nuffield Health & Owner and Biomechanics coach @ FitFix.'
+        text: 'Gymnastics coaching @ Camp Awosting CT - Personal trainer @ Nuffield Health - Owner of and Biomechanics coach @ FitFix.'
     },
     {
         date: '2014 - 2016',
@@ -53,7 +53,7 @@ const timeline = [
     {
         date: '11th Sept 1995',
         title: 'Born',
-        text: `Don't worry it wont all be this detailed, but that makes me ${getAge()} years old right now.`
+        text: `Don't worry it won't all be this detailed, but that makes me ${getAge()} years old right now.`
     }
 ]
 
