@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom"
-const iconImagePath = require('../assets/favicon.png')
 
 const styles = {
     icon: {
@@ -8,7 +7,7 @@ const styles = {
     }
 }
 
-const Navbar = () => {
+const Navbar = ({ images }) => {
     const location = useLocation().pathname
     const links = [
         { title: 'Home', to: '/' },
@@ -47,7 +46,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbar-center">
-                <Link className="btn btn-ghost normal-case text-xl" to="/"><img style={styles.icon} src={iconImagePath} alt="icon" />JustJCurtis</Link>
+                <Link className="btn btn-ghost normal-case text-xl" to="/"><img style={styles.icon} src={images.IconCircle} alt="icon" />JustJCurtis</Link>
             </div>
             <div className="navbar-end">
                 <a href="https://github.com/justjcurtis" target="_blank" rel="noreferrer" className="btn btn-ghost btn-circle">

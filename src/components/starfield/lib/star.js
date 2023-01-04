@@ -8,7 +8,7 @@ class Star {
     update() {
         const half = (Math.random() - 0.5)
         const next = -1.37 * Math.pow((this.opacity - 0.9), 3)
-        this.opacity += (next * ((Math.random() * 0.02) + 0.01)) + (Math.random() < 0.003 ? half * 1.2 : 0)
+        this.opacity += (next * ((Math.random() * 0.02) + 0.01)) + (Math.random() < 0.01 ? half * 1.2 : 0)
         this.opacity = Math.min(1, this.opacity)
         this.opacity = Math.max(0, this.opacity)
 
