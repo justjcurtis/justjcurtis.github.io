@@ -3,7 +3,7 @@ import { useLocalStorage } from "./useLocalStorage"
 
 const ONE_MIN_MS = 60000
 
-export const useCache = (key, initial, timeout = 5 * ONE_MIN_MS) => {
+export const useCache = (key, initial, timeout = 60 * ONE_MIN_MS) => {
     const [cached, setCached] = useLocalStorage(key, { value: initial, date: null })
     const [value, setValue] = useState(cached.value)
     const needsUpdate = () => {
