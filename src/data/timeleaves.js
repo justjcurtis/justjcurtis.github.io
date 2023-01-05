@@ -10,6 +10,7 @@ const query = gql`{
 }`
 
 const getTimeleaves = async () => {
+  console.log('timeleaves get')
   const client = new GraphQLClient(ENDPOINT)
   const { timeleaves } = await client.request(query)
   return timeleaves

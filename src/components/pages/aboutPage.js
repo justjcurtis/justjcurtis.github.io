@@ -1,21 +1,12 @@
 import { Timeline } from "../timeline"
 import { motion as m } from "framer-motion"
 import { getTimeleaves } from "../../data/timeleaves"
-import { useEffect, useRef, useState } from "react"
+import { useImageUrls } from "../../hooks/useImageUrls"
+import { useQuery } from "../../hooks/useQuery"
 
-const AboutPage = ({ images }) => {
-    const [timeleaves, setTimeleaves] = useState([])
-    const hasData = useRef(false)
-
-    const fetchTimeleaves = async () => {
-        hasData.current = true
-        const x = await getTimeleaves()
-        setTimeleaves(x)
-    }
-
-    useEffect(() => {
-        if (!hasData.current) fetchTimeleaves()
-    })
+const AboutPage = () => {
+    const images = useImageUrls()
+    const [timeleaves] = useQuery('timeleaves', getTimeleaves)
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }}>
             <Timeline images={images} timeleaves={timeleaves} />

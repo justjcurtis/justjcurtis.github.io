@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { LOADING_MESSAGES } from "../../data/constants"
 import { getRandomInt } from "../../utils/helpers"
 import { motion as m } from 'framer-motion'
@@ -7,15 +7,18 @@ const LoadingPage = ({ done }) => {
     const loadingText = useRef(LOADING_MESSAGES[getRandomInt(LOADING_MESSAGES.length - 1)])
     const [progress, setProgress] = useState(0)
 
-    const step = () => {
+    const step = useCallback(() => {
         if (progress >= 100) {
-            setTimeout(() => done(true), 500)
+            setTimeout(() => done(true), 300)
             return
         }
-        setProgress(progress + 1)
-    }
-    if (progress === 0) step()
-    else setTimeout(step, 20)
+        setProgress(p => p + 1)
+    }, [progress, done])
+
+    useEffect(() => {
+        setTimeout(step, 10)
+    }, [progress, step])
+
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} className="hero flex-1 bg-base-200 fixed top-0 h-screen w-screen">
             <div className="hero-content text-center">

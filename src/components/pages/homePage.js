@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion as m } from "framer-motion"
+import { useImageUrls } from '../../hooks/useImageUrls'
 
 const styles = {
     topContainer: {
@@ -17,7 +18,8 @@ const styles = {
     }
 }
 
-const HomePage = ({ images }) => {
+const HomePage = () => {
+    const images = useImageUrls()
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1">
             <div className="hero-overlay bg-opacity-70 backdrop-blur-sm"></div>

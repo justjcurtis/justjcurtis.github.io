@@ -11,6 +11,7 @@ const query = gql`{
   }`
 
 const getImages = async () => {
+  console.log('images get')
   const client = new GraphQLClient(ENDPOINT)
   const { images } = await client.request(query)
   return images.reduce((map, i) => {

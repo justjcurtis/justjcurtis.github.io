@@ -19,6 +19,7 @@ const query = gql`{
   }`
 
 const getProjects = async () => {
+  console.log('projects get')
   const client = new GraphQLClient(ENDPOINT)
   const { projectCards } = await client.request(query)
   return projectCards
