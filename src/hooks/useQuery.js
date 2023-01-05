@@ -8,7 +8,6 @@ export const useQuery = (key, getData, initial = []) => {
     const [data, setData, needsUpdate] = useCache(key, initial)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchData = useCallback(debounce(async () => {
-        console.log('get', key)
         const x = await getData()
         setData(x)
     }), [getData, setData])
