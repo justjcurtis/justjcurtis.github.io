@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url(./components//loadingBG.css);
 
 html{
     scroll-behavior: smooth;
