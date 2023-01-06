@@ -9,7 +9,7 @@ const AboutPage = () => {
     const [timeleaves] = useQuery('timeleaves', getTimeleaves)
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }}>
-            <Timeline images={images} timeleaves={timeleaves} />
+            {images && timeleaves.length && <Timeline images={images} timeleaves={timeleaves} />}
         </m.div>
     )
 }
