@@ -2,7 +2,7 @@ import { Navbar } from "./components/navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { HomePage, ProjectsPage, AboutPage, NotFoundPage, WipPage } from "./components/pages";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { LoadingPage } from "./components/pages/loadingPage";
 import { useImageUrls } from "./hooks/useImageUrls";
 
@@ -16,11 +16,12 @@ const styles = {
 
 function App() {
   const images = useImageUrls()
+  const initialImages = useRef(images)
   const location = useLocation()
 
   const [doneLoading, setDoneLoading] = useState(false)
 
-  const isLoading = !images || !doneLoading
+  const isLoading = initialImages.current.length === 0 ? !images || !doneLoading : !images
 
   return (
     <div style={styles.app} className="App bg-neutral-focus">
