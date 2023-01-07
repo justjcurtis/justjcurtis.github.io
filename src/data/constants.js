@@ -1,5 +1,6 @@
 const CONSTRUCTION_PERCENTAGE = 95
 const ENDPOINT = 'https://api-eu-west-2.hygraph.com/v2/clchjkt731a3801t81v2087ix/master'
+const LOADING_SECONDS = 2
 const LOADING_MESSAGES = ["Reticulating splines..",
     "Generating witty dialog..",
     "Swapping time and space..",
@@ -107,7 +108,7 @@ const LOADING_MESSAGES = ["Reticulating splines..",
     "Loading funny message..",
     "Feel free to spin in your chair.",
     "What the what?",
-    "formating C:\..",
+    "formating C:\\..",
     "Mining some bitcoin..",
     "Downloading more RAM..",
     "Updating to Windows Vista..",
@@ -156,4 +157,4 @@ const LOADING_MESSAGES = ["Reticulating splines..",
     "Baking ice cream..",
 ]
 
-export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES }
+export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES, LOADING_SECONDS }
