@@ -1,3 +1,4 @@
+const ONE_MIN_MS = 60000
 const CONSTRUCTION_PERCENTAGE = 95
 const ENDPOINT = 'https://api-eu-west-2.hygraph.com/v2/clchjkt731a3801t81v2087ix/master'
 const LOADING_SECONDS = 2
@@ -157,4 +158,4 @@ const LOADING_MESSAGES = ["Reticulating splines..",
     "Baking ice cream..",
 ]
 
-export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES, LOADING_SECONDS }
+export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES, LOADING_SECONDS, ONE_MIN_MS }

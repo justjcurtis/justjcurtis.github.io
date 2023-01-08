@@ -18,10 +18,9 @@ function App() {
   const images = useImageUrls()
   const initialImages = useRef(images)
   const location = useLocation()
-
   const [doneLoading, setDoneLoading] = useState(false)
 
-  const isLoading = initialImages.current.length === 0 ? !images || !doneLoading : !images
+  const isLoading = !initialImages.current ? !images || !doneLoading : !images
 
   return (
     <div style={styles.app} className="App bg-neutral-focus">

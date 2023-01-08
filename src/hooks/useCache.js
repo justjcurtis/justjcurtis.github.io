@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react"
+import { ONE_MIN_MS } from "../data/constants"
 import { useLocalStorage } from "./useLocalStorage"
 
-const ONE_MIN_MS = 60000
-
-export const useCache = (key, initial, timeout = 60 * ONE_MIN_MS) => {
-    const [cached, setCached] = useLocalStorage(key, { value: initial, date: null })
-    const [value, setValue] = useState(cached.value)
-    const needsUpdate = () => {
-        if (cached === null || cached === undefined) return true
-        if (!cached.date) return true
-        return Date.now() - cached.date >= timeout
-    }
+export const useCache = (key, initial, forceRefresh = false, timeout = 60 * ONE_MIN_MS) => {
+    const [cached, setCached] = useLocalStorage(key, { value: initial, date: 0 })
+    const needsUpdate = () => Date.now() - cached.date >= timeout
+    const calculatedInitialValue = needsUpdate() && forceRefresh ? initial : cached.value
+    const [value, setValue] = useState(calculatedInitialValue)
     useEffect(() => {
-        setCached({ value, date: Date.now() })
-    }, [value, setCached])
+        const now = Date.now()
+        if (JSON.stringify(cached.value) !== JSON.stringify(value))
+            setCached({ value, date: now })
+    }, [value, setCached, cached.value])
 
     return [value, setValue, needsUpdate]
 }
