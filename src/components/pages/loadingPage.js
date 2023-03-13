@@ -4,12 +4,20 @@ import { getRandomInt } from "../../utils/helpers"
 import { motion as m } from 'framer-motion'
 import { LoadingBG } from "../loadingBG"
 import { BowlFillLoader } from "../bowlFillLoader"
+import { useCounters } from "../../hooks/useCounters"
 
 const LoadingPage = ({ done }) => {
+    const { counters, hitCount } = useCounters()
     const loadingText = useRef(LOADING_MESSAGES[getRandomInt(LOADING_MESSAGES.length - 1)])
+    const timeoutRef = useRef()
     useEffect(() => {
-        setTimeout(() => done(true), ((LOADING_SECONDS * 1000) + 800))
-    }, [done])
+        if (timeoutRef.current) clearTimeout(timeoutRef.current)
+        timeoutRef.current = setTimeout(() => {
+            hitCount(counters.views)
+            hitCount(counters.monthlyViews)
+            done(true)
+        }, ((LOADING_SECONDS * 1000) + 800))
+    }, [done, counters?.views, counters?.monthlyViews, hitCount])
     return (
         <>
             <LoadingBG />

@@ -8,4 +8,6 @@ const debounce = (callback, timeout = 300) => {
 
 const getRandomInt = (max, min = 0) => min + Math.floor(Math.random() * (max - min + 1));
 
-export { debounce, getRandomInt }
+const getCurrentYearMonthString = () => new Date().toISOString().slice(0, 7)
+
+export { debounce, getRandomInt, getCurrentYearMonthString }
