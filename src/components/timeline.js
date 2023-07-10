@@ -4,7 +4,6 @@ import { motion as m } from 'framer-motion'
 import { StarryNight } from "./starryNight"
 
 const Timeline = ({ images, timeleaves = [] }) => {
-
     const bottomEl = useRef()
     return (
         <section>
@@ -23,7 +22,7 @@ const Timeline = ({ images, timeleaves = [] }) => {
                                 <div className="relative wrap overflow-hidden p-10 h-full">
                                     <div className="border-2-2 bg-accent w-1 absolute h-full rounded-3xl"
                                         style={{ right: '50%' }}></div>
-                                    {timeleaves.map((t, i) => <div key={i}><TimeLeaf date={t.date} title={t.title} text={t.text} isRight={i % 2 !== timeleaves.length % 2} /></div>)}
+                                    {timeleaves.map((t, i) => <div key={i}><TimeLeaf date={t.dateText} title={t.title} text={t.text} isRight={i % 2 !== timeleaves.length % 2} /></div>)}
                                 </div>
                                 <img ref={bottomEl} className="mx-auto -mt-20" src={images.TimelineBottom} alt="rocket man"></img>
                             </div>

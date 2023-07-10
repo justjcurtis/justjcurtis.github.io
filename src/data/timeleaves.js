@@ -2,7 +2,7 @@ const { gql, GraphQLClient } = require("graphql-request");
 const { ENDPOINT } = require("./constants");
 
 const query = gql`{
-  timeleaves(first: 100, orderBy: publishedAt_DESC) {
+  timeleaves(first: 100, orderBy: createdAt_DESC) {
     title
     text
     dateText
