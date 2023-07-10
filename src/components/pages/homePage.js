@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion as m } from "framer-motion"
 import { useImageUrls } from '../../hooks/useImageUrls'
-import { useCounters } from '../../hooks/useCounters'
-import { useEffect, useState } from 'react'
 
 const styles = {
     topContainer: {
@@ -22,13 +20,6 @@ const styles = {
 
 const HomePage = () => {
     const images = useImageUrls()
-    const { counters, getCount } = useCounters()
-    const [views, setViews] = useState('...')
-    useEffect(() => {
-        getCount(counters.monthlyViews).then(value => {
-            setViews(value)
-        })
-    })
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1">
             <div className="hero-overlay bg-opacity-70 backdrop-blur-sm"></div>
@@ -40,14 +31,14 @@ const HomePage = () => {
                         <m.img initial={{ opacity: 0, x: +10, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.2, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: 6, y: 10 }} style={styles.avatarImage} className="mask mask-circle border-4 border-neutral-content rounded-full" src={images.Avatar} alt="just j curtis" />
                     </div>
                     <m.div initial={{ opacity: 0, x: -3, y: 15 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.3, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -3, y: 15 }} className="stats shadow bg-opacity-60 backdrop-blur-sm">
-                        <div className="stat">
+                        {/* <div className="stat">
                             <div className="stat-figure text-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             </div>
                             <div className="stat-title">Views This Month</div>
                             <div className="stat-value text-secondary">{views}</div>
                             <div className="stat-desc">Thanks for stopping by   🌈</div>
-                        </div>
+                        </div> */}
 
                     </m.div>
                 </div>
