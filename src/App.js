@@ -1,10 +1,11 @@
 import { Navbar } from "./components/navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { HomePage, ProjectsPage, AboutPage, NotFoundPage, WipPage } from "./components/pages";
+import { HomePage, ProjectsPage, AboutPage, CVPage, NotFoundPage, WipPage } from "./components/pages";
 import { AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { LoadingPage } from "./components/pages/loadingPage";
 import { useImageUrls } from "./hooks/useImageUrls";
+import { AppRoutes } from "./utils/navigation/routes";
 
 const styles = {
   app: {
@@ -22,19 +23,22 @@ function App() {
 
   const isLoading = !initialImages.current ? !images || !doneLoading : !images
 
+  const isNavbarless = [AppRoutes.cv].includes(location.pathname)
+
   return (
     <div style={styles.app} className="App bg-neutral-focus">
-      {!isLoading && <Navbar images={images} />}
+      {!isLoading && !isNavbarless && <Navbar images={images} />}
       <AnimatePresence>
         {isLoading ?
           <LoadingPage key='loading' done={setDoneLoading} /> :
           <>
             <Routes location={location} key={location.pathname}>
-              <Route exact path="/" element={<HomePage />} />
-              <Route exact path="/projects" element={<ProjectsPage />} />
-              <Route exact path="/about" element={<AboutPage />} />
-              <Route exact path="/wip" element={<WipPage />} />
-              <Route path='/*' element={<NotFoundPage />} />
+              <Route exact path={AppRoutes.home} element={<HomePage />} />
+              <Route exact path={AppRoutes.projects} element={<ProjectsPage />} />
+              <Route exact path={AppRoutes.about} element={<AboutPage />} />
+              <Route exact path={AppRoutes.cv} element={<CVPage />} />
+              <Route exact path={AppRoutes.wip} element={<WipPage />} />
+              <Route path={AppRoutes.notFound} element={<NotFoundPage />} />
             </Routes>
           </>
         }
