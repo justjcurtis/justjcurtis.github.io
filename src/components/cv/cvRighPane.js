@@ -72,7 +72,9 @@ const CvRightPane = () => {
                         "Identified and implemented technologies and strategies within various projects, helping the team overcome issues and improve efficiency",
                         "Helped other teams, sometimes in a short notice Ad-Hoc manner, to ensure quality was maintained while deadlines were met",
                         "Helped with onboarding and work experience projects when required",
-                        "Maintained legacy applications, produced features and improvements for current projects & helped architect and set up new mobile applications"
+                        "Maintained legacy applications, produced features and improvements for current projects & helped architect and set up new mobile applications",
+                        "Worked extensively with local SQL database using SQLite.NET ORM to manage local storage and syncronisation with remote databases for both form and template data.",
+
                     ]} />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100 print:hidden" />
                 <m.p initial={{ opacity: 0 }}
