@@ -77,6 +77,19 @@ const CvRightPane = () => {
 
                     ]} />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100 print:hidden" />
+                <CvExperience employer="Other Experience"
+                    role="Side Projects"
+                    dates="Mar 2018 - Present"
+                    bullets={[
+                        "Wrote and maintained a personal website using React, Tailwind CSS and GrpahQL ( justjcurtis.dev )",
+                        "Created many projects for education and fun using various technologies, such as React, P5js, Nodejs and Go",
+                        "Created and maintained an in house Rock Paper Scissors AI tournament website and rest api using svelte and Nodejs and MongoDB",
+                        "Coached multiple friends in JavaScript, React, Nodejs, HTML and CSS enabling them to land their first jobs in the industry",
+                        "Implemented NEAT from the original paper as a library (available on NPM supporting Nodejs and browser) along with creating a Flappy Bird clone to demonstrate the library",
+                        "Created and maintained this CV, written using React and Tailwind CSS ( justjcurtis.dev/#/cv )",
+                        "I'm currently learning Go by creating a GraphQL API for another personal project"
+                    ]} />
+                <div className="bg-secondary-focus mt-10 rounded-full h-px w-100 print:hidden" />
                 <m.p initial={{ opacity: 0 }}
                     animate={{ opacity: 1, x: 0, y: 0 }}
                     transition={{ delay: 0.3, duration: (0.5 + (0.3 * Math.random())), ease: 'easeInOut' }}
