@@ -40,19 +40,21 @@ const CvRightPane = () => {
                     role="Senior Software Engineer"
                     dates="Jun 2023 - Present"
                     bullets={[
-                        "Developed enterprise-level mobile applications using React-Native, Typescript, and Jest",
+                        "Developed enterprise-level mobile applications using React-Native, Typescript, Jest, and Detox",
                         "Maintained detox e2e test suite to ensure quality of mobile applications",
                         "Engaged in cross team communication to ensure alignment of goals and objectives",
                         "Lead small team of engineers to deliver new features and improvements to mobile applications",
                         "Conducted 1-1 meetings with team members to ensure personal and professional development",
                         "Contributed to changes in process to improve team efficiency and effectiveness",
                         "Engaged in personal development on a weekly basis to improve skills in line with project, team, and company needs",
+                        "Wokred on CI/CD pipelines to ensure quality and timely delivery of mobile applications",
                     ]} />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
                 <CvExperience employer="The Economist"
                     role="Senior Software Engineer"
                     dates="Jan 2021 - Jun 2023"
                     bullets={[
+                        "Developed enterprise-level mobile applications using React-Native, Typescript, Jest, and Detox",
                         "Contributed to daily and weekly team meetings, sharing ideas and insights with a multidisciplinary team to overcome/manage issues",
                         "Utilised agile and scrum workflows and methodologies, problem-solving and modifying them as needed",
                         "Maintained unit test projects to reduce the workload for the testing team and ensure the quality of development work",
@@ -60,6 +62,8 @@ const CvRightPane = () => {
                         "Fostered strong communication within the team to prevent \"knowledge siloing\" and ensure effective, efficient teamwork",
                         "Coached and mentored members of the team, ensuring cultural and technical cohesion and individual development",
                         "Interviewed engineers of all levels to build the team and ensure technical skills and cultural fit",
+                        "Created and maintained services using firebase and AWS to support mobile applications",
+                        "Used CircleCI and github actions to create CI/CD pipelines for mobile applications",
                     ]} />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
                 <CvExperience employer="Ideagen PLC"
