@@ -1,5 +1,19 @@
 import { motion as m } from 'framer-motion'
 import { useRef } from 'react'
+import { mapTextVariables } from '../utils/helpers'
+
+const textVariableMap = {
+    age: () => {
+        const now = new Date()
+        const birth = new Date('1995-09-11')
+        const age = now.getFullYear() - birth.getFullYear()
+        const m = now.getMonth() - birth.getMonth()
+        if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) {
+            return age - 1
+        }
+        return age
+    }
+}
 
 const TimeLeaf = ({ date, title, text, isRight = false }) => {
     const gradientClassName = isRight ? 'bg-gradient-to-r' : 'bg-gradient-to-l'
@@ -8,6 +22,7 @@ const TimeLeaf = ({ date, title, text, isRight = false }) => {
     const xPre = isRight ? -20 : 20
     const trandom = useRef(Math.random())
     const markerDelayRandom = useRef(0.5 + (0.2 * Math.random()))
+    text = mapTextVariables(text, textVariableMap)
     return (
         <m.div initial={{ opacity: 0, x: xPre }} animate={{ opacity: 1, x: 0 }} transition={{ delay: markerDelayRandom.current, duration: (0.1 + (0.3 * trandom.current)), ease: 'easeInOut' }} exit={{ opacity: 0, x: xPre }} className={`mb-8 flex justify-between items-center w-full ${isRight ? 'left-timeline' : 'flex-row-reverse right-timeline'}`}>
             <div style={markerStyle} className={`w-full h-1 ${gradientClassName} from-accent via-transparent to-transparent z-0`} />

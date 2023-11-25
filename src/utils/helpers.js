@@ -10,4 +10,17 @@ const getRandomInt = (max, min = 0) => min + Math.floor(Math.random() * (max - m
 
 const getCurrentYearMonthString = () => new Date().toISOString().slice(0, 7)
 
-export { debounce, getRandomInt, getCurrentYearMonthString }
+const mapTextVariables = (text, textVariableMap) => {
+    const matches = text.match(/\{.*?\}/g)
+    if (!matches) return text
+    const variables = matches.map(m => m.replace('{', '').replace('}', ''))
+    variables.forEach(v => {
+        const getVariableValue = textVariableMap[v.trim()]
+        if (getVariableValue) {
+            text = text.replace(`{${v}}`, getVariableValue())
+        }
+    })
+    return text
+}
+
+export { debounce, getRandomInt, getCurrentYearMonthString, mapTextVariables }
