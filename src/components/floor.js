@@ -28,6 +28,12 @@ const Floor = () => {
         return () => clearInterval(interval)
     }, [grass])
 
+
+    const curvedBottom = {
+        borderBottomLeftRadius: '50%',
+        borderBottomRightRadius: '50%',
+    }
+
     return (
         <>
             {grass.map((g, i) => {
@@ -46,10 +52,16 @@ const Floor = () => {
                     />
                 )
             })}
-            <div className="w-full absolute bottom-[75px] h-[6px] md:bottom-[120px] left-0 md:h-[8px] bg-accent"></div>
-            <div className="w-full absolute bottom-[50px] h-[25px] md:bottom-[80px] left-0 md:h-[40px] bg-[#88674E]"></div>
-            <div className="w-full absolute bottom-[25px] h-[25px] md:bottom-[40px] left-0 md:h-[40px] bg-[#664121]"></div>
-            <div className="w-full absolute h-[25px] bottom-[0px] left-0 md:h-[40px] bg-[#542D1C]"></div>
+            <div className="w-full absolute h-[25px] bottom-[0px] left-0 md:h-[40px] bg-[#542D1C]" />
+
+            <div className="w-full absolute bottom-[30px] h-[25px] md:bottom-[46px] left-0 md:h-[40px] bg-[#664121]" />
+            <div style={curvedBottom} className="w-full absolute bottom-[13px] h-[25px] md:bottom-[22px] left-0 md:h-[40px] bg-[#664121]" />
+
+            <div className="w-full absolute bottom-[55px] h-[20px] md:bottom-[87px] left-0 md:h-[30px] bg-[#88674E]" />
+            <div style={curvedBottom} className="w-full absolute bottom-[44px] h-[20px] md:bottom-[72px] left-0 md:h-[30px] bg-[#88674E]" />
+
+            <div className="w-full absolute bottom-[75px] h-[6px] md:bottom-[120px] left-0 md:h-[8px] bg-accent" />
+            <div style={curvedBottom} className="w-full absolute bottom-[67px] h-[10px] md:bottom-[110px] left-0 md:h-[14px] bg-accent" />
         </>
     )
 }
