@@ -1,5 +1,6 @@
 import { useRef } from "react"
 import { TimeLeaf } from "./timeleaf"
+import { Floor } from "./floor"
 import { motion as m } from 'framer-motion'
 import { StarryNight } from "./starryNight"
 
@@ -29,6 +30,7 @@ const Timeline = ({ images, timeleaves = [] }) => {
                         </div>
                     </m.div>
                 </div>
+                <Floor />
             </StarryNight>
         </section>
     )
