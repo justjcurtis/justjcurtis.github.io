@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 import { debounce } from "../utils/helpers"
 import { ProjectCard } from "./projectCard"
 
@@ -33,7 +33,7 @@ const GridLayout = ({ projects = [] }) => {
     const [lastScrollY, setLastScrollY] = useState(0);
     let checkpoint = useRef(0);
 
-    const controlNavbar = () => {
+    const controlNavbar = useCallback(() => {
         if (window.scrollY > lastScrollY) {
             if (showSearch) {
                 setShowSearch(false);
@@ -43,14 +43,14 @@ const GridLayout = ({ projects = [] }) => {
             setShowSearch(true);
         }
         setLastScrollY(window.scrollY);
-    };
+    }, [lastScrollY, showSearch]);
 
     useEffect(() => {
         window.addEventListener('scroll', controlNavbar);
         return () => {
             window.removeEventListener('scroll', controlNavbar);
         };
-    }, [lastScrollY]);
+    }, [lastScrollY, controlNavbar]);
 
     const searchStyle = {
         top: showSearch ? 64 : Math.max(64 - (window.scrollY - checkpoint.current), -20),
