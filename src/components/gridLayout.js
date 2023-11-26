@@ -29,9 +29,37 @@ const GridLayout = ({ projects = [] }) => {
         setFilter('')
     }
 
+    const [showSearch, setShowSearch] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+    let checkpoint = useRef(0);
+
+    const controlNavbar = () => {
+        if (window.scrollY > lastScrollY) {
+            if (showSearch) {
+                setShowSearch(false);
+                checkpoint.current = lastScrollY;
+            }
+        } else {
+            setShowSearch(true);
+        }
+        setLastScrollY(window.scrollY);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', controlNavbar);
+        return () => {
+            window.removeEventListener('scroll', controlNavbar);
+        };
+    }, [lastScrollY]);
+
+    const searchStyle = {
+        top: showSearch ? 64 : Math.max(64 - (window.scrollY - checkpoint.current), -20),
+        transition: showSearch ? 'top 0.5s' : 'none',
+    };
+
     return (
         <div style={styles.container} className="bg-neutral-focus mt-[49px]">
-            <div className="form-control bg-neutral-focus p-4 fixed z-[90] w-screen -ml-4 bg-opacity-60 backdrop-blur-md">
+            <div style={searchStyle} className="form-control bg-neutral-focus p-4 fixed z-[90] w-screen -ml-4 bg-opacity-60 backdrop-blur-md">
                 <input ref={filterInputRef} onKeyUp={debounce((e) => setFilter(e.target.value))} type="text" placeholder="Search projects" className="input input-bordered w-full" />
                 <button ref={clearbuttonRef} onClick={handleClearClicked} type="button" className="bg-base-300 text-neutral-content absolute top-6 right-5 p-[11.2px] font-bold rounded-full text-sm text-center inline-flex items-center mr-2 w-8 h-8 transition-opacity opacity-0 duration-300">X</button>
             </div>
