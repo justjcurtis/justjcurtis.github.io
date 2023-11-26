@@ -103,6 +103,7 @@ const Pong = () => {
                 }
                 if (mousePos.y) player2.y = mousePos.y - player2.h / 2
                 player1 = pongBot(player1, ball)
+                player2.x = window.innerWidth - 50
                 return { score, ball, player1, player2 }
             })
         }, 17)
