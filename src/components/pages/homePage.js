@@ -31,7 +31,6 @@ const HomePage = () => {
             const now = Date.now();
             const DOUBLE_PRESS_DELAY = 300;
             if (lastTap.current && (now - lastTap.current) < DOUBLE_PRESS_DELAY) {
-                console.log(!showInfo)
                 setShowInfo(!showInfo)
             } else {
                 lastTap.current = now;
