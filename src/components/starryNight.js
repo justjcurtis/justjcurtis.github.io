@@ -43,7 +43,7 @@ const StarryNight = ({ children }) => {
             }
             return nextStars
         })
-    }, [starCount])
+    }, [])
 
     useEffect(() => {
         setTimeout(draw, 10)
