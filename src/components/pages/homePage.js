@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Pong } from '../pong'
 import { motion as m } from "framer-motion"
 import { useImageUrls } from '../../hooks/useImageUrls'
 
@@ -22,7 +23,8 @@ const HomePage = () => {
     const images = useImageUrls()
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1">
-            <div className="hero-overlay bg-opacity-70 backdrop-blur-sm"></div>
+            <Pong />
+            <div className="hero-overlay bg-opacity-60 backdrop-blur-sm"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="max-w-md">
                     <m.h1 initial={{ opacity: 0, x: -2, y: -10 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.4, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: 2, y: -10 }} className="mb-5 text-5xl font-bold"><span className='text-primary bg-primary-content rounded-md px-1'>Hi 👋🏼</span></m.h1>
@@ -32,9 +34,6 @@ const HomePage = () => {
                     </div>
                     <m.div initial={{ opacity: 0, x: -6, y: 25 }} animate={{ opacity: 1, x: 0, y: 10 }} transition={{ delay: 0.3, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -3, y: 15 }} className="stats shadow bg-opacity-60 backdrop-blur-sm">
                         <div className="stat">
-                            {/* <div className="stat-figure text-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            </div> */}
                             <div className="stat-title">Current Focus</div>
                             <div className="stat-value text-accent underline"><a href='https://www.zopa.com/help/article/how-to-download-zopa-app' target="_blank" rel="noreferrer">Zopa App</a></div>
                             <div className="stat-desc mt-3">Thanks for stopping by   🌈</div>
