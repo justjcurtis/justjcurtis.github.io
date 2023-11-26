@@ -111,7 +111,7 @@ const Pong = () => {
 
     return (
         <div style={{ height: '100svh', overflow: 'hidden' }} className='w-full text-center absolute top-0'>
-            <h3 className='absolute top-20 w-full text-4xl font-medium z-[90]'><span className='text-red-500'>{game.score[0]}</span> <span className='text-purple-500'>-</span> <span className='text-blue-500'>{game.score[1]}</span></h3>
+            <h3 className='absolute top-[70px] w-full text-4xl font-medium z-[90]'><span className='text-red-500'>{game.score[0]}</span> <span className='text-purple-500'>-</span> <span className='text-blue-500'>{game.score[1]}</span></h3>
             <div style={{
                 top: game.player1.y,
                 width: game.player1.w,
