@@ -117,8 +117,10 @@ const Pong = () => {
                 width: game.player1.w,
                 height: game.player1.h,
                 left: game.player1.x,
+                borderRadius: game.player1.w / 2,
             }} className="fixed bg-red-500" />
             <div style={{
+                borderRadius: game.player2.w / 2,
                 top: game.player2.y,
                 width: game.player2.w,
                 height: game.player2.h,

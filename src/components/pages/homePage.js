@@ -45,8 +45,9 @@ const HomePage = () => {
 
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ top: 0, height: '100svh', overflow: 'hidden', backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1 fixed">
+            {!showInfo && <div className="hero-overlay bg-opacity-60 backdrop-blur-sm"></div>}
             <Pong />
-            <div className="hero-overlay bg-opacity-60 backdrop-blur-sm"></div>
+            {showInfo && <div className="hero-overlay bg-opacity-60 backdrop-blur-sm"></div>}
             {showInfo && <div className="hero-content text-center text-neutral-content mt-[100px]">
                 <div className="max-w-md">
                     <m.h1 initial={{ opacity: 0, x: -2, y: -10 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.4, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: 2, y: -10 }} className="mb-5 text-5xl font-bold"><span className='text-primary bg-primary-content rounded-md px-1'>Hi 👋🏼</span></m.h1>
