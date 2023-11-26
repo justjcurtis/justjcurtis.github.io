@@ -22,7 +22,7 @@ const styles = {
 const HomePage = () => {
     const images = useImageUrls()
     return (
-        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1">
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ top: 0, height: '100svh', overflow: 'hidden', backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1 fixed">
             <Pong />
             <div className="hero-overlay bg-opacity-60 backdrop-blur-sm"></div>
             <div className="hero-content text-center text-neutral-content">

@@ -9,9 +9,11 @@ const Pong = () => {
     const [mousePos, setMousePos] = useState({});
     useEffect(() => {
         const handleMouseMove = (event) => {
+            if (event.touches) event = event.touches[event.touches.length - 1]
             setMousePos({ x: event.clientX, y: event.clientY });
         };
         window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('touchmove', handleMouseMove);
         return () => {
             window.removeEventListener(
                 'mousemove',
@@ -103,8 +105,9 @@ const Pong = () => {
             })
         }, 17)
     }, [game]) // eslint-disable-line react-hooks/exhaustive-deps
+
     return (
-        <div className='w-full h-full text-center absolute top-0'>
+        <div style={{ height: '100svh', overflow: 'hidden' }} className='w-full text-center absolute top-0'>
             <h3 className='absolute top-20 w-full text-4xl font-medium z-[90]'><span className='text-red-500'>{game.score[0]}</span> <span className='text-purple-500'>-</span> <span className='text-blue-500'>{game.score[1]}</span></h3>
             <div style={{
                 top: game.player1.y,

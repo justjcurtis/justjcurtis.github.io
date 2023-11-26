@@ -11,7 +11,7 @@ const styles = {
   app: {
     display: 'flex',
     flexFlow: 'column',
-    minHeight: '100vh'
+    minHeight: '100svh'
   }
 }
 
