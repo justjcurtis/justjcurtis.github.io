@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 
 const pongBot = (current, ball) => {
-    if (current.y + (current.h / 2) < ball.y + (ball.h / 2)) current.y += Math.abs(0.3 * ball.dx) + Math.abs(0.5 * ball.dy)
-    if (current.y + (current.h / 2) > ball.y + (ball.h / 2)) current.y -= Math.abs(0.3 * ball.dx) - (0.2 * ball.dy)
+    if (current.y + (current.h / 2) < ball.y + (ball.h / 2))
+        current.y += Math.abs(0.3 * ball.dx) + Math.abs(0.2 * ball.dy)
+    if (current.y + (current.h / 2) > ball.y + (ball.h / 2))
+        current.y -= Math.abs(0.3 * ball.dx) - (0.2 * ball.dy)
     return current
 }
 const Pong = () => {
@@ -29,7 +31,7 @@ const Pong = () => {
             h: 20,
             x: 100,
             y: window.innerHeight / 2,
-            dx: 2,
+            dx: 5,
             dy: 1,
         },
         player1: {
@@ -66,19 +68,19 @@ const Pong = () => {
                 const player2 = { ...g.player2 }
                 ball.x += ball.dx
                 ball.y += ball.dy
-                if (ball.y > window.innerHeight || ball.y < 64) {
+                if (ball.y + ball.h > window.innerHeight || ball.y < 64) {
                     ball.dy *= -1
                 }
-                if (ball.x > window.innerWidth || ball.x < 0) {
+                if (ball.x > window.innerWidth || ball.x + ball.w < 0) {
                     if (ball.x < 0) {
                         score[1] += 1
-                        ball.dx = -2
+                        ball.dx = -5
                         ball.dy = Math.random() * 4 - 2
                         ball.x = window.innerWidth - 80
                         ball.y = player2.y + player2.h / 2
                     } else {
                         score[0] += 1
-                        ball.dx = 2
+                        ball.dx = 5
                         ball.dy = Math.random() * 4 - 2
                         ball.x = 80
                         ball.y = player1.y + player1.h / 2
@@ -86,8 +88,8 @@ const Pong = () => {
                 }
                 if (isColliding(ball, player1) || isColliding(ball, player2)) {
                     ball.dx *= -1
-                    if (Math.abs(ball.dx) < 5) {
-                        ball.dx += ball.dx > 0 ? 1 : -1
+                    if (Math.abs(ball.dx) < 10) {
+                        ball.dx += ball.dx > 0 ? 0.5 : -0.5
                     }
                     if (ball.x < window.innerWidth / 2) {
                         const offset = getOffset(ball, player1)
