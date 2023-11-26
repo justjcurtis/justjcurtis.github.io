@@ -9,6 +9,7 @@ const Floor = () => {
     useEffect(() => {
         const grassTemp = []
         const maxDimension = Math.max(window.screen.width, window.screen.height)
+        console.log(maxDimension)
         for (let x = 0; x <= maxDimension; x += 1) {
             if (Math.random() < grassChance) {
                 grassTemp.push({
