@@ -3,15 +3,18 @@ import { useState, useEffect } from 'react'
 
 const Floor = () => {
     const grassChance = 0.2
+    const wiggleRate = 0.5
+    const grassAngle = 10
     const [grass, setGrass] = useState([])
     useEffect(() => {
         const grassTemp = []
-        for (let x = 0; x <= window.innerWidth * 2; x += 1) {
+        const maxDimension = Math.max(window.screen.width, window.screen.height)
+        for (let x = 0; x <= maxDimension; x += 1) {
             if (Math.random() < grassChance) {
                 grassTemp.push({
                     x,
-                    h: getRandomInt(11, 3),
-                    d: getRandomInt(-10, 10),
+                    h: getRandomInt(12, 3),
+                    d: getRandomInt(grassAngle, -grassAngle),
                 })
             }
         }
@@ -20,7 +23,7 @@ const Floor = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setGrass(grass.map(g => ({ ...g, d: getRandomInt(-10, 10) })))
+            setGrass(grass.map(g => (Math.random() < wiggleRate ? g : { ...g, d: getRandomInt(grassAngle, -grassAngle) })))
         }, 1000)
         return () => clearInterval(interval)
     }, [grass])
@@ -28,6 +31,7 @@ const Floor = () => {
     return (
         <>
             {grass.map((g, i) => {
+                if (g.x > window.innerWidth) return null
                 return (
                     <div
                         key={i}
