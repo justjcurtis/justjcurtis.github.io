@@ -54,7 +54,7 @@ const Floor = () => {
             })}
             <div className="w-full absolute h-[25px] bottom-[0px] left-0 md:h-[40px] bg-[#542D1C]" />
 
-            <div className="w-full absolute bottom-[30px] h-[25px] md:bottom-[46px] left-0 md:h-[40px] bg-[#664121]" />
+            <div className="w-full absolute bottom-[30px] h-[25px] md:bottom-[40px] left-0 md:h-[48px] bg-[#664121]" />
             <div style={curvedBottom} className="w-full absolute bottom-[13px] h-[25px] md:bottom-[22px] left-0 md:h-[40px] bg-[#664121]" />
 
             <div className="w-full absolute bottom-[55px] h-[20px] md:bottom-[87px] left-0 md:h-[30px] bg-[#88674E]" />
