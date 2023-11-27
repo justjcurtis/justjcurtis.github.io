@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
-import { Pong } from '../pong'
+import { Pong } from '../games/pong'
 import { motion as m } from "framer-motion"
 import { useImageUrls } from '../../hooks/useImageUrls'
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getRandomInt } from '../utils/helpers';
+import { getRandomInt } from '../../utils/helpers';
 
 const pongBot = (current, ball) => {
     const target = (current.y + (current.h / 2)) + (current.targetSelector * (current.h / 7))
