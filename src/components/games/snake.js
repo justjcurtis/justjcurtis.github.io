@@ -113,7 +113,6 @@ const Snake = () => {
                 direction.y = 0
                 break
             case ' ':
-                console.log('space', game.restart)
                 if (!game.restart) break
                 resetGame()
                 break
