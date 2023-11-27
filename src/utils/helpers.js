@@ -31,9 +31,9 @@ const mulberry32 = a => {
         return ((t ^ t >>> 14) >>> 0) / 4294967296; // eslint-disable-line
     }
 }
-const getRandomForToday = () => {
+const getRandomForToday = (dayOffset = 0) => {
     const now = new Date()
-    const seed = (now.getFullYear() * 5) * (now.getMonth() * 17) * (now.getDate() * 23)
+    const seed = (now.getFullYear() * 5) * (now.getMonth() * 17) * ((now.getDate() + dayOffset) * 23)
     const prng = mulberry32(seed)
     return prng()
 }
