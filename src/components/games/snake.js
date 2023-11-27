@@ -20,7 +20,6 @@ const Snake = () => {
             const now = Date.now()
             const delta = now - lastRender.current
             if (lastRender === 0 || delta < 17) {
-                clearTimeout(timeout)
                 return
             }
             lastRender.current = now
