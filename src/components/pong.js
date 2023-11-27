@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { getRandomInt } from '../utils/helpers';
 
 const pongBot = (current, ball) => {
-    if (current.y + (current.h / 2) < ball.y + (ball.h / 2))
-        current.y += Math.abs(0.3 * ball.dx) + Math.abs(0.2 * ball.dy)
-    if (current.y + (current.h / 2) > ball.y + (ball.h / 2))
-        current.y -= Math.abs(0.3 * ball.dx) - (0.2 * ball.dy)
+    const target = (current.y + (current.h / 2)) + (current.targetSelector * (current.h / 7))
+    const diff = target - ball.y + (ball.h / 2)
+    if (diff < -(current.h / 7))
+        current.y += (4 * (window.innerWidth / 500)) + Math.abs(0.2 * ball.dx * (window.innerWidth / 500)) + Math.abs(0.15 * ball.dy * (window.innerWidth / 500))
+    if (diff > (current.h / 7))
+        current.y -= (4 * (window.innerWidth / 500)) + Math.abs(0.2 * ball.dx * (window.innerWidth / 500)) + Math.abs(0.15 * ball.dy * (window.innerWidth / 500))
     return current
 }
 const Pong = () => {
@@ -35,6 +38,7 @@ const Pong = () => {
             dy: 1,
         },
         player1: {
+            targetSelector: getRandomInt(2, -2),
             y: window.innerHeight / 2 - 150,
             x: 50,
             w: 12,
@@ -66,12 +70,15 @@ const Pong = () => {
                 const ball = { ...g.ball }
                 let player1 = { ...g.player1 }
                 const player2 = { ...g.player2 }
-                ball.x += ball.dx
-                ball.y += ball.dy
+                ball.x += ball.dx * (window.innerWidth / 500)
+                ball.y += ball.dy * (window.innerWidth / 500)
                 if (ball.y + ball.h > window.innerHeight || ball.y < 64) {
                     ball.dy *= -1
+                    if (ball.y < 64) ball.y = 64
+                    if (ball.y + ball.h > window.innerHeight) ball.y = window.innerHeight - ball.h
                 }
                 if (ball.x > window.innerWidth || ball.x + ball.w < 0) {
+                    player1.targetSelector = getRandomInt(2, -2)
                     if (ball.x < 0) {
                         score[1] += 1
                         ball.dx = -5
@@ -92,6 +99,7 @@ const Pong = () => {
                         ball.dx += ball.dx > 0 ? 0.5 : -0.5
                     }
                     if (ball.x < window.innerWidth / 2) {
+                        player1.targetSelector = getRandomInt(2, -2)
                         const offset = getOffset(ball, player1)
                         ball.dy = -offset * (ball.dx)
                         ball.x = player1.x + player1.w + ball.w / 2
@@ -104,6 +112,12 @@ const Pong = () => {
                 if (mousePos.y) player2.y = mousePos.y - player2.h / 2
                 player1 = pongBot(player1, ball)
                 player2.x = window.innerWidth - 50
+
+                if (player1.y + (player1.h / 2) < 64) player1.y = 64 - (player1.h / 2)
+                if (player1.y + (player1.h / 2) > window.innerHeight) player1.y = window.innerHeight - (player1.h / 2)
+                if (player2.y + (player2.h / 2) < 64) player2.y = 64 - (player2.h / 2)
+                if (player2.y + (player2.h / 2) > window.innerHeight) player2.y = window.innerHeight - (player2.h / 2)
+
                 return { score, ball, player1, player2 }
             })
         }, 17)
