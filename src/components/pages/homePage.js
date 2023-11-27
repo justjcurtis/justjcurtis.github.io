@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
-import { Pong, Snake } from '../games'
+import { allGames } from '../games'
 import { motion as m } from "framer-motion"
 import { useImageUrls } from '../../hooks/useImageUrls'
 import { getRandomForToday, selectFromArrWithFloat } from '../../utils/helpers'
 
-const games = [
-    { name: 'snake', game: Snake },
-    { name: 'pong', game: Pong },
-]
 const styles = {
     topContainer: {
         display: 'flex',
@@ -50,8 +46,8 @@ const HomePage = () => {
         };
     }, [showInfo, setShowInfo]);
 
-    const todaysGame = selectFromArrWithFloat(games, getRandomForToday())
-    const tomorrowGame = selectFromArrWithFloat(games, getRandomForToday(1))
+    const todaysGame = selectFromArrWithFloat(allGames, getRandomForToday())
+    const tomorrowGame = selectFromArrWithFloat(allGames, getRandomForToday(1))
 
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ top: 0, height: '100svh', overflow: 'hidden', backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1 fixed">
