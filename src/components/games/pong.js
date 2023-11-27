@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { getRandomInt } from '../../utils/helpers';
 
+const SPEED_MODIFIER = Math.min(window.innerWidth / 500, 1.2)
 const pongBot = (current, ball) => {
     const target = (current.y + (current.h / 2)) + (current.targetSelector * (current.h / 7))
     const diff = target - ball.y + (ball.h / 2)
     if (diff < -(current.h / 7))
-        current.y += (4 * (window.innerWidth / 500)) + Math.abs(0.2 * ball.dx * (window.innerWidth / 500)) + Math.abs(0.15 * ball.dy * (window.innerWidth / 500))
+        current.y += (4 * (SPEED_MODIFIER)) + Math.abs(0.2 * ball.dx * (SPEED_MODIFIER)) + Math.abs(0.15 * ball.dy * (SPEED_MODIFIER))
     if (diff > (current.h / 7))
-        current.y -= (4 * (window.innerWidth / 500)) + Math.abs(0.2 * ball.dx * (window.innerWidth / 500)) + Math.abs(0.15 * ball.dy * (window.innerWidth / 500))
+        current.y -= (4 * (SPEED_MODIFIER)) + Math.abs(0.2 * ball.dx * (SPEED_MODIFIER)) + Math.abs(0.15 * ball.dy * (SPEED_MODIFIER))
     return current
 }
 const Pong = () => {
@@ -70,8 +71,8 @@ const Pong = () => {
                 const ball = { ...g.ball }
                 let player1 = { ...g.player1 }
                 const player2 = { ...g.player2 }
-                ball.x += ball.dx * (window.innerWidth / 500)
-                ball.y += ball.dy * (window.innerWidth / 500)
+                ball.x += ball.dx * (SPEED_MODIFIER)
+                ball.y += ball.dy * (SPEED_MODIFIER)
                 if (ball.y + ball.h > window.innerHeight || ball.y < 64) {
                     ball.dy *= -1
                     if (ball.y < 64) ball.y = 64
