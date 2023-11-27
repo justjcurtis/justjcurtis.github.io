@@ -23,4 +23,21 @@ const mapTextVariables = (text, textVariableMap) => {
     return text
 }
 
-export { debounce, getRandomInt, getCurrentYearMonthString, mapTextVariables }
+const mulberry32 = a => {
+    return function() {
+        var t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1); // eslint-disable-line
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61); // eslint-disable-line
+        return ((t ^ t >>> 14) >>> 0) / 4294967296; // eslint-disable-line
+    }
+}
+const getRandomForToday = () => {
+    const now = new Date()
+    const seed = (now.getFullYear() * 5) * (now.getMonth() * 17) * (now.getDate() * 23)
+    const prng = mulberry32(seed)
+    return prng()
+}
+
+const selectFromArrWithFloat = (arr, float) => arr[Math.floor(float * arr.length)]
+
+export { debounce, getRandomInt, getCurrentYearMonthString, mapTextVariables, getRandomForToday, selectFromArrWithFloat, mulberry32 }

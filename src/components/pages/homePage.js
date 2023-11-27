@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
-import { Pong } from '../games/pong'
+import { Pong, Snake } from '../games'
 import { motion as m } from "framer-motion"
 import { useImageUrls } from '../../hooks/useImageUrls'
+import { getRandomForToday, selectFromArrWithFloat } from '../../utils/helpers'
 
+const games = [
+    { name: 'snake', game: Snake },
+    { name: 'pong', game: Pong },
+]
 const styles = {
     topContainer: {
         display: 'flex',
@@ -24,16 +29,19 @@ const HomePage = () => {
     const images = useImageUrls()
     const [showInfo, setShowInfo] = useState(true)
 
-    let lastTap = useRef(0);
+    let lastTaps = useRef([]);
 
     useEffect(() => {
         const handleTap = () => {
-            const now = Date.now();
-            const DOUBLE_PRESS_DELAY = 300;
-            if (lastTap.current && (now - lastTap.current) < DOUBLE_PRESS_DELAY) {
-                setShowInfo(!showInfo)
-            } else {
-                lastTap.current = now;
+            lastTaps.current.push(Date.now());
+            const TRIPLE_PRESS_DELAY = 700;
+            const timeout = setTimeout(() => {
+                lastTaps.current = [];
+            }, TRIPLE_PRESS_DELAY);
+            if (lastTaps.current.length >= 3) {
+                clearTimeout(timeout);
+                lastTaps.current = [];
+                setShowInfo(!showInfo);
             }
         }
         window.addEventListener('click', handleTap);
@@ -42,16 +50,18 @@ const HomePage = () => {
         };
     }, [showInfo, setShowInfo]);
 
+    const todaysGame = selectFromArrWithFloat(games, getRandomForToday())
+
     return (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} exit={{ opacity: 0 }} style={{ top: 0, height: '100svh', overflow: 'hidden', backgroundImage: `url(${images.HomeBackground})` }} className="hero flex-1 fixed">
             {!showInfo && <div className="hero-overlay bg-opacity-60 backdrop-blur-sm"></div>}
-            <Pong />
+            {todaysGame && <todaysGame.game />}
             {showInfo && <div className="hero-overlay bg-opacity-60 backdrop-blur-sm"></div>}
             {showInfo && <div className="hero-content text-center text-neutral-content mt-[100px]">
                 <div className="max-w-md">
                     <m.h1 initial={{ opacity: 0, x: -2, y: -10 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.4, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: 2, y: -10 }} className="mb-5 text-5xl font-bold"><span className='text-primary bg-primary-content rounded-md px-1'>Hi 👋🏼</span></m.h1>
                     <div style={styles.topContainer}>
-                        <m.p initial={{ opacity: 0, x: -10, y: 2 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.25, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -10, y: 2 }} style={styles.subtext} className="text-left mb-5">Welcome to my personal site. Here you can find <Link to={'/projects'}><span className='text-secondary underline bg-neutral rounded px-1'>things I've made</span></Link>. There are links to my other places on the internet in the top right. You can see some info <Link to={'/about'}><span className='text-secondary bg-neutral underline rounded px-1'>about me</span></Link> too. <br /><br />Double tap anywhere to toggle this page & focus on pong.</m.p>
+                        <m.p initial={{ opacity: 0, x: -10, y: 2 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.25, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -10, y: 2 }} style={styles.subtext} className="text-left mb-5">Welcome to my personal site. Here you can find <Link to={'/projects'}><span className='text-secondary underline bg-neutral rounded px-1'>things I've made</span></Link>. There are links to my other places on the internet in the top right. You can see some info <Link to={'/about'}><span className='text-secondary bg-neutral underline rounded px-1'>about me</span></Link> too. <br /><br />Tripple tap anywhere to toggle this page & focus on {todaysGame.name}.</m.p>
                         <m.img initial={{ opacity: 0, x: +10, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.2, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: 6, y: 10 }} style={styles.avatarImage} className="mask mask-circle border-4 border-neutral-content rounded-full" src={images.Avatar} alt="just j curtis" />
                     </div>
                     <m.div initial={{ opacity: 0, x: -6, y: 25 }} animate={{ opacity: 1, x: 0, y: 10 }} transition={{ delay: 0.3, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -3, y: 15 }} className="stats shadow bg-opacity-60 backdrop-blur-sm">
