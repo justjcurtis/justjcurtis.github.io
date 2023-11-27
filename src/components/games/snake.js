@@ -27,7 +27,7 @@ const Snake = () => {
             setGame(g => {
                 const snake = [...g.snake]
                 const food = { ...g.food }
-                const direction = { ...g.direction }
+                let direction = { ...g.direction }
                 let score = g.score
                 let restart = g.restart
 
@@ -65,7 +65,7 @@ const Snake = () => {
                 }
                 if ((direction.x !== 0 && lastDirection.current.x === 0) ||
                     (direction.y !== 0 && lastDirection.current.y === 0)) {
-                    game.direction = lastDirection.current
+                    direction = lastDirection.current
                 }
                 return { score, snake, food, direction, restart }
             })
