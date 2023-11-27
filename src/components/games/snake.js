@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 const GRID_SIZE = 64
 const Snake = () => {
     const [game, setGame] = useState({
@@ -63,8 +63,13 @@ const Snake = () => {
                         break
                     }
                 }
-                if ((direction.x !== 0 && lastDirection.current.x === 0) ||
-                    (direction.y !== 0 && lastDirection.current.y === 0)) {
+                const preHead = { ...snake[1] }
+                let unwantedDirection = {
+                    x: preHead.x - head.x,
+                    y: preHead.y - head.y,
+                }
+                if (unwantedDirection.x !== lastDirection.current.x &&
+                    unwantedDirection.y !== lastDirection.current.y) {
                     direction = lastDirection.current
                 }
                 return { score, snake, food, direction, restart }
