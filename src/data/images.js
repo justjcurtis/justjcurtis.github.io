@@ -1,5 +1,5 @@
-const { gql, GraphQLClient } = require("graphql-request");
-const { ENDPOINT } = require("./constants");
+import { gql, GraphQLClient } from "graphql-request";
+import { ENDPOINT } from "./constants";
 
 const query = gql`{
     images(first: 100) {
