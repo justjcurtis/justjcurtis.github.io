@@ -7,7 +7,7 @@ import { StarryNight } from "../starryNight"
 const CVPage = () => {
     return (
         <StarryNight>
-            <div className="flex justify-center">
+            <div className="flex justify-center break-words">
                 <div className="bg-white min-h-screen w-5/6 relative my-5 rounded-md pb-20 px-10">
                     <div className="absolute top-8 right-8">
                         <PdfIcon />
