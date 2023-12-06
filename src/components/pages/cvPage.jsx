@@ -1,6 +1,6 @@
 import { CvLeftPane } from "../cv/cvLeftPane"
 import { CvHeader } from "../cv/cvHeader"
-import { CvRightPane } from "../cv/cvRighPane"
+import { CvRightPane } from "../cv/cvRightPane"
 import { PdfIcon } from "../pdfIcon"
 import { StarryNight } from "../starryNight"
 

@@ -71,7 +71,7 @@ const CvRightPane = () => {
                     dates="Mar 2018 - Jan 2021"
                     bullets={[
                         "Maintained an engaging \"can do\" attitude and challenged others to ensure optimal team cohesion and progression",
-                        "Developed multiple enterprise-level mobile applications using various technologies, such as JS, C#, and React-Native",
+                        "Developed multiple enterprise-level mobile applications using various technologies, such as JS, C#, .NET, and React-Native",
                         "Maintained unit test projects to reduce the workload for the testing team and ensure quality development work",
                         "Identified and implemented technologies and strategies within various projects, helping the team overcome issues and improve efficiency",
                         "Helped other teams, sometimes in a short notice Ad-Hoc manner, to ensure quality was maintained while deadlines were met",
@@ -86,12 +86,16 @@ const CvRightPane = () => {
                     dates="Mar 2018 - Present"
                     bullets={[
                         "Wrote and maintained a personal website using React, Tailwind CSS and GrpahQL (justjcurtis.dev)",
-                        "Created many projects for education and fun using various technologies, such as React, P5js, Nodejs and Go",
+                        "Created many projects for education and fun using various technologies, such as React, P5js, three.js, webGL, Nodejs, Go and Rust",
                         "Created and maintained an in house Rock Paper Scissors AI tournament website and rest api using svelte and Nodejs and MongoDB",
                         "Coached multiple friends in JavaScript, React, Nodejs, HTML and CSS enabling them to land their first jobs in the industry",
-                        "Implemented NEAT from the original paper as a library (available on NPM supporting Nodejs and browser) along with creating a Flappy Bird clone to demonstrate the library",
+                        "Implemented NEAT Machine Learning from the original paper as a library (available on NPM supporting Nodejs and browser) along with creating a Flappy Bird clone to demonstrate the library",
                         "Created and maintained this CV, written using React and Tailwind CSS (justjcurtis.dev/#/cv)",
-                        "I'm currently learning Go by creating a GraphQL API for another personal project"
+                        "I'm currently learning Go by creating a GraphQL API for another personal project",
+                        "I've taught myself 3D modelling and CAD using Fusion 360 and OnShape to support my 3D printing hobby & other projects",
+                        "Previously studied physics at degree level, giving me a strong understanding of mathematics and physics principles",
+                        "I love problem solving, maths and physics, and I'm always looking for new challenges to overcome",
+                        "In my spare time I enjoy 3D printing, playing guitar, reading, learning about code, maths, physics and philosophy",
                     ]} />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100 print:hidden" />
                 <m.p initial={{ opacity: 0 }}
