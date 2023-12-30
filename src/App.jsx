@@ -1,6 +1,14 @@
 import { Navbar } from "./components/navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { HomePage, ProjectsPage, AboutPage, CVPage, NotFoundPage, WipPage } from "./components/pages";
+import {
+  HomePage,
+  WorkPage,
+  ProjectsPage,
+  AboutPage,
+  CVPage,
+  NotFoundPage,
+  WipPage
+} from "./components/pages";
 import { AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { LoadingPage } from "./components/pages/loadingPage";
@@ -34,6 +42,7 @@ function App() {
           <>
             <Routes location={location} key={location.pathname}>
               <Route exact path={AppRoutes.home} element={<HomePage />} />
+              <Route exact path={AppRoutes.work} element={<WorkPage />} />
               <Route exact path={AppRoutes.projects} element={<ProjectsPage />} />
               <Route exact path={AppRoutes.about} element={<AboutPage />} />
               <Route exact path={AppRoutes.cv} element={<CVPage />} />

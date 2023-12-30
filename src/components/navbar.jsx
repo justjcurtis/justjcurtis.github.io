@@ -11,6 +11,7 @@ const Navbar = ({ images }) => {
     const location = useLocation().pathname
     const links = [
         { title: 'Home', to: '/' },
+        { title: 'Work', to: '/work' },
         { title: 'Projects', to: '/projects' },
         { title: 'About', to: '/about' },
     ]
