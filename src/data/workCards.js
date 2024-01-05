@@ -1,6 +1,5 @@
 import { gql, GraphQLClient } from "graphql-request";
 import { ENDPOINT } from "./constants";
-import { isNumber } from "../utils/helpers";
 
 const query = gql`{
   workCards{
