@@ -74,13 +74,13 @@ const HomePage = () => {
                         <m.p initial={{ opacity: 0, x: -10, y: 2 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.25, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -10, y: 2 }} style={styles.subtext} className="text-sm text-left mb-5">Welcome to my personal site. Here you can find <Link to={'/projects'}><span className='text-secondary underline bg-neutral rounded px-1'>things I've made</span></Link>. There are links to my other places on the internet in the top right. You can see some info <Link to={'/about'}><span className='text-secondary bg-neutral underline rounded px-1'>about me</span></Link> too. <br /><br />Triple tap anywhere to toggle this page & focus on {todaysGame.name}.</m.p>
                         <m.img initial={{ opacity: 0, x: +10, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.2, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: 6, y: 10 }} style={styles.avatarImage} className="mask mask-circle border-4 border-neutral-content rounded-full" src={images.Avatar} alt="just j curtis" />
                     </div>
-                    {/*<m.div initial={{ opacity: 0, x: -6, y: 25 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.3, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -3, y: 15 }} className="stats shadow bg-opacity-60 backdrop-blur-sm">
+                    <m.div initial={{ opacity: 0, x: -6, y: 25 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.3, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -3, y: 15 }} className="stats shadow bg-opacity-60 backdrop-blur-sm">
                         <div className="stat">
                             <div className="stat-title">Current Focus</div>
-                            <div className="stat-value text-accent underline"><a href='https://www.zopa.com/help/article/how-to-download-zopa-app' target="_blank" rel="noreferrer">Zopa App</a></div>
+                            <div className="stat-value text-accent underline"><a href='https://rippl.work/features/' target="_blank" rel="noreferrer">Rippl App</a></div>
                             <div className="stat-desc mt-3">Thanks for stopping by   🌈</div>
                         </div>
-                    </m.div> */}
+                    </m.div>
                     {tomorrowGame.name !== todaysGame.name && <m.p initial={{ opacity: 0, x: 10, y: 2 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.25, duration: (0.1 + (0.3 * Math.random())), ease: 'easeInOut' }} exit={{ opacity: 0, x: -10, y: 2 }} style={styles.subtext} className="text-center mt-5">Check back here tomorrow for <span className='text-accent'>{tomorrowGame.name}</span></m.p>}
                 </div>
             </div>
