@@ -11,7 +11,7 @@ const WorkCard = ({ bg, name, title, tech, description, link, cols = 1, rows = 1
     const length = (minDelay / 2) + (Math.random() * ((maxDelay / 2) - (minDelay / 2)))
 
     return (
-        <m.div initial={{ opacity: 0, x: xoffset, y: yoffset }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: delay, duration: length }} exit={{ x: -xoffset, y: -yoffset, opacity: 0 }} className={`bg-${bg} rounded-md md:col-span-${cols} md:row-span-${rows} flex flex-col place-content-between`} >
+        <m.div initial={{ opacity: 0, x: xoffset, y: yoffset }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: delay, duration: length }} exit={{ x: -xoffset, y: -yoffset, opacity: 0 }} className={`bg-${bg} rounded-md lg:col-span-${cols} lg:row-span-${rows} flex flex-col place-content-between`} >
             <a href={link} target="_blank" rel="noreferrer">
                 <div className="p-4" >
                     <h1 className="text-primary-content ext-2xl font-bold">{name}</h1>
