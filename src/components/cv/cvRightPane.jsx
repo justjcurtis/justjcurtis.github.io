@@ -30,15 +30,29 @@ const CvRightPane = () => {
                     looking for ways to improve my skills and knowledge. I'm a team player who enjoys
                     working with others to solve problems and build great products. <br />
 
-                    I'm currently working as a Senior Software Engineer at <a className="text-secondary-focus underline" href="https://www.zopa.com/" target="_blank" rel="noreferrer">Zopa Bank</a> on the mobile app. <br />
+                    I'm currently working as a Tech Lead at <a className="text-secondary-focus underline" href="https://rippl.work" target="_blank" rel="noreferrer">Rippl</a><br />
                     I'm also working on a few <a className="text-secondary-focus underline" href="https://justjcurtis.dev/#/projects" target="_blank" rel="noreferrer">side projects</a>, including <a className="text-secondary-focus underline" href="https://justjcurtis.dev" target="_blank" rel="noreferrer">this website</a>, which I built using React and Tailwind CSS.
                     I'm always looking for new opportunities to learn and grow, so if you're interested in working together,
                     please don't hesitate to reach out!
                 </m.p>
                 <h3 className="text-2xl font-bold text-black mt-10 mb-5">- E X P E R I E N C E -</h3>
+                <CvExperience employer="Rippl"
+                    role="Tech Lead"
+                    dates="Jan 2023 - Present"
+                    bullets={[
+                        "Lead a team of engineers to deliver new features and improvements to mobile applications",
+                        "Conducted 1-1 meetings with team members to ensure personal and professional development",
+                        "Architected and developed a new mobile application using React-Native, Typescript, Jest, and Detox",
+                        "Informed and contributed to design decisions, drawing on the experience and knowledge of colleagues & myself",
+                        "Menotred and coached team members to ensure cultural and technical cohesion and individual development",
+                        "Interviewed engineers of all levels to build the team and ensure technical skills and cultural fit",
+                        "Created and maintained cloud serviced to support mobile applications with analytics, authentication, and data storage",
+                        "Created and maintained CI/CD pipelines for mobile applications",
+                    ]} />
+                <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
                 <CvExperience employer="Zopa Bank"
                     role="Senior Software Engineer"
-                    dates="Jun 2023 - Present"
+                    dates="Jun 2023 - Oct 2023"
                     bullets={[
                         "Developed enterprise-level mobile applications using React-Native, Typescript, Jest, and Detox",
                         "Maintained detox e2e test suite to ensure quality of mobile applications",
