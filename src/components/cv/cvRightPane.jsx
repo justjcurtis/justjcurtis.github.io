@@ -38,7 +38,7 @@ const CvRightPane = () => {
                 <h3 className="text-2xl font-bold text-black mt-10 mb-5">- E X P E R I E N C E -</h3>
                 <CvExperience employer="Rippl"
                     role="Tech Lead"
-                    dates="Jan 2023 - Present"
+                    dates="Jan 2024 - Present"
                     bullets={[
                         "Lead a team of engineers to deliver new features and improvements to mobile applications",
                         "Conducted 1-1 meetings with team members to ensure personal and professional development",
