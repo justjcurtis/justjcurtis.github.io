@@ -44,7 +44,7 @@ const CvRightPane = () => {
                         "Conducted 1-1 meetings with team members to ensure personal and professional development",
                         "Architected and developed a new mobile application using React-Native, Typescript, Jest, and Detox",
                         "Informed and contributed to design decisions, drawing on the experience and knowledge of colleagues & myself",
-                        "Menotred and coached team members to ensure cultural and technical cohesion and individual development",
+                        "Mentored and coached team members to ensure cultural and technical cohesion and individual development",
                         "Interviewed engineers of all levels to build the team and ensure technical skills and cultural fit",
                         "Created and maintained cloud serviced to support mobile applications with analytics, authentication, and data storage",
                         "Created and maintained CI/CD pipelines for mobile applications",
