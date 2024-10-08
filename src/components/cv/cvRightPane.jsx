@@ -99,7 +99,7 @@ const CvRightPane = () => {
                     role="Side Projects"
                     dates="Mar 2018 - Present"
                     bullets={[
-                        "Wrote and maintained a personal website using React, Tailwind CSS and GrpahQL (justjcurtis.dev)",
+                        "Wrote and maintained a personal website using React, Tailwind CSS and GraphQL (justjcurtis.dev)",
                         "Created many projects for education and fun using various technologies, such as React, P5js, three.js, webGL, Nodejs, Go and Rust",
                         "Created and maintained an in house Rock Paper Scissors AI tournament website and rest api using svelte and Nodejs and MongoDB",
                         "Coached multiple friends in JavaScript, React, Nodejs, HTML and CSS enabling them to land their first jobs in the industry",
