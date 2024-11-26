@@ -30,7 +30,6 @@ const CvRightPane = () => {
                     looking for ways to improve my skills and knowledge. I'm a team player who enjoys
                     working with others to solve problems and build great products. <br />
 
-                    I'm currently working as a Tech Lead at <a className="text-secondary-focus underline" href="https://rippl.work" target="_blank" rel="noreferrer">Rippl</a><br />
                     I'm also working on a few <a className="text-secondary-focus underline" href="https://justjcurtis.dev/#/projects" target="_blank" rel="noreferrer">side projects</a>, including <a className="text-secondary-focus underline" href="https://justjcurtis.dev" target="_blank" rel="noreferrer">this website</a>, which I built using React and Tailwind CSS.
                     I'm always looking for new opportunities to learn and grow, so if you're interested in working together,
                     please don't hesitate to reach out!
@@ -38,7 +37,7 @@ const CvRightPane = () => {
                 <h3 className="text-2xl font-bold text-black mt-10 mb-5">- E X P E R I E N C E -</h3>
                 <CvExperience employer="Rippl"
                     role="Tech Lead"
-                    dates="Jan 2024 - Present"
+                    dates="Jan 2024 - July 2024"
                     bullets={[
                         "Lead a team of engineers to deliver new features and improvements to mobile applications",
                         "Conducted 1-1 meetings with team members to ensure personal and professional development",
