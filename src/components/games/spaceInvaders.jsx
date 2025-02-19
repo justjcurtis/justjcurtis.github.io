@@ -6,7 +6,7 @@ const ENEMY_CHAR = '▼';
 const PROJECTILE_CHAR = '•';
 const BASE_ENEMY_SPEED = 1;
 const PROJECTILE_SPEED = 8;
-const EXPLOSION_CHARS = ['✧', '✦', '✺', '✹', '✶', '✷', '✸', '✹', '★', '☆', '✫'];
+const EXPLOSION_CHARS = ['✧', '✦', '✺', '✶', '✹', '!', '?', '#', '0', 's', '\'', '¢', '$', '~', '"', "`", "§", ',', '.', ':', ';', '>', '<', '+', '-', '*', '=', '&', '%', '@', '^'];
 
 const getResponsiveSize = () => {
     const screenWidth = window.innerWidth;
@@ -364,7 +364,7 @@ const SpaceInvaders = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    textShadow: '0 0 1px #000'
+                    textShadow: '0 0 3px #000'
                 }}>{PROJECTILE_CHAR}</div>
             ))}
 
@@ -380,7 +380,7 @@ const SpaceInvaders = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    textShadow: '0 0 1px #000'
+                    textShadow: '0 0 3px #000'
                 }}>{PROJECTILE_CHAR}</div>
             ))}
 
