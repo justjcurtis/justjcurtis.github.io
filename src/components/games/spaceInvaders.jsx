@@ -6,6 +6,7 @@ const ENEMY_CHAR = '▼';
 const PROJECTILE_CHAR = '•';
 const BASE_ENEMY_SPEED = 1;
 const PROJECTILE_SPEED = 8;
+const EXPLOSION_CHARS = ['✧', '✦', '✺', '✹', '✶', '✷', '✸', '✹', '★', '☆', '✫'];
 
 const getResponsiveSize = () => {
     const screenWidth = window.innerWidth;
@@ -28,6 +29,7 @@ const INITIAL_GAME_STATE = {
     enemies: [],
     projectiles: [],
     enemyProjectiles: [],
+    explosions: [],
     enemyDirection: 1,
     lastShot: 0,
     gameOver: false
@@ -195,6 +197,20 @@ const SpaceInvaders = () => {
                         enemy.alive = false;
                         projectile.y = -100;
                         newState.score += 10 * g.level;
+                        // Add explosion particles
+                        for (let i = 0; i < 6; i++) {
+                            const angle = (Math.PI * 2 * i) / 6;
+                            const speed = 2 + Math.random() * 2;
+                            newState.explosions.push({
+                                x: enemy.x + enemy.w / 2,
+                                y: enemy.y + enemy.h / 2,
+                                dx: Math.cos(angle) * speed,
+                                dy: Math.sin(angle) * speed,
+                                char: EXPLOSION_CHARS[Math.floor(Math.random() * EXPLOSION_CHARS.length)],
+                                life: 30,
+                                size: enemy.w * 0.4
+                            });
+                        }
                     }
                 });
             });
@@ -227,12 +243,23 @@ const SpaceInvaders = () => {
                 gameOverRef.current = true;
             }
 
+            // Update explosions
+            const updatedExplosions = (newState.explosions || [])
+                .map(exp => ({
+                    ...exp,
+                    x: exp.x + exp.dx,
+                    y: exp.y + exp.dy,
+                    life: exp.life - 1
+                }))
+                .filter(exp => exp.life > 0);
+
             return {
                 ...newState,
                 player,
                 projectiles: updatedProjectiles,
                 enemyProjectiles: updatedEnemyProjectiles,
-                enemies
+                enemies,
+                explosions: updatedExplosions
             };
         },
         onKeyPress: onKeyDown,
@@ -321,7 +348,8 @@ const SpaceInvaders = () => {
                     fontSize: '1.5rem',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    textShadow: '0 0 1px #000'
                 }}>{PROJECTILE_CHAR}</div>
             ))}
 
@@ -336,8 +364,26 @@ const SpaceInvaders = () => {
                     fontSize: '1.5rem',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    textShadow: '0 0 1px #000'
                 }}>{PROJECTILE_CHAR}</div>
+            ))}
+
+            {game.explosions?.map((explosion, index) => (
+                <div key={`exp${index}`} style={{
+                    position: 'fixed',
+                    left: explosion.x,
+                    top: explosion.y,
+                    width: explosion.size,
+                    height: explosion.size,
+                    color: `rgba(239, 68, 68, ${explosion.life / 30})`,
+                    fontSize: `${explosion.size}px`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transform: 'translate(-50%, -50%)',
+                    textShadow: '0 0 3px rgba(239, 68, 68, 0.5)'
+                }}>{explosion.char}</div>
             ))}
         </div>
     );
