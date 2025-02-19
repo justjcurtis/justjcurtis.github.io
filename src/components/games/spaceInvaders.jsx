@@ -223,6 +223,21 @@ const SpaceInvaders = () => {
                     projectile.y + projectile.h > player.y) {
                     newState.lives -= 1;
                     projectile.y = window.innerHeight + 100; // Remove projectile
+                    // Add blue explosion particles for player hit
+                    for (let i = 0; i < 4; i++) {
+                        const angle = (Math.PI * 2 * i) / Math.random() * 6;
+                        const speed = 1 + Math.random() * 1.5;
+                        newState.explosions.push({
+                            x: player.x + player.w / 2,
+                            y: player.y + player.h / 2,
+                            dx: Math.cos(angle) * speed,
+                            dy: Math.sin(angle) * speed,
+                            char: EXPLOSION_CHARS[Math.floor(Math.random() * EXPLOSION_CHARS.length)],
+                            life: 20,
+                            size: player.w * 0.3,
+                            isPlayer: true // Flag to identify player explosions
+                        });
+                    }
                     if (newState.lives <= 0) {
                         gameOverRef.current = true;
                     }
@@ -376,13 +391,17 @@ const SpaceInvaders = () => {
                     top: explosion.y,
                     width: explosion.size,
                     height: explosion.size,
-                    color: `rgba(239, 68, 68, ${explosion.life / 30})`,
+                    color: explosion.isPlayer
+                        ? `rgba(59, 130, 246, ${explosion.life / 20})`
+                        : `rgba(239, 68, 68, ${explosion.life / 30})`,
                     fontSize: `${explosion.size}px`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     transform: 'translate(-50%, -50%)',
-                    textShadow: '0 0 3px rgba(239, 68, 68, 0.5)'
+                    textShadow: explosion.isPlayer
+                        ? '0 0 3px rgba(59, 130, 246, 0.5)'
+                        : '0 0 3px rgba(239, 68, 68, 0.5)'
                 }}>{explosion.char}</div>
             ))}
         </div>
