@@ -29,7 +29,7 @@ const Pong = () => {
             (a.x > (b.x + b.w))
         );
     }
-    const game = useGame({
+    const { game } = useGame({
         initialGameData: {
             score: [0, 0],
             ball: {

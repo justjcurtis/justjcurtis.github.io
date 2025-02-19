@@ -15,22 +15,29 @@ export const useGame = ({
     })
 
     useEffect(() => {
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             setGame(currentGame => update(currentGame))
         }, 1000 / fpsLimit)
+        return () => clearTimeout(timeout)
     }, [game])
 
     useEffect(() => {
-        if (onKeyPress !== undefined) window.addEventListener('keydown', onKeyPress)
-        if (onTouchMove !== undefined) window.addEventListener('touchmove', onTouchMove)
-        if (onMouseMove !== undefined) window.addEventListener('mousemove', onMouseMove)
-        if (onClick !== undefined) window.addEventListener('click', onClick)
+        const eventListeners = [
+            { event: 'keydown', handler: onKeyPress },
+            { event: 'touchmove', handler: onTouchMove },
+            { event: 'mousemove', handler: onMouseMove },
+            { event: 'click', handler: onClick }
+        ].filter(({ handler }) => handler !== undefined);
+
+        eventListeners.forEach(({ event, handler }) => {
+            window.addEventListener(event, handler);
+        });
+
         return () => {
-            if (onKeyPress !== undefined) window.removeEventListener('keydown', onKeyPress)
-            if (onTouchMove !== undefined) window.removeEventListener('touchmove', onTouchMove)
-            if (onMouseMove !== undefined) window.removeEventListener('mousemove', onMouseMove)
-            if (onClick !== undefined) window.removeEventListener('click', onClick)
-        }
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
-    return game
+            eventListeners.forEach(({ event, handler }) => {
+                window.removeEventListener(event, handler);
+            });
+        };
+    }, [onKeyPress, onTouchMove, onMouseMove, onClick])
+    return { game, setGame }
 }
