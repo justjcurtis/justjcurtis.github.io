@@ -184,7 +184,7 @@ const Snake = () => {
         }
     }
     return (
-        <div className="w-full h-[100svh] absolute text-center">
+        <div className="w-full h-[100svh] top-0 absolute text-center">
             <h3 className='absolute top-[70px] w-full text-4xl font-medium z-[90] text-purple-500'>{game.score}</h3>
             <h3 style={styles.restartText} className='absolute top-[40%] w-full text-4xl font-medium text-red-500'>You Died</h3>
             <h3 style={styles.restartText} className='absolute top-[50%] w-full text-4xl font-medium text-blue-500'>Press Space or Tap to Restart</h3>

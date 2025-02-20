@@ -7,7 +7,8 @@ import {
   AboutPage,
   CVPage,
   NotFoundPage,
-  WipPage
+  WipPage,
+  GamePage
 } from "./components/pages";
 import { AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
@@ -47,6 +48,7 @@ function App() {
               <Route exact path={AppRoutes.about} element={<AboutPage />} />
               <Route exact path={AppRoutes.cv} element={<CVPage />} />
               <Route exact path={AppRoutes.wip} element={<WipPage />} />
+              <Route path={AppRoutes.games} element={<GamePage />} />
               <Route path={AppRoutes.notFound} element={<NotFoundPage />} />
             </Routes>
           </>

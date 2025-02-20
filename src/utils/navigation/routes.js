@@ -5,5 +5,8 @@ export const AppRoutes = {
     about: '/about',
     cv: '/cv',
     wip: '/wip',
+    games: '/games/:gameName',
     notFound: '*'
 }
+
+export const getGameRoute = (gameName) => `/games/${gameName}`
