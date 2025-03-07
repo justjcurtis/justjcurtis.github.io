@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { useGame } from './useGame';
+import { useGame } from '../../hooks/useGame';
 
 const PLAYER_CHAR = '▲';
 const ENEMY_CHAR = '▼';
@@ -303,7 +303,7 @@ const SpaceInvaders = () => {
                 }
             }}
         >
-            <div className='absolute top-[70px] w-full text-4xl md:text-4xl text-xl font-medium'>
+            <div className='absolute top-[70px] w-full md:text-4xl text-xl font-medium'>
                 <span className='text-red-500'>Score: {game.score}</span>
                 <span className='text-purple-500 mx-4'>|</span>
                 <span className='text-blue-500'>Level: {game.level}</span>

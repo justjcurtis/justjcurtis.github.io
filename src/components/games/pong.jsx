@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { getRandomInt } from '../../utils/helpers';
-import { useGame } from './useGame';
+import { useGame } from '../../hooks/useGame';
 
 const SPEED_MODIFIER = Math.min(window.innerWidth / 500, 1.2)
 const pongBot = (current, ball) => {
