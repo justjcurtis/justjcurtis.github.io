@@ -14,19 +14,19 @@ class QuadTree {
      * @param {number} maxDepth - Maximum depth of the tree
      * @param {number} depth - Current depth of this node
      */
-    constructor(boundary, capacity = 4, maxDepth = 8, depth = 0) {
+    constructor(boundary, capacity = 8, maxDepth = 6, depth = 0) {
         this.boundary = boundary;
+        // Pre-calculate boundary edges for faster containment checks
+        this.left = boundary.x - boundary.width / 2;
+        this.right = boundary.x + boundary.width / 2;
+        this.top = boundary.y - boundary.height / 2;
+        this.bottom = boundary.y + boundary.height / 2;
         this.capacity = capacity;
         this.maxDepth = maxDepth;
         this.depth = depth;
         this.items = [];
         this.divided = false;
-        this.children = {
-            northWest: null,
-            northEast: null,
-            southWest: null,
-            southEast: null
-        };
+        this.children = null; // Initialize only when needed
     }
 
     /**
@@ -39,21 +39,20 @@ class QuadTree {
         const h = this.boundary.height / 2;
         const nextDepth = this.depth + 1;
 
-        const nw = { x: x - w / 2, y: y - h / 2, width: w, height: h };
-        const ne = { x: x + w / 2, y: y - h / 2, width: w, height: h };
-        const sw = { x: x - w / 2, y: y + h / 2, width: w, height: h };
-        const se = { x: x + w / 2, y: y + h / 2, width: w, height: h };
-
-        this.children.northWest = new QuadTree(nw, this.capacity, this.maxDepth, nextDepth);
-        this.children.northEast = new QuadTree(ne, this.capacity, this.maxDepth, nextDepth);
-        this.children.southWest = new QuadTree(sw, this.capacity, this.maxDepth, nextDepth);
-        this.children.southEast = new QuadTree(se, this.capacity, this.maxDepth, nextDepth);
+        // Only create children array when needed
+        this.children = {
+            northWest: new QuadTree({ x: x - w / 2, y: y - h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
+            northEast: new QuadTree({ x: x + w / 2, y: y - h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
+            southWest: new QuadTree({ x: x - w / 2, y: y + h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
+            southEast: new QuadTree({ x: x + w / 2, y: y + h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth)
+        };
 
         this.divided = true;
 
-        // Redistribute existing items to children
-        for (const item of this.items) {
-            this.insertToChildren(item);
+        // Redistribute existing items to children using a faster approach
+        const itemsLength = this.items.length;
+        for (let i = 0; i < itemsLength; i++) {
+            this.insertToChildren(this.items[i]);
         }
         this.items.length = 0;
     }
@@ -65,12 +64,8 @@ class QuadTree {
      * @returns {boolean} - True if the point is in the boundary
      */
     contains(x, y) {
-        return (
-            x >= this.boundary.x - this.boundary.width / 2 &&
-            x < this.boundary.x + this.boundary.width / 2 &&
-            y >= this.boundary.y - this.boundary.height / 2 &&
-            y < this.boundary.y + this.boundary.height / 2
-        );
+        // Use pre-calculated boundary edges for faster checks
+        return x >= this.left && x < this.right && y >= this.top && y < this.bottom;
     }
 
     /**
@@ -81,20 +76,21 @@ class QuadTree {
     insertToChildren(item) {
         const x = item.pos.x;
         const y = item.pos.y;
+        const midX = this.boundary.x;
+        const midY = this.boundary.y;
 
-        if (this.children.northWest.contains(x, y)) {
-            return this.children.northWest.insert(item);
-        } else if (this.children.northEast.contains(x, y)) {
-            return this.children.northEast.insert(item);
-        } else if (this.children.southWest.contains(x, y)) {
-            return this.children.southWest.insert(item);
-        } else if (this.children.southEast.contains(x, y)) {
-            return this.children.southEast.insert(item);
+        // Determine quadrant directly without multiple containment checks
+        const inNorth = y < midY;
+        const inWest = x < midX;
+
+        let child;
+        if (inNorth) {
+            child = inWest ? this.children.northWest : this.children.northEast;
+        } else {
+            child = inWest ? this.children.southWest : this.children.southEast;
         }
 
-        // If the item doesn't fit in any child (due to floating point errors)
-        // we'll keep it in this node
-        return false;
+        return child.insert(item);
     }
 
     /**
@@ -103,13 +99,12 @@ class QuadTree {
      * @returns {boolean} - True if the item was inserted
      */
     insert(item) {
-        // Check if item has the required pos property
-        if (!item.pos || typeof item.pos.x !== 'number' || typeof item.pos.y !== 'number') {
-            return false;
-        }
+        const x = item.pos.x;
+        const y = item.pos.y;
 
+        // Fast path: skip type checking in hot code
         // Check if this item fits within this quad
-        if (!this.contains(item.pos.x, item.pos.y)) {
+        if (!(x >= this.left && x < this.right && y >= this.top && y < this.bottom)) {
             return false;
         }
 
@@ -138,62 +133,54 @@ class QuadTree {
      * @returns {Array} - Array of items in the range
      */
     queryRange(range) {
-        const found = [];
+        // Pre-calculate range boundaries for faster checks
+        const rangeLeft = range.x - range.width / 2;
+        const rangeRight = range.x + range.width / 2;
+        const rangeTop = range.y - range.height / 2;
+        const rangeBottom = range.y + range.height / 2;
 
+        // Use a single array for results to avoid array concatenation
+        const found = [];
+        this._queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found);
+        return found;
+    }
+
+    /**
+     * Internal method to query range with pre-calculated boundaries
+     * @private
+     */
+    _queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found) {
         // Abort if the range does not intersect this quad
-        if (!this.intersects(range)) {
-            return found;
+        if (this.right < rangeLeft || this.left > rangeRight ||
+            this.bottom < rangeTop || this.top > rangeBottom) {
+            return;
         }
 
         // Check items at this level
-        for (const item of this.items) {
-            if (this.itemInRange(item, range)) {
+        const itemsLength = this.items.length;
+        for (let i = 0; i < itemsLength; i++) {
+            const item = this.items[i];
+            const x = item.pos.x;
+            const y = item.pos.y;
+
+            if (x >= rangeLeft && x < rangeRight && y >= rangeTop && y < rangeBottom) {
                 found.push(item);
             }
         }
 
         // Terminate here if there are no children
         if (!this.divided) {
-            return found;
+            return;
         }
 
         // Otherwise, add the results from the children
-        found.push(...this.children.northWest.queryRange(range));
-        found.push(...this.children.northEast.queryRange(range));
-        found.push(...this.children.southWest.queryRange(range));
-        found.push(...this.children.southEast.queryRange(range));
-
-        return found;
+        this.children.northWest._queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found);
+        this.children.northEast._queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found);
+        this.children.southWest._queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found);
+        this.children.southEast._queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found);
     }
 
-    /**
-     * Check if an item is within a range
-     * @param {Object} item - The item to check
-     * @param {Object} range - The range to check against
-     * @returns {boolean} - True if the item is in the range
-     */
-    itemInRange(item, range) {
-        return (
-            item.pos.x >= range.x - range.width / 2 &&
-            item.pos.x < range.x + range.width / 2 &&
-            item.pos.y >= range.y - range.height / 2 &&
-            item.pos.y < range.y + range.height / 2
-        );
-    }
-
-    /**
-     * Check if this quad intersects with a range
-     * @param {Object} range - The range to check
-     * @returns {boolean} - True if the ranges intersect
-     */
-    intersects(range) {
-        return !(
-            range.x - range.width / 2 > this.boundary.x + this.boundary.width / 2 ||
-            range.x + range.width / 2 < this.boundary.x - this.boundary.width / 2 ||
-            range.y - range.height / 2 > this.boundary.y + this.boundary.height / 2 ||
-            range.y + range.height / 2 < this.boundary.y - this.boundary.height / 2
-        );
-    }
+    // These methods are now inlined in _queryRange for better performance
 
     /**
      * Find all items within a certain radius of a point
@@ -202,25 +189,69 @@ class QuadTree {
      * @param {number} radius - Radius to search within
      * @returns {Array} - Array of items within the radius
      */
-    queryRadius(x, y, radius) {
-        // Create a square range that contains the circle
-        const range = {
-            x: x,
-            y: y,
-            width: radius * 2,
-            height: radius * 2
-        };
+    queryRadius(x, y, radius, limit = Infinity) {
+        // Pre-calculate for faster checks
+        const radiusSquared = radius * radius;
+        const rangeLeft = x - radius;
+        const rangeRight = x + radius;
+        const rangeTop = y - radius;
+        const rangeBottom = y + radius;
 
-        // Get all items in the square range
-        const itemsInRange = this.queryRange(range);
+        // Use a single array for results
+        const found = [];
 
-        // Filter to keep only items within the radius
-        return itemsInRange.filter(item => {
-            const dx = item.pos.x - x;
-            const dy = item.pos.y - y;
-            const distSquared = dx * dx + dy * dy;
-            return distSquared <= radius * radius;
-        });
+        // Get all items in the square range and filter in one pass
+        this._queryRadiusOptimized(x, y, radius, radiusSquared,
+            rangeLeft, rangeRight, rangeTop, rangeBottom, found, limit);
+
+        return found;
+    }
+
+    /**
+     * Optimized internal method for radius queries
+     * @private
+     */
+    _queryRadiusOptimized(centerX, centerY, radius, radiusSquared,
+        rangeLeft, rangeRight, rangeTop, rangeBottom, found, limit = Infinity) {
+        // Abort if the range does not intersect this quad
+        if (this.right < rangeLeft || this.left > rangeRight ||
+            this.bottom < rangeTop || this.top > rangeBottom) {
+            return;
+        }
+
+        // Check items at this level
+        const itemsLength = this.items.length;
+        for (let i = 0; i < itemsLength; i++) {
+            const item = this.items[i];
+            const x = item.pos.x;
+            const y = item.pos.y;
+
+            // First do a quick bounding box check
+            if (x >= rangeLeft && x < rangeRight && y >= rangeTop && y < rangeBottom) {
+                // Then do the more expensive circle check
+                const dx = x - centerX;
+                const dy = y - centerY;
+                if (dx * dx + dy * dy <= radiusSquared) {
+                    found.push(item);
+                    if (found.length >= limit) return;
+                }
+            }
+        }
+
+        // Terminate here if there are no children
+        if (!this.divided) {
+            return;
+        }
+
+        // Otherwise, add the results from the children
+        this.children.northWest._queryRadiusOptimized(centerX, centerY, radius, radiusSquared,
+            rangeLeft, rangeRight, rangeTop, rangeBottom, found, limit);
+        this.children.northEast._queryRadiusOptimized(centerX, centerY, radius, radiusSquared,
+            rangeLeft, rangeRight, rangeTop, rangeBottom, found, limit);
+        this.children.southWest._queryRadiusOptimized(centerX, centerY, radius, radiusSquared,
+            rangeLeft, rangeRight, rangeTop, rangeBottom, found, limit);
+        this.children.southEast._queryRadiusOptimized(centerX, centerY, radius, radiusSquared,
+            rangeLeft, rangeRight, rangeTop, rangeBottom, found, limit);
     }
 
     /**
@@ -235,12 +266,7 @@ class QuadTree {
             this.children.southWest.clear();
             this.children.southEast.clear();
             this.divided = false;
-            this.children = {
-                northWest: null,
-                northEast: null,
-                southWest: null,
-                southEast: null
-            };
+            this.children = null; // Save memory
         }
     }
 
@@ -271,7 +297,7 @@ class QuadTree {
             count += this.children.southEast.count();
         }
 
-        return count
+        return count;
     }
 
     purgeEmpty() {
@@ -281,30 +307,75 @@ class QuadTree {
             this.children.southWest.purgeEmpty();
             this.children.southEast.purgeEmpty();
 
-            const childKeys = Object.keys(this.children);
-            const emptyChildren = childKeys.filter(key => this.children[key].isEmpty());
-
-            if (emptyChildren.length === childKeys.length) {
+            // Check if all children are empty
+            if (this.children.northWest.isEmpty() &&
+                this.children.northEast.isEmpty() &&
+                this.children.southWest.isEmpty() &&
+                this.children.southEast.isEmpty()) {
                 this.divided = false;
-                this.children = {
-                    northWest: null,
-                    northEast: null,
-                    southWest: null,
-                    southEast: null
-                };
+                this.children = null;
                 return;
             }
 
-            const subCount = emptyChildren.reduce((acc, key) => acc + this.children[key].count(), 0);
+            // Fixed child keys for faster access
+            const childKeys = ['northWest', 'northEast', 'southWest', 'southEast'];
+            const nonEmptyChildren = [];
+            let subCount = 0;
+
+            // Count items in non-empty children
+            for (let i = 0; i < 4; i++) {
+                const key = childKeys[i];
+                const child = this.children[key];
+                if (!child.isEmpty()) {
+                    nonEmptyChildren.push(key);
+                    subCount += child.count();
+                }
+            }
+
+            // If few enough items, consolidate them into this node
             if (subCount <= this.capacity) {
-                this.items.push(...emptyChildren.flatMap(key => this.children[key].items));
+                // Collect items from non-empty children
+                for (let i = 0; i < nonEmptyChildren.length; i++) {
+                    const child = this.children[nonEmptyChildren[i]];
+                    const childItems = child.items;
+                    const childItemsLength = childItems.length;
+
+                    // Add items directly to avoid spread operator
+                    for (let j = 0; j < childItemsLength; j++) {
+                        this.items.push(childItems[j]);
+                    }
+
+                    // Also get items from any subdivided children
+                    if (child.divided) {
+                        this._collectItemsFromChildren(child, this.items);
+                    }
+                }
+
                 this.divided = false;
-                this.children = {
-                    northWest: null,
-                    northEast: null,
-                    southWest: null,
-                    southEast: null
-                };
+                this.children = null;
+            }
+        }
+    }
+
+    /**
+     * Helper method to collect items from all children recursively
+     * @private
+     */
+    _collectItemsFromChildren(node, targetArray) {
+        if (!node.divided) return;
+
+        const childKeys = ['northWest', 'northEast', 'southWest', 'southEast'];
+        for (let i = 0; i < 4; i++) {
+            const child = node.children[childKeys[i]];
+            const childItems = child.items;
+            const childItemsLength = childItems.length;
+
+            for (let j = 0; j < childItemsLength; j++) {
+                targetArray.push(childItems[j]);
+            }
+
+            if (child.divided) {
+                this._collectItemsFromChildren(child, targetArray);
             }
         }
     }
