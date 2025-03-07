@@ -101,7 +101,7 @@ const HomePage = () => {
                         <div className="stat">
                             <div className="stat-title">Current Focus</div>
                             <div className="stat-value text-accent underline">
-                                <a href='https://rippl.work/features/' target="_blank" rel="noreferrer">Rippl App</a>
+                                <a href='https://cs2cfgr.com' target="_blank" rel="noreferrer">CS2CFGR</a>
                             </div>
                             <div className="stat-desc mt-3">Thanks for stopping by   🌈</div>
                         </div>
