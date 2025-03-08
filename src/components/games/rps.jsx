@@ -450,8 +450,8 @@ const RockPaperScissors = () => {
     };
 
     return (
-        <div className="flex flex-col items-center p-[20px] w-full max-w-screen overflow-hidden absolute top-12">
-            <div className="stats flex justify-around w-full max-w-[800px] mb-[10px] font-bold">
+        <div className="flex flex-col items-center p-[20px] w-full max-w-screen overflow-hidden absolute top-0">
+            <div className="stats flex justify-around w-full max-w-[800px] mb-[10px] font-bold mt-12">
                 <div className="stat" style={{ color: TYPES.ROCK.color }}>
                     Rocks: {stats.rock}
                 </div>
