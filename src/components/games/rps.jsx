@@ -404,7 +404,10 @@ const RockPaperScissors = () => {
         const handleResize = () => {
             const container = canvasRef.current?.parentElement;
             if (container) {
-                const width = Math.min(CANVAS_WIDTH, window.innerWidth - 40);
+                // Make sure we account for padding and borders
+                const containerWidth = container.clientWidth;
+                // Use the container width to ensure the canvas fits within its parent
+                const width = Math.min(CANVAS_WIDTH, containerWidth);
                 const height = Math.min(CANVAS_HEIGHT, window.innerHeight - container.offsetTop - 60);
                 setDimensions({ width, height });
             }
@@ -447,8 +450,8 @@ const RockPaperScissors = () => {
     };
 
     return (
-        <div className="flex flex-col items-center p-[20px] max-w-full absolute top-12">
-            <div className={`stats flex justify-around w-full max-w-[${CANVAS_WIDTH}px] mb-[10px] font-bold`}>
+        <div className="flex flex-col items-center p-[20px] w-full max-w-screen overflow-hidden absolute top-12">
+            <div className="stats flex justify-around w-full max-w-[800px] mb-[10px] font-bold">
                 <div className="stat" style={{ color: TYPES.ROCK.color }}>
                     Rocks: {stats.rock}
                 </div>
@@ -459,12 +462,16 @@ const RockPaperScissors = () => {
                     Scissors: {stats.scissors}
                 </div>
             </div>
-            <div className={`w-full max-w-[${CANVAS_WIDTH}px] mb-[20px]`}>
+            <div className="w-full max-w-[800px] mb-[20px] overflow-hidden">
                 <canvas
                     ref={canvasRef}
                     width={dimensions.width}
                     height={dimensions.height}
-                    style={{ border: '1px solid #1a1a1a' }}
+                    style={{
+                        border: '1px solid #1a1a1a',
+                        maxWidth: '100%',
+                        display: 'block'
+                    }}
                 />
             </div>
         </div>
