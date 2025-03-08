@@ -23,7 +23,7 @@ const TYPES = {
 // Helper functions
 const getRandomPosition = () => ({
     x: Math.random() * Math.min(CANVAS_WIDTH, window.innerWidth - 40),
-    y: Math.random() * Math.min(CANVAS_HEIGHT, window.innerHeight - 60)
+    y: Math.random() * Math.min(CANVAS_HEIGHT, window.innerHeight - 20)
 });
 
 const getRandomDirection = () => Math.random() * Math.PI * 2;
@@ -408,7 +408,7 @@ const RockPaperScissors = () => {
                 const containerWidth = container.clientWidth;
                 // Use the container width to ensure the canvas fits within its parent
                 const width = Math.min(CANVAS_WIDTH, containerWidth);
-                const height = Math.min(CANVAS_HEIGHT, window.innerHeight - container.offsetTop - 60);
+                const height = Math.min(CANVAS_HEIGHT, window.innerHeight - container.offsetTop - 20);
                 setDimensions({ width, height });
             }
         };
