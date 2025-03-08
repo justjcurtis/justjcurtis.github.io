@@ -73,6 +73,13 @@ const calculateCircleCount = (width, height) => {
     return Math.floor(MIN_CIRCLE_COUNT + ratio * (MAX_CIRCLE_COUNT - MIN_CIRCLE_COUNT));
 };
 
+const fastArrayShuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+};
+
 const RockPaperScissors = () => {
     const canvasRef = useRef(null);
     const [dimensions, setDimensions] = useState({ width: CANVAS_WIDTH, height: CANVAS_HEIGHT });
@@ -181,7 +188,7 @@ const RockPaperScissors = () => {
             }
 
             // Find nearby circles using quadtree (more efficient)
-            const nearbyCircles = quadtree.queryRadius(circle.pos.x, circle.pos.y, VISUAL_RANGE, circleCount / 4);
+            const nearbyCircles = quadtree.queryRadius(circle.pos.x, circle.pos.y, VISUAL_RANGE, circleCount / 10);
             const others = [];
 
             // Filter out self more efficiently
@@ -292,6 +299,9 @@ const RockPaperScissors = () => {
             circle.pos.y = newY;
             circle.direction = newDirection;
         }
+
+        // Shuffle circles to avoid bias (allowng lower query limit)
+        fastArrayShuffle(circles);
 
         // Use the same array reference
         const updatedCircles = circles;

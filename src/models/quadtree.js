@@ -14,7 +14,7 @@ class QuadTree {
      * @param {number} maxDepth - Maximum depth of the tree
      * @param {number} depth - Current depth of this node
      */
-    constructor(boundary, capacity = 10, maxDepth = 50, depth = 0) {
+    constructor(boundary, capacity = 20, maxDepth = 5, depth = 0) {
         this.boundary = boundary;
         // Pre-calculate boundary edges for faster containment checks
         const halfWidth = boundary.width * 0.5;
