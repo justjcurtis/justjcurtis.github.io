@@ -6,7 +6,8 @@ import QuadTree from '../../models/quadtree';
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 const CIRCLE_RADIUS = 5;
-const CIRCLE_COUNT = 2000;
+const MIN_CIRCLE_COUNT = 1000;
+const MAX_CIRCLE_COUNT = 3000;
 const VISUAL_RANGE = 50;
 const MOVE_SPEED = 1;
 const TURN_SPEED = 0.1;
@@ -61,10 +62,23 @@ const fastAtan2 = (y, x) => {
 };
 
 
+// Calculate circle count based on canvas dimensions
+const calculateCircleCount = (width, height) => {
+    const area = width * height;
+    const maxArea = CANVAS_WIDTH * CANVAS_HEIGHT;
+    const minArea = CANVAS_WIDTH * CANVAS_HEIGHT / 2; // Approximate mobile size
+
+    // Scale circle count based on area ratio
+    const ratio = Math.min(Math.max((area - minArea) / (maxArea - minArea), 0), 1);
+    return Math.floor(MIN_CIRCLE_COUNT + ratio * (MAX_CIRCLE_COUNT - MIN_CIRCLE_COUNT));
+};
+
 const RockPaperScissors = () => {
     const canvasRef = useRef(null);
     const [dimensions, setDimensions] = useState({ width: CANVAS_WIDTH, height: CANVAS_HEIGHT });
     const [stats, setStats] = useState({ rock: 0, paper: 0, scissors: 0 });
+    const [circleCount, setCircleCount] = useState(calculateCircleCount(CANVAS_WIDTH, CANVAS_HEIGHT));
+    const [showQuadtree, setShowQuadtree] = useState(false);
     const countdownRef = useRef(null);
     const lastUpdateTimeRef = useRef(0);
     const isResettingRef = useRef(false);
@@ -79,9 +93,9 @@ const RockPaperScissors = () => {
     }), [dimensions.width, dimensions.height]);
 
     // Optimized function to create circles with random types
-    const createRandomCircles = () => {
-        const circles = new Array(CIRCLE_COUNT);
-        for (let i = 0; i < CIRCLE_COUNT; i++) {
+    const createRandomCircles = (count) => {
+        const circles = new Array(count);
+        for (let i = 0; i < count; i++) {
             circles[i] = {
                 pos: getRandomPosition(),
                 direction: getRandomDirection(),
@@ -94,7 +108,7 @@ const RockPaperScissors = () => {
 
     // Initialize game data
     const initialGameData = {
-        circles: createRandomCircles(),
+        circles: createRandomCircles(circleCount),
         quadtree: new QuadTree(boundary),
         time: 0
     };
@@ -118,7 +132,7 @@ const RockPaperScissors = () => {
                 if (countdownRef.current <= 0) {
                     countdownRef.current = null;
                     // Create new circles with random types
-                    circles = createRandomCircles();
+                    circles = createRandomCircles(circleCount);
 
                     // Reset quadtree with new circles
                     quadtree = new QuadTree(boundary);
@@ -167,7 +181,7 @@ const RockPaperScissors = () => {
             }
 
             // Find nearby circles using quadtree (more efficient)
-            const nearbyCircles = quadtree.queryRadius(circle.pos.x, circle.pos.y, VISUAL_RANGE, CIRCLE_COUNT / 5);
+            const nearbyCircles = quadtree.queryRadius(circle.pos.x, circle.pos.y, VISUAL_RANGE, circleCount / 4);
             const others = [];
 
             // Filter out self more efficiently
@@ -305,7 +319,7 @@ const RockPaperScissors = () => {
 
         // Check if all circles are the same type and start countdown if needed
         if (
-            (rockCount === CIRCLE_COUNT || paperCount === CIRCLE_COUNT || scissorsCount === CIRCLE_COUNT) &&
+            (rockCount === circleCount || paperCount === circleCount || scissorsCount === circleCount) &&
             countdownRef.current === null &&
             !isResettingRef.current
         ) {
@@ -321,7 +335,7 @@ const RockPaperScissors = () => {
             quadtree,
             time: time + 1
         };
-    }, [dimensions, stats]);
+    }, [dimensions, stats, circleCount]);
 
     // Use the game hook
     const { game, setGame } = useGame({
@@ -334,6 +348,14 @@ const RockPaperScissors = () => {
     useEffect(() => {
         lastUpdateTimeRef.current = Date.now();
     }, []);
+
+    useEffect(() => {
+        game.circles.length = circleCount;
+        setGame({
+            ...game,
+            circles: game.circles
+        });
+    }, [circleCount]);
 
     // Optimized rendering
     useEffect(() => {
@@ -401,9 +423,11 @@ const RockPaperScissors = () => {
             ctx.fillText('Resetting simulation...', canvas.width / 2, canvas.height / 2 + 80);
         }
 
-        // Optional: Draw quadtree for debugging (commented out for performance)
-        // drawQuadtree(ctx, game.quadtree);
-    }, [game]);
+        // Draw quadtree if showQuadtree is true
+        if (showQuadtree) {
+            drawQuadtree(ctx, game.quadtree);
+        }
+    }, [game, showQuadtree]);
 
     // Handle window resize with debounce
     useEffect(() => {
@@ -429,6 +453,12 @@ const RockPaperScissors = () => {
                 const width = Math.min(CANVAS_WIDTH, containerWidth);
                 const height = Math.min(CANVAS_HEIGHT, window.innerHeight - container.offsetTop - 20);
                 setDimensions({ width, height });
+
+                // Update circle count based on new dimensions
+                const newCircleCount = calculateCircleCount(width, height);
+                if (newCircleCount !== circleCount) {
+                    setCircleCount(newCircleCount);
+                }
             }
         };
 
@@ -445,7 +475,7 @@ const RockPaperScissors = () => {
         return () => window.removeEventListener('resize', debouncedHandleResize);
     }, []);
 
-    // Optional: Draw quadtree for debugging (optimized but commented out in render for performance)
+    // Draw quadtree for debugging (now toggleable via UI)
     const drawQuadtree = (ctx, node) => {
         if (!node) return;
 
@@ -468,9 +498,17 @@ const RockPaperScissors = () => {
         }
     };
 
+    const toggleQuadtree = () => {
+        setShowQuadtree(prev => !prev);
+    };
+
     return (
         <div className="flex flex-col items-center p-[20px] w-full max-w-screen overflow-hidden absolute top-0">
-            <div className="stats flex justify-around w-full max-w-[800px] mb-[10px] font-bold mt-12">
+            <div
+                className="stats flex justify-around w-full max-w-[800px] mb-[10px] font-bold mt-12 text-xs sm:text-base cursor-pointer"
+                onClick={toggleQuadtree}
+                title="Click to toggle quadtree visualization"
+            >
                 <div className="stat" style={{ color: TYPES.ROCK.color }}>
                     Rocks: {stats.rock}
                 </div>
@@ -479,6 +517,9 @@ const RockPaperScissors = () => {
                 </div>
                 <div className="stat" style={{ color: TYPES.SCISSORS.color }}>
                     Scissors: {stats.scissors}
+                </div>
+                <div className="stat" style={{ color: 'white' }}>
+                    circles: {stats.rock + stats.paper + stats.scissors}
                 </div>
             </div>
             <div className="w-full max-w-[800px] mb-[20px] overflow-hidden">
