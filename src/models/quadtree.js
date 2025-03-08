@@ -14,19 +14,22 @@ class QuadTree {
      * @param {number} maxDepth - Maximum depth of the tree
      * @param {number} depth - Current depth of this node
      */
-    constructor(boundary, capacity = 8, maxDepth = 6, depth = 0) {
+    constructor(boundary, capacity = 10, maxDepth = 50, depth = 0) {
         this.boundary = boundary;
         // Pre-calculate boundary edges for faster containment checks
-        this.left = boundary.x - boundary.width / 2;
-        this.right = boundary.x + boundary.width / 2;
-        this.top = boundary.y - boundary.height / 2;
-        this.bottom = boundary.y + boundary.height / 2;
+        const halfWidth = boundary.width * 0.5;
+        const halfHeight = boundary.height * 0.5;
+        this.left = boundary.x - halfWidth;
+        this.right = boundary.x + halfWidth;
+        this.top = boundary.y - halfHeight;
+        this.bottom = boundary.y + halfHeight;
         this.capacity = capacity;
         this.maxDepth = maxDepth;
         this.depth = depth;
         this.items = [];
         this.divided = false;
         this.children = null; // Initialize only when needed
+        this.itemCount = 0; // Track total items for faster counting
     }
 
     /**
@@ -35,25 +38,37 @@ class QuadTree {
     subdivide() {
         const x = this.boundary.x;
         const y = this.boundary.y;
-        const w = this.boundary.width / 2;
-        const h = this.boundary.height / 2;
+        const w = this.boundary.width * 0.5;
+        const h = this.boundary.height * 0.5;
+        const quarterW = w * 0.5;
+        const quarterH = h * 0.5;
         const nextDepth = this.depth + 1;
 
         // Only create children array when needed
         this.children = {
-            northWest: new QuadTree({ x: x - w / 2, y: y - h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
-            northEast: new QuadTree({ x: x + w / 2, y: y - h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
-            southWest: new QuadTree({ x: x - w / 2, y: y + h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
-            southEast: new QuadTree({ x: x + w / 2, y: y + h / 2, width: w, height: h }, this.capacity, this.maxDepth, nextDepth)
+            northWest: new QuadTree({ x: x - quarterW, y: y - quarterH, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
+            northEast: new QuadTree({ x: x + quarterW, y: y - quarterH, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
+            southWest: new QuadTree({ x: x - quarterW, y: y + quarterH, width: w, height: h }, this.capacity, this.maxDepth, nextDepth),
+            southEast: new QuadTree({ x: x + quarterW, y: y + quarterH, width: w, height: h }, this.capacity, this.maxDepth, nextDepth)
         };
 
         this.divided = true;
 
         // Redistribute existing items to children using a faster approach
-        const itemsLength = this.items.length;
+        const items = this.items;
+        const itemsLength = items.length;
+
+        // Track how many items were successfully inserted into children
+        let insertedCount = 0;
+
         for (let i = 0; i < itemsLength; i++) {
-            this.insertToChildren(this.items[i]);
+            if (this.insertToChildren(items[i])) {
+                insertedCount++;
+            }
         }
+
+        // Update item count
+        this.itemCount = insertedCount;
         this.items.length = 0;
     }
 
@@ -111,6 +126,7 @@ class QuadTree {
         // If there's space in this quad and we haven't divided, add the item here
         if (this.items.length < this.capacity || this.depth >= this.maxDepth) {
             this.items.push(item);
+            this.itemCount++;
             return true;
         }
 
@@ -120,7 +136,11 @@ class QuadTree {
         }
 
         // Try to insert into children
-        return this.insertToChildren(item);
+        const inserted = this.insertToChildren(item);
+        if (inserted) {
+            this.itemCount++;
+        }
+        return inserted;
     }
 
     /**
@@ -179,8 +199,6 @@ class QuadTree {
         this.children.southWest._queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found);
         this.children.southEast._queryRange(range, rangeLeft, rangeRight, rangeTop, rangeBottom, found);
     }
-
-    // These methods are now inlined in _queryRange for better performance
 
     /**
      * Find all items within a certain radius of a point
@@ -259,6 +277,7 @@ class QuadTree {
      */
     clear() {
         this.items.length = 0;
+        this.itemCount = 0;
 
         if (this.divided) {
             this.children.northWest.clear();
@@ -271,86 +290,75 @@ class QuadTree {
     }
 
     isEmpty() {
-        if (this.items.length > 0) {
-            return false;
-        }
-
-        if (this.divided) {
-            return (
-                this.children.northWest.isEmpty() &&
-                this.children.northEast.isEmpty() &&
-                this.children.southWest.isEmpty() &&
-                this.children.southEast.isEmpty()
-            );
-        }
-
-        return true;
+        return this.itemCount === 0;
     }
 
     count() {
-        let count = this.items.length;
-
-        if (this.divided) {
-            count += this.children.northWest.count();
-            count += this.children.northEast.count();
-            count += this.children.southWest.count();
-            count += this.children.southEast.count();
-        }
-
-        return count;
+        return this.itemCount;
     }
 
-    purgeEmpty() {
-        if (this.divided) {
-            this.children.northWest.purgeEmpty();
-            this.children.northEast.purgeEmpty();
-            this.children.southWest.purgeEmpty();
-            this.children.southEast.purgeEmpty();
+    purgeEmpty(merge = false) {
+        if (!this.divided) return;
 
-            // Check if all children are empty
-            if (this.children.northWest.isEmpty() &&
-                this.children.northEast.isEmpty() &&
-                this.children.southWest.isEmpty() &&
-                this.children.southEast.isEmpty()) {
-                this.divided = false;
-                this.children = null;
-                return;
-            }
+        // Early exit if this node has no items at all
+        if (this.itemCount === 0) {
+            this.divided = false;
+            this.children = null;
+            return;
+        }
 
-            // Fixed child keys for faster access
-            const childKeys = ['northWest', 'northEast', 'southWest', 'southEast'];
-            const nonEmptyChildren = [];
-            let subCount = 0;
+        // Fast path: if all items are in this node's direct items array
+        if (this.items.length === this.itemCount) {
+            return;
+        }
 
-            // Count items in non-empty children
-            for (let i = 0; i < 4; i++) {
-                const key = childKeys[i];
-                const child = this.children[key];
-                if (!child.isEmpty()) {
-                    nonEmptyChildren.push(key);
-                    subCount += child.count();
-                }
-            }
+        // Recursively purge children
+        const children = this.children;
+        children.northWest.purgeEmpty();
+        children.northEast.purgeEmpty();
+        children.southWest.purgeEmpty();
+        children.southEast.purgeEmpty();
 
-            // If few enough items, consolidate them into this node
-            if (subCount <= this.capacity) {
-                // Collect items from non-empty children
-                for (let i = 0; i < nonEmptyChildren.length; i++) {
-                    const child = this.children[nonEmptyChildren[i]];
-                    const childItems = child.items;
-                    const childItemsLength = childItems.length;
+        // Check if all children are empty - fast path using itemCount
+        if (children.northWest.itemCount === 0 &&
+            children.northEast.itemCount === 0 &&
+            children.southWest.itemCount === 0 &&
+            children.southEast.itemCount === 0) {
+            this.divided = false;
+            this.children = null;
+            return;
+        }
 
-                    // Add items directly to avoid spread operator
-                    for (let j = 0; j < childItemsLength; j++) {
-                        this.items.push(childItems[j]);
-                    }
 
-                    // Also get items from any subdivided children
-                    if (child.divided) {
-                        this._collectItemsFromChildren(child, this.items);
-                    }
+        // If few enough items, consolidate them into this node
+        if (merge && this.itemCount <= this.capacity) {
+            const childItemCount = this.itemCount - this.items.length;
+            if (childItemCount <= this.capacity) {
+                // Pre-allocate space in items array
+                const newItems = new Array(this.itemCount);
+                let index = 0;
+
+                // Copy current items
+                const currentItems = this.items;
+                const currentLength = currentItems.length;
+                for (let i = 0; i < currentLength; i++) {
+                    newItems[index++] = currentItems[i];
                 }
 
+                // Collect items from children directly
+                this._fastCollectItems(children.northWest, newItems, index);
+                index += children.northWest.itemCount;
+
+                this._fastCollectItems(children.northEast, newItems, index);
+                index += children.northEast.itemCount;
+
+                this._fastCollectItems(children.southWest, newItems, index);
+                index += children.southWest.itemCount;
+
+                this._fastCollectItems(children.southEast, newItems, index);
+
+                // Replace items array
+                this.items = newItems;
                 this.divided = false;
                 this.children = null;
             }
@@ -358,26 +366,34 @@ class QuadTree {
     }
 
     /**
-     * Helper method to collect items from all children recursively
+     * Fast item collection from a node and its children
      * @private
      */
-    _collectItemsFromChildren(node, targetArray) {
+    _fastCollectItems(node, targetArray, startIndex) {
+        // Copy direct items
+        let index = startIndex;
+        const nodeItems = node.items;
+        const nodeItemsLength = nodeItems.length;
+
+        for (let i = 0; i < nodeItemsLength; i++) {
+            targetArray[index++] = nodeItems[i];
+        }
+
+        // If not divided, we're done
         if (!node.divided) return;
 
-        const childKeys = ['northWest', 'northEast', 'southWest', 'southEast'];
-        for (let i = 0; i < 4; i++) {
-            const child = node.children[childKeys[i]];
-            const childItems = child.items;
-            const childItemsLength = childItems.length;
+        // Otherwise collect from children
+        const children = node.children;
+        this._fastCollectItems(children.northWest, targetArray, index);
+        index += children.northWest.itemCount;
 
-            for (let j = 0; j < childItemsLength; j++) {
-                targetArray.push(childItems[j]);
-            }
+        this._fastCollectItems(children.northEast, targetArray, index);
+        index += children.northEast.itemCount;
 
-            if (child.divided) {
-                this._collectItemsFromChildren(child, targetArray);
-            }
-        }
+        this._fastCollectItems(children.southWest, targetArray, index);
+        index += children.southWest.itemCount;
+
+        this._fastCollectItems(children.southEast, targetArray, index);
     }
 }
 

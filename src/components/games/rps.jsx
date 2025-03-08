@@ -40,6 +40,26 @@ const distanceSq = (a, b) => {
     return dx * dx + dy * dy;
 };
 
+// Optimized angle calculation
+const fastAtan2 = (y, x) => {
+    // Fast approximate atan2 implementation
+    // Less accurate but much faster than Math.atan2
+    const abs_x = Math.abs(x);
+    const abs_y = Math.abs(y);
+
+    if (abs_x < 0.0000001 && abs_y < 0.0000001) return 0;
+
+    const a = Math.min(abs_x, abs_y) / Math.max(abs_x, abs_y);
+    const s = a * a;
+    let r = ((-0.0464964749 * s + 0.15931422) * s - 0.327622764) * s * a + a;
+
+    if (abs_y > abs_x) r = 1.57079637 - r;
+    if (x < 0) r = 3.14159274 - r;
+    if (y < 0) r = -r;
+
+    return r;
+};
+
 
 const RockPaperScissors = () => {
     const canvasRef = useRef(null);
@@ -101,9 +121,8 @@ const RockPaperScissors = () => {
                     circles = createRandomCircles();
 
                     // Reset quadtree with new circles
-                    quadtree.clear();
+                    quadtree = new QuadTree(boundary);
                     circles.forEach(circle => quadtree.insert(circle));
-                    quadtree.purgeEmpty();
 
                     if (!isPerformingReset.current) {
                         isPerformingReset.current = true;
@@ -136,7 +155,7 @@ const RockPaperScissors = () => {
         // Insert all circles into the quadtree
         circles.forEach(circle => quadtree.insert(circle));
 
-        quadtree.purgeEmpty();
+        quadtree.purgeEmpty(true);
 
         // Update circles in-place for better performance
         for (let i = 0; i < circles.length; i++) {
@@ -205,7 +224,7 @@ const RockPaperScissors = () => {
 
             if (closestTarget) {
                 // Move towards the closest target
-                const targetAngle = Math.atan2(
+                const targetAngle = fastAtan2(
                     closestTarget.pos.y - circle.pos.y,
                     closestTarget.pos.x - circle.pos.x
                 );
@@ -217,7 +236,7 @@ const RockPaperScissors = () => {
             }
             else if (hasThreats && (fleeX !== 0 || fleeY !== 0)) {
                 // Calculate direction away from threats
-                const fleeAngle = Math.atan2(fleeY, fleeX);
+                const fleeAngle = fastAtan2(fleeY, fleeX);
 
                 // Gradually turn away from threats
                 newDirection = circle.direction + (((fleeAngle - circle.direction + Math.PI * 3) % (Math.PI * 2)) - Math.PI) * TURN_SPEED;
