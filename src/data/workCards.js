@@ -17,6 +17,7 @@ const query = gql`{
 const getWorkCards = async () => {
   const client = new GraphQLClient(ENDPOINT)
   const { workCards } = await client.request(query)
+
   workCards.sort((a, b) => {
     if (a.name == "Work") return -1
     if (b.name == "Work") return 1
@@ -24,6 +25,7 @@ const getWorkCards = async () => {
     let bYear = parseInt(b.title.split(" - ")[1])
     return bYear - aYear
   })
+
   return workCards
 }
 

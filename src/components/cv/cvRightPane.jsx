@@ -35,6 +35,20 @@ const CvRightPane = () => {
                     I welcome you to connect!
                 </m.p>
                 <h3 className="text-2xl font-bold text-black mt-10 mb-5">- E X P E R I E N C E -</h3>
+                <CvExperience employer="CitNOW"
+                    role="Tech Lead"
+                    dates="May 2025 - Present"
+                    bullets={[
+                        "Lead the React-Native development team, working closely with offshore developers and integrating with onshore native mobile teams",
+                        "Architect and develop mobile applications using TypeScript, React-Native, and modern JavaScript frameworks",
+                        "Establish technical standards and best practices for React-Native development across the organization",
+                        "Mentor junior developers to strengthen their technical skills and foster professional growth",
+                        "Collaborate with product and design teams to deliver high-quality mobile experiences",
+                        "Implement and optimize CI/CD pipelines to ensure efficient delivery of mobile applications",
+                        "Conduct code reviews and provide constructive feedback to improve code quality and team performance",
+                        "Participate in architectural decisions to ensure scalable and maintainable mobile solutions"
+                    ]} />
+                <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
                 <CvExperience employer="Rippl"
                     role="Tech Lead"
                     dates="Jan 2024 - July 2024"

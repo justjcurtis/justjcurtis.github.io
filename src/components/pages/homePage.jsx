@@ -101,7 +101,7 @@ const HomePage = () => {
                         <div className="stat">
                             <div className="stat-title">Current Focus</div>
                             <div className="stat-value text-accent underline">
-                                <a href='https://cs2cfgr.com' target="_blank" rel="noreferrer">CS2CFGR</a>
+                                <a href='https://www.citnow.com/products/imaging/' target="_blank" rel="noreferrer">Imaging @CitNOW</a>
                             </div>
                             <div className="stat-desc mt-3">Thanks for stopping by   🌈</div>
                         </div>

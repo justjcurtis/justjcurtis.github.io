@@ -30,15 +30,11 @@ const CvLeftPane = () => {
             <CvLineItem leftText="Philosophy" rightTexts={["B"]} />
             <CvLineItem leftText="Law" rightTexts={["B"]} />
             <div className="bg-secondary-focus mt-5 rounded-full h-px w-100" />
-            <CvLineItem leftText="GCSE'S:" rightTexts={["Bluecoat Academy", "Sep 2007 - Jul 2012"]} />
-            <CvLineItem leftText="Maths" rightTexts={["B"]} />
-            <CvLineItem leftText="English" rightTexts={["C"]} />
-            <CvLineItem leftText="Physics" rightTexts={["A"]} />
-            <CvLineItem leftText="Chemistry" rightTexts={["A"]} />
-            <CvLineItem leftText="Biology" rightTexts={["A"]} />
-            <CvLineItem leftText="Psychology" rightTexts={["B"]} />
-            <CvLineItem leftText="P.E." rightTexts={["A"]} />
-            <CvLineItem leftText="Business" rightTexts={["PASS (B-TEC)"]} />
+            <h3 className="text-2xl font-bold text-neutral-focus mb-5 mt-10">- S K I L L S -</h3>
+            <CvLineItem leftText="LANGUAGES:" rightTexts={["TypeScript", "JavaScript", "Zig", "Go", "C#"]} />
+            <CvLineItem leftText="FRAMEWORKS:" rightTexts={["React", "React-Native", "Node.js", "Express"]} />
+            <CvLineItem leftText="TOOLS:" rightTexts={["Git", "CI/CD", "Jest", "Detox", "Firebase", "AWS"]} />
+            <CvLineItem leftText="SOFT SKILLS:" rightTexts={["Leadership", "Mentoring", "Problem Solving"]} />
             <div className="bg-secondary-focus mt-5 rounded-full h-px w-100" />
             <h3 className="text-xl font-thin text-primary-focus mb-5 mt-10 print:hidden">References Available On Request</h3>
         </div>
