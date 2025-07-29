@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import useDetectSound from "../hooks/useDetectSound";
-import { STOP_CODE } from "../data/constants";
 
 const maxLength = 1000;
 const maxQrWidth = window.innerWidth - 100; // Adjusted for padding
@@ -11,7 +10,6 @@ export const GapStreamer = ({ data }) => {
     const [currentFrame, setCurrentFrame] = useState(0);
     const frameData = useRef("");
     const currentFrameRef = useRef(0);
-    const hasSendEndFrame = useRef(false);
 
     function drawFrame() {
         if (data.length === 0) {
@@ -20,13 +18,7 @@ export const GapStreamer = ({ data }) => {
         }
         const idx = currentFrameRef.current * maxLength;
         if (idx >= data.length) {
-            if (hasSendEndFrame.current) {
-                endStream();
-            }
-            nextFrame = STOP_CODE
-            frameData.current = nextFrame;
-            hasSendEndFrame.current = true;
-            setCurrentFrame(prev => prev + 1);
+            endStream();
             return;
         }
         const nextFrame = data.slice(idx, idx + maxLength);
@@ -37,8 +29,10 @@ export const GapStreamer = ({ data }) => {
 
     function endStream() {
         setStreaming(false);
-        setCurrentFrame(0);
-        currentFrameRef.current = 0;
+        frameData.current = "";
+        setTimeout(() => {
+            stopListening();
+        }, 1000);
     }
 
 
@@ -77,13 +71,9 @@ export const GapStreamer = ({ data }) => {
         <div className="flex flex-col items-center space-y-4 mt-40">
             {/* Sound detection status */}
             {!streaming && (
-                <button
-                    onClick={handleStartStreaming}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                    disabled={!data || data.length === 0}
-                >
-                    Start Streaming
-                </button>
+                <div className="text-sm text-gray-600 mb-2">
+                    Waiting for receiver to start...
+                </div>
             )}
             {streaming && frameData.current.length > 0 && (
                 <div className="flex flex-col items-center space-y-4 bg-white z-10 p-4">
@@ -100,7 +90,7 @@ export const GapStreamer = ({ data }) => {
             )}
             {!streaming && currentFrame > 0 && (
                 <div className="text-sm text-green-600">
-                    Streaming completed! Streamed {currentFrame} frames
+                    Streaming completed!
                 </div>
             )}
         </div>

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { QrReader } from 'react-qr-reader';
-import { STOP_CODE } from '../data/constants';
+import { TARGET_FREQ } from '../data/constants';
 
-function playBeep(frequency = 440, duration = 500) {
+function playBeep(frequency = TARGET_FREQ, duration = 300) {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
@@ -19,12 +19,13 @@ function playBeep(frequency = 440, duration = 500) {
 
 export const GapDecoder = () => {
     const lastResult = useRef("");
-    const [finalResult, setFinalResult] = useState("test");
+    const [finalResult, setFinalResult] = useState("");
     const lastResultTimestamp = useRef(null);
     const [isFinished, setIsFinished] = useState(false);
     const intervalRef = useRef(null);
 
     const handleResult = (text) => {
+        if (isFinished) return;
         if (text === lastResult.current) {
             return; // Ignore duplicate results
         }
@@ -32,32 +33,20 @@ export const GapDecoder = () => {
         if (lastResultTimestamp.current && (now - lastResultTimestamp.current) < 1000) {
             return; // Ignore results that come too quickly
         }
-        lastResultTimestamp.current = now;
-        if (text == STOP_CODE) {
-            setIsFinished(true);
-            clearInterval(intervalRef.current);
-            playBeep(440, 500); // Play a different beep for stop code
-            return;
-        }
         lastResult.current = text;
         setFinalResult(prev => prev + text);
-        playBeep(440, 300)
+        playBeep(TARGET_FREQ)
+        if (text.length < 1000) {
+            setTimeout(() => {
+                setIsFinished(true)
+            }, 300);
+        }
     }
 
     useEffect(() => {
-        intervalRef.current = setInterval(() => {
-            const now = Date.now();
-            if (lastResultTimestamp.current && (now - lastResultTimestamp.current) > 5000) {
-                // If no new result for 2 seconds, consider it finished
-                setIsFinished(true);
-                clearInterval(intervalRef.current);
-            }
-        }, 1000);
-
-        playBeep(440, 300); // Initial beep to indicate start
-        return () => {
-            clearInterval(intervalRef.current);
-        }
+        setTimeout(() => {
+            playBeep(TARGET_FREQ);
+        }, 300);
     }, [])
 
     return (
@@ -66,6 +55,7 @@ export const GapDecoder = () => {
                 {!isFinished &&
                     <>
                         <QrReader
+
                             constraints={{ facingMode: 'environment' }}
                             onResult={(result, error) => {
                                 if (!!result) {

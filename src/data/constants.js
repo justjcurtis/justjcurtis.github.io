@@ -1,4 +1,4 @@
-const STOP_CODE = "W:p7V47tA!5FWL_+e}zf&qJ/-WYbAM"
+const TARGET_FREQ = 17000
 const ONE_MIN_MS = 60000
 const CONSTRUCTION_PERCENTAGE = 95
 const ENDPOINT = 'https://api-eu-west-2.hygraph.com/v2/clchjkt731a3801t81v2087ix/master'
@@ -159,4 +159,4 @@ const LOADING_MESSAGES = ["Reticulating splines..",
     "Baking ice cream..",
 ]
 
-export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES, LOADING_SECONDS, ONE_MIN_MS, STOP_CODE };
+export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES, LOADING_SECONDS, ONE_MIN_MS, TARGET_FREQ };
