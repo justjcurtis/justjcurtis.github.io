@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import useDetectSound from "../hooks/useDetectSound";
+import { STOP_CODE } from "../data/constants";
 
 const maxLength = 1000;
 const maxQrWidth = window.innerWidth - 100; // Adjusted for padding
@@ -10,6 +11,7 @@ export const GapStreamer = ({ data }) => {
     const [currentFrame, setCurrentFrame] = useState(0);
     const frameData = useRef("");
     const currentFrameRef = useRef(0);
+    const hasSendEndFrame = useRef(false);
 
     function drawFrame() {
         if (data.length === 0) {
@@ -18,7 +20,13 @@ export const GapStreamer = ({ data }) => {
         }
         const idx = currentFrameRef.current * maxLength;
         if (idx >= data.length) {
-            endStream();
+            if (hasSendEndFrame.current) {
+                endStream();
+            }
+            nextFrame = STOP_CODE
+            frameData.current = nextFrame;
+            hasSendEndFrame.current = true;
+            setCurrentFrame(prev => prev + 1);
             return;
         }
         const nextFrame = data.slice(idx, idx + maxLength);

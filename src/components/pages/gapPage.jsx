@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { GapStreamer } from '../gapStreamer';
-import { LONG_TEXT } from '../../data/constants';
 import { GapDecoder } from '../gapDecoder';
 
 export const GapPage = () => {
-    const [text, setText] = useState(LONG_TEXT);
+    const [text, setText] = useState("");
     const [showStreamer, setShowStreamer] = useState(false);
     const [showDecoder, setShowDecoder] = useState(false);
 
@@ -42,20 +41,22 @@ export const GapPage = () => {
                                     <span className="text-sm text-gray-400">
                                         Characters: {text.length}
                                     </span>
-                                    <button
-                                        type="button"
-                                        onClick={handleTextSubmit}
-                                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-                                    >
-                                        Log Bytes to Console
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowDecoder(true)}
-                                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-                                    >
-                                        Decode Gap
-                                    </button>
+                                    <div className="text-sm text-gray-400">
+                                        <button
+                                            type="button"
+                                            onClick={handleTextSubmit}
+                                            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                                        >
+                                            Stream Gap
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowDecoder(true)}
+                                            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ml-2"
+                                        >
+                                            Decode Gap
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

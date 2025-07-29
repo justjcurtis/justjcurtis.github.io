@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { QrReader } from 'react-qr-reader';
-import { LONG_TEXT } from '../data/constants';
+import { STOP_CODE } from '../data/constants';
 
 function playBeep(frequency = 440, duration = 500) {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -19,7 +19,7 @@ function playBeep(frequency = 440, duration = 500) {
 
 export const GapDecoder = () => {
     const lastResult = useRef("");
-    const [finalResult, setFinalResult] = useState("");
+    const [finalResult, setFinalResult] = useState("test");
     const lastResultTimestamp = useRef(null);
     const [isFinished, setIsFinished] = useState(false);
     const intervalRef = useRef(null);
@@ -33,6 +33,12 @@ export const GapDecoder = () => {
             return; // Ignore results that come too quickly
         }
         lastResultTimestamp.current = now;
+        if (text == STOP_CODE) {
+            setIsFinished(true);
+            clearInterval(intervalRef.current);
+            playBeep(440, 500); // Play a different beep for stop code
+            return;
+        }
         lastResult.current = text;
         setFinalResult(prev => prev + text);
         playBeep(440, 300)
@@ -56,7 +62,7 @@ export const GapDecoder = () => {
 
     return (
         <div className="flex-1 flex items-center justify-center select-none">
-            <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl w-full">
+            <div className="bg-neutral rounded-lg shadow-lg p-6 max-w-2xl w-full">
                 {!isFinished &&
                     <>
                         <QrReader
@@ -89,11 +95,21 @@ export const GapDecoder = () => {
                         <p className="text-lg mb-4">Final Result:</p>
                         <textarea
                             id="textInput"
+                            disabled
                             defaultValue={finalResult}
                             className="w-full h-40 p-3 border border-gray-300 rounded-md resize-vertical focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             rows={6}
                         />
-                        <p>decoded correctly: {finalResult == LONG_TEXT ? "✅" : "❌"}</p>
+                        <div className="mt-4">
+                            <button
+                                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(finalResult);
+                                    alert("Decoded text copied to clipboard!");
+                                }}>
+                                Copy Decoded Text
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
