@@ -27,6 +27,8 @@
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-qr-code": "^2.0.18",
+    "react-qr-reader": "^3.0.0-beta-1",
     "react-router-dom": "^6.6.1",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.2.1",
