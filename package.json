@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.16",
+    "caniuse-lite": "^1.0.30001731",
     "daisyui": "^2.46.0",
     "framer-motion": "^8.1.3",
     "graphql": "^16.6.0",

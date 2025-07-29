@@ -18,34 +18,37 @@ function playBeep(frequency = 440, duration = 500) {
 }
 
 export const GapDecoder = () => {
-    const [lastResult, setLastResult] = useState("");
+    const lastResult = useRef("");
     const [finalResult, setFinalResult] = useState("");
     const lastResultTimestamp = useRef(null);
     const [isFinished, setIsFinished] = useState(false);
     const intervalRef = useRef(null);
 
     const handleResult = (text) => {
-        if (text === lastResult) {
+        if (text === lastResult.current) {
             return; // Ignore duplicate results
         }
         const now = Date.now();
+        if (lastResultTimestamp.current && (now - lastResultTimestamp.current) < 1000) {
+            return; // Ignore results that come too quickly
+        }
         lastResultTimestamp.current = now;
-        setLastResult(text);
+        lastResult.current = text;
         setFinalResult(prev => prev + text);
-        playBeep(440, 100)
+        playBeep(440, 300)
     }
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
             const now = Date.now();
-            if (lastResultTimestamp.current && (now - lastResultTimestamp.current) > 2000) {
+            if (lastResultTimestamp.current && (now - lastResultTimestamp.current) > 5000) {
                 // If no new result for 2 seconds, consider it finished
                 setIsFinished(true);
                 clearInterval(intervalRef.current);
             }
         }, 1000);
 
-        playBeep(440, 500); // Initial beep to indicate start
+        playBeep(440, 300); // Initial beep to indicate start
         return () => {
             clearInterval(intervalRef.current);
         }
@@ -54,18 +57,32 @@ export const GapDecoder = () => {
     return (
         <div className="flex-1 flex items-center justify-center select-none">
             <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl w-full">
-                {!isFinished && <QrReader
-                    constraints={{ facingMode: 'environment' }}
-                    onResult={(result, error) => {
-                        if (!!result) {
-                            handleResult(result.text);
-                        }
+                {!isFinished &&
+                    <>
+                        <QrReader
+                            constraints={{ facingMode: 'environment' }}
+                            onResult={(result, error) => {
+                                if (!!result) {
+                                    handleResult(result.text);
+                                }
 
-                        if (!!error) {
-                        }
-                    }}
-                    style={{ width: '100%' }}
-                />}
+                                if (!!error) {
+                                }
+                            }}
+                            style={{ width: '100%' }}
+                        />
+                        <div className="text-center mt-4">
+                            <button
+                                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                onClick={() => {
+                                    setIsFinished(true);
+                                    clearInterval(intervalRef.current);
+                                }}>
+                                Finish Decoding
+                            </button>
+                        </div>
+
+                    </>}
                 {isFinished && (
                     <div className="text-center">
                         <h2 className="text-2xl font-semibold mb-4">Decoding Finished</h2>

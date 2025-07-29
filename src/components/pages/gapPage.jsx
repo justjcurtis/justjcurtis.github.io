@@ -22,11 +22,11 @@ export const GapPage = () => {
                         <h1 className="text-4xl font-bold text-center mb-8">This page is a work in progress!</h1>
                         <p className="text-lg text-center mb-8">Please check back later.</p>
 
-                        <div className="bg-white rounded-lg shadow-lg p-6">
+                        <div className="bg-black rounded-lg shadow-lg p-6">
                             <h2 className="text-2xl font-semibold mb-4">Text Byte Counter</h2>
                             <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                                 <div>
-                                    <label htmlFor="textInput" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="textInput" className="block text-sm font-medium text-gray-400 mb-2">
                                         Enter your text:
                                     </label>
                                     <textarea
@@ -34,12 +34,12 @@ export const GapPage = () => {
                                         value={text}
                                         onChange={(e) => setText(e.target.value)}
                                         placeholder="Type or paste your text here..."
-                                        className="w-full h-40 p-3 border border-gray-300 rounded-md resize-vertical focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full h-40 p-3 border border-gray-600 rounded-md resize-vertical focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         rows={6}
                                     />
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-sm text-gray-600">
+                                    <span className="text-sm text-gray-400">
                                         Characters: {text.length}
                                     </span>
                                     <button

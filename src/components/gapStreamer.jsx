@@ -22,9 +22,6 @@ export const GapStreamer = ({ data }) => {
             return;
         }
         const nextFrame = data.slice(idx, idx + maxLength);
-        console.log(nextFrame);
-        console.log(nextFrame.length);
-        console.log("Current Frame:", currentFrameRef.current);
         frameData.current = nextFrame;
         currentFrameRef.current += 1;
         setCurrentFrame(currentFrameRef.current);
@@ -50,23 +47,27 @@ export const GapStreamer = ({ data }) => {
         setStreaming(true);
     }
     const onDetect = (volume) => {
-        console.log("Sound detected with volume:", volume);
         if (!streaming) {
             handleStartStreaming();
+            drawFrame();
         } else {
             drawFrame();
         }
     }
 
-    useDetectSound({
-        threshold: 50,
-        onDetect,
-        duration: 100,
-        sensitivity: 1
-    })
+    const { startListening, stopListening } = useDetectSound(onDetect, 50, 100);
+
+    // Start listening when component mounts
+    useEffect(() => {
+        startListening();
+        return () => {
+            stopListening();
+        };
+    }, []);
 
     return (
         <div className="flex flex-col items-center space-y-4 mt-40">
+            {/* Sound detection status */}
             {!streaming && (
                 <button
                     onClick={handleStartStreaming}
@@ -78,6 +79,9 @@ export const GapStreamer = ({ data }) => {
             )}
             {streaming && frameData.current.length > 0 && (
                 <div className="flex flex-col items-center space-y-4 bg-white z-10 p-4">
+                    <div className="text-sm text-blue-600 mb-2">
+                        Frame {currentFrame} - Make a sound to advance
+                    </div>
                     <QRCode
                         title="GapStreamer QR Code"
                         value={frameData.current}
@@ -88,7 +92,7 @@ export const GapStreamer = ({ data }) => {
             )}
             {!streaming && currentFrame > 0 && (
                 <div className="text-sm text-green-600">
-                    Streaming completed! Streamed
+                    Streaming completed! Streamed {currentFrame} frames
                 </div>
             )}
         </div>
