@@ -12,6 +12,9 @@ export const GapDecoder = () => {
     const handleResult = (text) => {
         if (isFinished) return;
         if (text === lastResult.current) {
+            if (lastResultTimestamp.current && (Date.now() - lastResultTimestamp.current) > 1000) {
+                playBeep();
+            }
             return; // Ignore duplicate results
         }
         const now = Date.now();
@@ -36,7 +39,6 @@ export const GapDecoder = () => {
                 {!isFinished &&
                     <>
                         <QrReader
-
                             constraints={{ facingMode: 'environment' }}
                             onResult={(result, error) => {
                                 if (!!result) {
