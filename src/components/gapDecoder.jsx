@@ -36,11 +36,7 @@ export const GapDecoder = () => {
         lastResult.current = text;
         setFinalResult(prev => prev + text);
         playBeep(TARGET_FREQ)
-        if (text.length < 1000) {
-            setTimeout(() => {
-                setIsFinished(true)
-            }, 300);
-        }
+        if (text.length < 1000) setIsFinished(true)
     }
 
     useEffect(() => {
