@@ -93,7 +93,7 @@ export const GapDecoder = () => {
                                     navigator.clipboard.writeText(finalResult);
                                     alert("Decoded text copied to clipboard!");
                                 }}>
-                                Copy Decoded Text
+                                Copy Gap
                             </button>
                         </div>
                     </div>

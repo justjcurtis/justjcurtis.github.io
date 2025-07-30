@@ -68,18 +68,15 @@ export const GapStreamer = ({ data }) => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center space-y-4 mt-40">
+        <div className="flex flex-col items-center space-y-4">
             {/* Sound detection status */}
-            {!streaming && (
+            {!streaming && currentFrame == 0 && (
                 <div className="text-sm text-gray-600 mb-2">
                     Waiting for receiver to start...
                 </div>
             )}
             {streaming && frameData.current.length > 0 && (
                 <div className="flex flex-col items-center space-y-4 bg-white z-10 p-4">
-                    <div className="text-sm text-blue-600 mb-2">
-                        Frame {currentFrame} - Make a sound to advance
-                    </div>
                     <QRCode
                         title="GapStreamer QR Code"
                         value={frameData.current}

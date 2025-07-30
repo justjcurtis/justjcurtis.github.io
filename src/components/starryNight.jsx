@@ -50,7 +50,7 @@ const StarryNight = ({ children }) => {
     }, [stars, draw])
     return (
         <>
-            <div className="bg-transparent text-white py-8 z-50 sticky top-0 mx-auto left-0 right-0 overflow-hidden">
+            <div className="bg-transparent text-white py-8 z-40 sticky top-0 mx-auto left-0 right-0 overflow-hidden">
                 {stars && stars.map((s, i) => {
                     const isOffscreen = s.x > window.innerWidth ||
                         s.y > window.innerHeight + window.scrollY * 0.1 ||
