@@ -87,7 +87,7 @@ export const GapStreamer = ({ data }) => {
             )}
             {!streaming && currentFrame > 0 && (
                 <div className="text-sm text-green-600">
-                    Streaming completed!
+                    Gapped!
                 </div>
             )}
         </div>
