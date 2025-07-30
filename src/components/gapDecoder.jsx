@@ -1,21 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { QrReader } from 'react-qr-reader';
-import { TARGET_FREQ } from '../data/constants';
-
-function playBeep(frequency = TARGET_FREQ, duration = 300) {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-
-    oscillator.type = 'sine'; // Types: 'sine', 'square', 'triangle', 'sawtooth'
-    oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + duration / 1000);
-}
+import { playBeep } from '../utils/helpers';
 
 export const GapDecoder = () => {
     const lastResult = useRef("");
@@ -35,13 +20,13 @@ export const GapDecoder = () => {
         }
         lastResult.current = text;
         setFinalResult(prev => prev + text);
-        playBeep(TARGET_FREQ)
+        playBeep();
         if (text.length < 1000) setIsFinished(true)
     }
 
     useEffect(() => {
         setTimeout(() => {
-            playBeep(TARGET_FREQ);
+            playBeep();
         }, 300);
     }, [])
 
