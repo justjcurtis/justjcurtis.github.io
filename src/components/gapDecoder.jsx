@@ -24,7 +24,7 @@ export const GapDecoder = () => {
         lastResult.current = text;
         setFinalResult(prev => prev + text);
         playBeep();
-        if (text.length < 1000) setIsFinished(true)
+        if (text.length < 500) setIsFinished(true)
     }
 
     useEffect(() => {
