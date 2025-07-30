@@ -16,8 +16,10 @@ export const GapPage = () => {
     return (
         <StarryNight>
             <div className="z-50 relative flex flex-col items-center justify-center min-h-screen">
-                {showDecoder && <GapDecoder />}
-                {showStreamer && <GapStreamer data={text} />}
+                <div className="flex-1 flex w-screen overflow-hidden">
+                    {showDecoder && <GapDecoder />}
+                    {showStreamer && <GapStreamer data={text} />}
+                </div>
                 {!showStreamer && !showDecoder &&
                     <div className='flex w-screen h-screen'>
                         <div className="flex-1  flex flex-col items-center justify-center p-8 select-none" >

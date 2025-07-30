@@ -70,15 +70,15 @@ export const GapDecoder = () => {
                                     setIsFinished(true);
                                     clearInterval(intervalRef.current);
                                 }}>
-                                Finish Decoding
+                                Collapse Gap
                             </button>
                         </div>
 
                     </>}
                 {isFinished && (
                     <div className="text-center">
-                        <h2 className="text-2xl font-semibold mb-4">Decoding Finished</h2>
-                        <p className="text-lg mb-4">Final Result:</p>
+                        <h2 className="text-2xl font-semibold mb-4">Gapped!</h2>
+                        <p className="text-lg mb-4">Observations</p>
                         <textarea
                             id="textInput"
                             disabled
@@ -91,9 +91,8 @@ export const GapDecoder = () => {
                                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                                 onClick={() => {
                                     navigator.clipboard.writeText(finalResult);
-                                    alert("Decoded text copied to clipboard!");
                                 }}>
-                                Copy Gap
+                                Retrieve Gap
                             </button>
                         </div>
                     </div>
