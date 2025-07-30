@@ -18,6 +18,7 @@ export const GapDecoder = () => {
             playBeep();
         }, 100);
     }, []);
+
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const handleResult = async (text) => {

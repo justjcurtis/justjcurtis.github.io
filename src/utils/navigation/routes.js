@@ -3,7 +3,7 @@ export const AppRoutes = {
     work: '/work',
     projects: '/projects',
     about: '/about',
-    gap: '/gap',
+    gap: '/apg',
     cv: '/cv',
     wip: '/wip',
     games: '/games/:gameName',
