@@ -43,8 +43,8 @@ export const getRandomForToday = (dayOffset = 0) => {
 export const selectFromArrWithFloat = (arr, float) => arr[Math.floor(float * arr.length)]
 
 
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 export const playBeep = (frequency = TARGET_FREQ, duration = 300) => {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 

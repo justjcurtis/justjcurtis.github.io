@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import useDetectSound from "../hooks/useDetectSound";
 
-const maxLength = 500;
+const maxLength = 1000;
 const maxQrWidth = window.innerWidth - 100; // Adjusted for padding
 
 export const GapStreamer = ({ data }) => {
