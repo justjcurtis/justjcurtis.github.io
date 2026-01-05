@@ -35,99 +35,105 @@ const CvRightPane = () => {
                     I welcome you to connect!
                 </m.p>
                 <h3 className="text-2xl font-bold text-black mt-10 mb-5">- E X P E R I E N C E -</h3>
-                <CvExperience employer="CitNOW"
+                <CvExperience
+                    employer="CitNOW"
                     role="Tech Lead"
-                    dates="May 2025 - Present"
+                    dates="May 2025 – Present"
                     bullets={[
-                        "Lead the React-Native development team, working closely with offshore developers and integrating with onshore native mobile teams",
-                        "Architect and develop mobile applications using TypeScript, React-Native, and modern JavaScript frameworks",
-                        "Establish technical standards and best practices for React-Native development across the organization",
-                        "Mentor junior developers to strengthen their technical skills and foster professional growth",
-                        "Collaborate with product and design teams to deliver high-quality mobile experiences",
-                        "Implement and optimize CI/CD pipelines to ensure efficient delivery of mobile applications",
-                        "Conduct code reviews and provide constructive feedback to improve code quality and team performance",
-                        "Participate in architectural decisions to ensure scalable and maintainable mobile solutions"
-                    ]} />
+                        "Lead the React Native development team, collaborating with offshore developers and onshore native mobile teams",
+                        "Design and develop mobile applications using TypeScript, React Native, and modern JavaScript frameworks",
+                        "Define and enforce technical standards and best practices for React Native development across the organisation",
+                        "Mentor junior developers, supporting technical excellence and professional growth",
+                        "Partner with product and design teams to deliver high-quality, user-focused mobile experiences",
+                        "Design, implement, and optimise CI/CD pipelines to enable efficient and reliable mobile delivery",
+                        "Conduct thorough code reviews, providing constructive feedback to improve code quality and team performance",
+                        "Drive architectural decisions to ensure scalable, maintainable, and performant mobile solutions",
+                        "Lead the re-architecture, reimplementation, and optimisation of existing mobile applications to improve performance, user experience, and maintainability",
+                    ]}
+                />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
-                <CvExperience employer="Rippl"
+                <CvExperience
+                    employer="Rippl"
                     role="Tech Lead"
-                    dates="Jan 2024 - July 2024"
+                    dates="Jan 2024 – Jul 2024"
                     bullets={[
-                        "Led a team of engineers to successfully deliver new features and enhancements to mobile applications",
-                        "Conducted regular 1-1 meetings with team members to foster personal and professional development",
-                        "Architected and developed a new mobile application using React-Native, TypeScript, Jest, and Detox",
-                        "Provided strategic input to design decisions, leveraging both my expertise and the collective knowledge of colleagues",
-                        "Mentored and coached team members to strengthen cultural alignment, technical cohesion, and individual growth",
-                        "Interviewed engineers across all levels to build a high-performing team with strong technical skills and cultural fit",
-                        "Created and maintained cloud services to support mobile applications with analytics, authentication, and data storage",
-                        "Established and optimized CI/CD pipelines for mobile applications to ensure efficient delivery",
-                    ]} />
+                        "Led a cross-functional team of engineers to deliver new features and enhancements for mobile applications",
+                        "Held regular one-to-one meetings to support team members’ personal development, performance, and career progression",
+                        "Architected and built a new mobile application using React Native, TypeScript, Jest, and Detox",
+                        "Provided strategic input into product and technical design decisions, balancing individual expertise with team collaboration",
+                        "Mentored and coached engineers to strengthen technical alignment, team culture, and individual growth",
+                        "Interviewed and assessed engineers across multiple seniority levels to build a high-performing, culturally aligned team",
+                        "Designed and maintained cloud-based services supporting mobile applications, including analytics, authentication, and data storage",
+                        "Designed and optimised CI/CD pipelines to enable reliable and efficient mobile application delivery",
+                    ]}
+                />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
-                <CvExperience employer="Zopa Bank"
+                <CvExperience
+                    employer="Zopa Bank"
                     role="Senior Software Engineer"
-                    dates="Jun 2023 - Oct 2023"
+                    dates="Jun 2023 – Oct 2023"
                     bullets={[
-                        "Developed enterprise-level mobile applications using React-Native, TypeScript, Jest, and Detox",
-                        "Maintained comprehensive Detox E2E test suites to ensure high-quality mobile applications",
-                        "Facilitated cross-team communication to ensure alignment of goals and objectives",
-                        "Led a small team of engineers to deliver new features and improvements to mobile applications",
-                        "Conducted regular 1-1 meetings with team members to support personal and professional development",
-                        "Implemented process improvements to enhance team efficiency and effectiveness",
-                        "Committed to weekly personal development to strengthen skills aligned with project, team, and company needs",
-                        "Optimized CI/CD pipelines to ensure quality and timely delivery of mobile applications",
-                    ]} />
+                        "Developed enterprise-scale mobile applications using React Native, TypeScript, Jest, and Detox",
+                        "Built and maintained comprehensive Detox end-to-end test suites to ensure high-quality mobile releases",
+                        "Led a small group of engineers to deliver new features and improvements within the mobile application",
+                        "Facilitated cross-team collaboration to align technical delivery with product and business objectives",
+                        "Held regular one-to-one meetings to support engineers’ performance, growth, and engagement",
+                        "Introduced process improvements that increased team efficiency and delivery reliability",
+                        "Optimised CI/CD pipelines to improve build stability, testing confidence, and release cadence",
+                    ]}
+                />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
-                <CvExperience employer="The Economist"
+                <CvExperience
+                    employer="The Economist"
                     role="Senior Software Engineer"
-                    dates="Jan 2021 - Jun 2023"
+                    dates="Jan 2021 – Jun 2023"
                     bullets={[
-                        "Developed enterprise-level mobile applications using React-Native, TypeScript, Jest, and Detox",
-                        "Actively contributed to daily and weekly team meetings, sharing valuable ideas and insights with a multidisciplinary team to resolve challenges",
-                        "Expertly utilized Agile and Scrum methodologies, adapting workflows as needed to optimize team performance",
-                        "Maintained comprehensive unit test suites to enhance quality assurance and reduce QA team workload",
-                        "Provided strategic input to architectural and design decisions, leveraging both personal expertise and collective team knowledge",
-                        "Established strong communication channels within the team to prevent knowledge silos and ensure effective collaboration",
-                        "Coached and mentored team members to foster cultural alignment, technical excellence, and professional growth",
-                        "Conducted technical interviews across all engineering levels to build a high-performing team with strong technical skills and cultural fit",
-                        "Designed and maintained cloud services using Firebase and AWS to support mobile applications",
-                        "Implemented CI/CD pipelines using CircleCI and GitHub Actions to streamline mobile application delivery",
-                    ]} />
+                        "Developed and maintained enterprise-scale mobile applications using React Native, TypeScript, Jest, and Detox",
+                        "Collaborated within a multidisciplinary team to solve complex technical challenges and deliver high-quality mobile features",
+                        "Applied Agile and Scrum methodologies, adapting team processes to improve delivery efficiency and predictability",
+                        "Built and maintained robust unit test suites to improve code quality and reduce reliance on manual QA",
+                        "Contributed to architectural and design decisions, balancing technical excellence with product requirements",
+                        "Improved team communication practices to reduce knowledge silos and strengthen cross-functional collaboration",
+                        "Mentored and coached engineers to support technical growth, team cohesion, and cultural alignment",
+                        "Interviewed engineers across multiple seniority levels to help build a high-performing, diverse engineering team",
+                        "Designed and maintained cloud-based services using Firebase and AWS to support mobile application functionality",
+                        "Implemented and maintained CI/CD pipelines using CircleCI and GitHub Actions to streamline mobile delivery",
+                    ]}
+                />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100" />
-                <CvExperience employer="Ideagen PLC"
+                <CvExperience
+                    employer="Ideagen PLC"
                     role="Software Engineer"
-                    dates="Mar 2018 - Jan 2021"
+                    dates="Mar 2018 – Jan 2021"
                     bullets={[
-                        "Demonstrated a proactive \"can-do\" attitude while encouraging team members to ensure optimal cohesion and continuous improvement",
-                        "Developed multiple enterprise-level mobile applications using diverse technologies including JavaScript, C#, .NET, and React-Native",
-                        "Implemented comprehensive unit testing to enhance quality assurance and streamline the QA process",
-                        "Identified and implemented innovative technologies and strategies across various projects to overcome challenges and improve efficiency",
-                        "Provided cross-team support, often on short notice, to maintain quality standards while meeting critical deadlines",
-                        "Facilitated onboarding processes and mentored work experience participants to ensure smooth integration",
-                        "Successfully maintained legacy applications, delivered new features for existing projects, and contributed to architecture design for new mobile applications",
-                        "Engineered robust local data management solutions using SQLite.NET ORM to handle local storage and synchronization with remote databases for form and template data",
-                    ]} />
+                        "Developed and maintained multiple enterprise mobile applications using JavaScript, C#, .NET, and React Native",
+                        "Implemented comprehensive unit test suites to improve code quality and reduce QA effort",
+                        "Contributed to the maintenance and enhancement of legacy applications while delivering new features",
+                        "Supported architectural design and technical decision-making for new mobile applications",
+                        "Designed and implemented local data management and synchronisation solutions using SQLite.NET ORM",
+                        "Collaborated across teams to meet tight deadlines while maintaining high engineering standards",
+                        "Supported onboarding and mentored junior engineers and work experience participants",
+                    ]}
+                />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100 print:hidden" />
-                <CvExperience employer="Other Experience"
+                <CvExperience
+                    employer="Other Experience"
                     role="Side Projects"
-                    dates="Mar 2018 - Present"
+                    dates="Mar 2018 – Present"
                     bullets={[
-                        "Re-wrote, my squareSumChecker (github.com/justjcurtis/squareSumChecker) project in zig for a massive performance boost (previously written in javascript)",
-                        "Designed, developed, and launched CS2CFGR (cs2cfgr.com), a sophisticated web application for Counter-Strike 2 players to visually create and manage game configurations, built with Vite, React, and Supabase, hosted on Vercel",
-                        "Engineered premium features for CS2CFGR including cloud saves, config sharing, and an Electron desktop application that seamlessly synchronizes configurations with game files",
-                        "Implemented Stripe payment processing to handle subscriptions and establish a sustainable business model for CS2CFGR",
-                        "Architected a custom React game engine hook (useGame) that enables efficient game development leveraging both Canvas and HTML elements as game objects",
-                        "Created classic games for my portfolio including Pong, Snake, and Space Invaders using my custom useGame hook",
-                        "Developed a highly optimized Rock Paper Scissors simulation featuring thousands of entities interacting in real-time, utilizing a custom quadtree implementation for efficient swarm behavior and collision detection",
-                        "Learned and used go to participate in Advent of Code 2023 and 2024, aiming for the most performant solutions possible using as much concurrency as possible along with the standard library and extreamly optimised algorithms",
-                        "Implemented NEAT Machine Learning algorithm from the original research paper as a library (available on NPM supporting Node.js and browser) and created a Flappy Bird clone to demonstrate its capabilities",
-                        "Designed and maintained a personal portfolio website using React, Tailwind CSS, and GraphQL (justjcurtis.dev)",
-                        "Built and maintained an in-house Rock Paper Scissors AI tournament platform with a REST API using Svelte, Node.js, and MongoDB",
-                        "Mentored multiple colleagues in JavaScript, React, Node.js, HTML, and CSS, enabling them to successfully secure their first positions in the industry",
-                        "Designed and maintained this interactive CV using React and Tailwind CSS (justjcurtis.dev/#/cv)",
-                        "Self-taught 3D modeling and CAD using Fusion 360 and OnShape to support 3D printing projects and other technical endeavors",
-                        "Studied physics at degree level, providing a strong foundation in mathematical principles and analytical problem-solving",
-                        "Pursue diverse interests including 3D printing, playing guitar, reading, and continuous learning in code, mathematics, physics, and philosophy",
-                    ]} />
+                        "Collaborating on a React Native + Expo golf app with 2 other developers, building the backend in Go with SQLC and PostgreSQL, focusing on scalable architecture and cross-platform mobile delivery",
+                        "Completed Advent of Code 2025 in Go with highly optimised, concurrent solutions; min runtime across all 12 days’ solutions was 6ms on an M2 MacBook Air",
+                        "Rewrote the squareSumChecker project from JavaScript to Zig, achieving a significant performance boost through low-level optimisation",
+                        "Designed, built, and launched CS2CFGR (cs2cfgr.com), a production web application for Counter-Strike 2 players to create, manage, and share game configurations using Vite, React, Supabase, and Vercel",
+                        "Implemented premium features for CS2CFGR including cloud saves, configuration sharing, desktop synchronisation via Electron, and Stripe-based subscriptions",
+                        "Architected a lightweight reusable React game engine hook (useGame) supporting Canvas and DOM-based rendering, used to build multiple interactive games (demos available on justjcurtis.dev)",
+                        "Developed performance-focused simulations and games, including large-scale real-time Rock Paper Scissors simulations using a custom quadtree for efficient entity interaction",
+                        "Implemented the NEAT machine learning algorithm from the original research paper as a reusable library, demonstrated via a Flappy Bird AI project",
+                        "Built and maintained additional full-stack projects including REST APIs and real-time applications using Svelte, Node.js, MongoDB, and modern frontend tooling",
+                        "Mentored engineers in JavaScript, React, and Node.js, supporting several individuals in securing their first roles in the software industry",
+                        "Designed and maintain a personal portfolio and interactive CV using React and Tailwind CSS (justjcurtis.dev/#/cv)",
+                    ]}
+                />
                 <div className="bg-secondary-focus mt-10 rounded-full h-px w-100 print:hidden" />
                 <m.p initial={{ opacity: 0 }}
                     animate={{ opacity: 1, x: 0, y: 0 }}
