@@ -26,8 +26,8 @@ const CvRightPane = () => {
                     exit={{ opacity: 0, x: 6, y: 10 }}
                     className="text-lg font-thin text-black mt-5 text-left"
                 >
-                    I'm Jacson, a senior software engineer with {getYearsExp()}+ years of professional experience.
-                    As a full-stack developer, I specialise in building high-performance, scalable, and maintainable software solutions.
+                    I'm Jacson, a Tech Lead with {getYearsExp()}+ years of professional experience.
+                    As a full-stack engineer, I specialise in building high-performance, scalable, and maintainable software solutions.
                     I thrive as a self-starter, continuously enhancing my technical expertise, and I excel at collaborating across teams to solve complex problems and deliver exceptional products.
 
                     I actively maintain several <a className="text-secondary-focus underline" href="https://justjcurtis.dev/#/projects" target="_blank" rel="noreferrer">side projects</a>, including <a className="text-secondary-focus underline" href="https://justjcurtis.dev" target="_blank" rel="noreferrer">this website</a>, built with React and Tailwind CSS.
@@ -77,7 +77,7 @@ const CvRightPane = () => {
                     bullets={[
                         "Developed enterprise-scale mobile applications using React Native, TypeScript, Jest, and Detox",
                         "Built and maintained comprehensive Detox end-to-end test suites to ensure high-quality mobile releases",
-                        "Led a small group of engineers to deliver new features and improvements within the mobile application",
+                        "Led a group of engineers to deliver new features and improvements within the mobile application",
                         "Facilitated cross-team collaboration to align technical delivery with product and business objectives",
                         "Held regular one-to-one meetings to support engineers’ performance, growth, and engagement",
                         "Introduced process improvements that increased team efficiency and delivery reliability",
