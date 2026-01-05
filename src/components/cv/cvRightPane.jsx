@@ -19,20 +19,22 @@ const CvRightPane = () => {
             <div className='lg:flex-[2_2_0%] flex flex-col justify-start text-center lg:px-10'>
                 <div className="bg-primary w-100 lg:hidden block my-10 print:hidden rounded-full h-0.5" />
                 <h3 className="text-2xl font-bold text-black print:mt-12">- I N T R O D U C T I O N -</h3>
-                <m.p initial={{ opacity: 0 }}
+                <m.p
+                    initial={{ opacity: 0 }}
                     animate={{ opacity: 1, x: 0, y: 0 }}
-                    transition={{ delay: 0.3, duration: (0.5 + (0.3 * Math.random())), ease: 'easeInOut' }}
+                    transition={{ delay: 0.3, duration: 0.5 + 0.3 * Math.random(), ease: 'easeInOut' }}
                     exit={{ opacity: 0, x: 6, y: 10 }}
-                    className="text-lg font-thin text-black mt-5 text-left">
-                    I'm Jacson, a senior software engineer with {getYearsExp()}+ years of professional experience in the industry.
-                    As a full-stack developer, I'm passionate about crafting beautiful, functional, and
-                    high-performance software solutions. I thrive as a self-starter who continuously seeks
-                    opportunities to enhance my technical expertise and knowledge. My collaborative approach makes me
-                    an effective team player who excels at solving complex problems and delivering exceptional products. <br />
+                    className="text-lg font-thin text-black mt-5 text-left"
+                >
+                    I'm Jacson, a senior software engineer with {getYearsExp()}+ years of professional experience.
+                    As a full-stack developer, I specialise in building high-performance, scalable, and maintainable software solutions.
+                    I thrive as a self-starter, continuously enhancing my technical expertise, and I excel at collaborating across teams to solve complex problems and deliver exceptional products.
 
-                    I actively maintain several <a className="text-secondary-focus underline" href="https://justjcurtis.dev/#/projects" target="_blank" rel="noreferrer">side projects</a>, including <a className="text-secondary-focus underline" href="https://justjcurtis.dev" target="_blank" rel="noreferrer">this website</a>, which I developed using React and Tailwind CSS.
-                    I'm consistently seeking new challenges and growth opportunities, so if you're interested in collaboration,
-                    I welcome you to connect!
+                    I actively maintain several <a className="text-secondary-focus underline" href="https://justjcurtis.dev/#/projects" target="_blank" rel="noreferrer">side projects</a>, including <a className="text-secondary-focus underline" href="https://justjcurtis.dev" target="_blank" rel="noreferrer">this website</a>, built with React and Tailwind CSS.
+                    I'm always seeking new challenges and growth opportunities, so if you’re interested in collaboration, I’d love to connect!
+                    <br />
+                    <br />
+                    This CV is also available online @ <a className="text-secondary-focus underline" href="https://justjcurtis.dev/#/cv" target="_blank" rel="noreferrer">justjcurtis.dev/#/cv</a>
                 </m.p>
                 <h3 className="text-2xl font-bold text-black mt-10 mb-5">- E X P E R I E N C E -</h3>
                 <CvExperience
