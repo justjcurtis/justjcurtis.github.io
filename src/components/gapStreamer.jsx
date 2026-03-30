@@ -10,12 +10,14 @@ export const GapStreamer = ({ data }) => {
     const [currentFrame, setCurrentFrame] = useState(0);
     const frameData = useRef("");
     const currentFrameRef = useRef(0);
+    const hasEnded = useRef(false);
 
     function drawFrame() {
         if (data.length === 0) {
             endStream();
             return;
         }
+        if (hasEnded.current) return
         const idx = currentFrameRef.current * maxLength;
         if (idx >= data.length) {
             endStream();
@@ -28,6 +30,7 @@ export const GapStreamer = ({ data }) => {
     }
 
     function endStream() {
+        hasEnded.current = true;
         setStreaming(false);
         frameData.current = "";
         setTimeout(() => {
