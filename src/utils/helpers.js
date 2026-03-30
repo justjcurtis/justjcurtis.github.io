@@ -26,7 +26,7 @@ export const mapTextVariables = (text, textVariableMap) => {
 }
 
 export const mulberry32 = a => {
-    return function() {
+    return function () {
         var t = a += 0x6D2B79F5;
         t = Math.imul(t ^ t >>> 15, t | 1); // eslint-disable-line
         t ^= t + Math.imul(t ^ t >>> 7, t | 61); // eslint-disable-line
@@ -48,12 +48,34 @@ export const playBeep = (frequency = TARGET_FREQ, duration = 300) => {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 
-    oscillator.type = 'sine'; // Types: 'sine', 'square', 'triangle', 'sawtooth'
-    oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+    const now = audioCtx.currentTime;
+    const totalTime = duration / 1000;
+
+    const attackTime = totalTime / 3
+    const releaseTime = totalTime / 3
+    const sustainTime = totalTime - attackTime - releaseTime;
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, now);
+
+    // Start at 0
+    gainNode.gain.setValueAtTime(0, now);
+
+    // Attack (0 → 1)
+    gainNode.gain.linearRampToValueAtTime(1, now + attackTime);
+
+    // Sustain (hold at 1)
+    gainNode.gain.setValueAtTime(1, now + attackTime + sustainTime);
+
+    // Release (1 → 0)
+    gainNode.gain.linearRampToValueAtTime(
+        0,
+        now + attackTime + sustainTime + releaseTime
+    );
 
     oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + duration / 1000);
-}
+    oscillator.start(now);
+    oscillator.stop(now + totalTime);
+};
