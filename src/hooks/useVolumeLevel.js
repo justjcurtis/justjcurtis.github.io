@@ -23,10 +23,10 @@ export const useVolumeLevel = (interval = 100, targetFreq = TARGET_FREQ) => {
         // Frequency resolution per bin
         const binHz = sampleRate / fftSize;
 
-        // Index of the bin closest to 440 Hz
+        // Index of the bin closest to the target frequency
         const targetIndex = Math.round(targetFreq / binHz);
 
-        // Use a narrow window around 440 Hz (±1 bin)
+        // Use a narrow window around target frequency (±1 bin)
         const range = 1;
         let sum = 0;
         let count = 0;
@@ -47,7 +47,14 @@ export const useVolumeLevel = (interval = 100, targetFreq = TARGET_FREQ) => {
         if (audioContextRef.current) return; // Already running
 
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: {
+                    echoCancellation: false,
+                    noiseSuppression: false,
+                    autoGainControl: false,
+                    channelCount: 1
+                }
+            });
             mediaStreamRef.current = stream;
 
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -57,7 +64,7 @@ export const useVolumeLevel = (interval = 100, targetFreq = TARGET_FREQ) => {
             sourceRef.current = source;
 
             const analyser = audioContext.createAnalyser();
-            analyser.fftSize = 256;
+            analyser.fftSize = 2048;
 
             const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
