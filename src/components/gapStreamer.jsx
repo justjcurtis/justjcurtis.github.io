@@ -57,7 +57,7 @@ export const GapStreamer = ({ data }) => {
         }
     }
 
-    const { startListening, stopListening } = useDetectSound(onDetect, 50, 100);
+    const { startListening, stopListening } = useDetectSound(onDetect, 30, 100);
 
     // Start listening when component mounts
     useEffect(() => {

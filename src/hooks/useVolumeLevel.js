@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback } from "react";
 import { TARGET_FREQ } from "../data/constants";
 
-export const useVolumeLevel = (interval = 100, targetFreq = TARGET_FREQ) => {
+export const useVolumeLevel = (interval = 16, targetFreq = TARGET_FREQ) => {
     const volume = useRef(0);
     const audioContextRef = useRef(null);
     const analyserRef = useRef(null);
