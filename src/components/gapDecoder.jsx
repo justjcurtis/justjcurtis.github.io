@@ -10,6 +10,7 @@ export const GapDecoder = () => {
     const intervalRef = useRef(null);
     const timeoutRef = useRef(null);
     const isSleeping = useRef(false);
+    const lastRepeatPlayed = useRef(null);
 
 
     const debouncedBeep = useCallback(() => {
@@ -23,18 +24,21 @@ export const GapDecoder = () => {
 
     const handleResult = async (text) => {
         if (isFinished || isSleeping.current) return;
+        const now = Date.now();
         if (text === lastResult.current) {
-            if (lastResultTimestamp.current && (Date.now() - lastResultTimestamp.current) > 1000) {
-                debouncedBeep();
+            if (lastResultTimestamp.current && (now - lastResultTimestamp.current) > 500) {
+                if (!lastRepeatPlayed.current || now - lastRepeatPlayed.current > 500) {
+                    debouncedBeep();
+                }
             }
             return; // Ignore duplicate results
         }
-        const now = Date.now();
-        if (lastResultTimestamp.current && (now - lastResultTimestamp.current) < 1000) {
+        if (lastResultTimestamp.current && (now - lastResultTimestamp.current) < 300) {
             return; // Ignore results that come too quickly
         }
         isSleeping.current = true;
         lastResult.current = text;
+        lastResultTimestamp.current = now;
         finalResult.current += text;
         debouncedBeep();
         await sleep(100);
