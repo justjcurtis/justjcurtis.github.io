@@ -1,4 +1,4 @@
-const TARGET_FREQ = 16000
+const TARGET_FREQ = 18000
 const ONE_MIN_MS = 60000
 const CONSTRUCTION_PERCENTAGE = 95
 const ENDPOINT = 'https://api-eu-west-2.hygraph.com/v2/clchjkt731a3801t81v2087ix/master'
