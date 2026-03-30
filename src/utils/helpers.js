@@ -44,14 +44,14 @@ export const selectFromArrWithFloat = (arr, float) => arr[Math.floor(float * arr
 
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-export const playBeep = (frequency = TARGET_FREQ, duration = 300) => {
+export const playBeep = (frequency = TARGET_FREQ, duration = 200) => {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 
     const now = audioCtx.currentTime;
     const totalTime = duration / 1000;
 
-    const attackTime = totalTime / 3
+    const attackTime = totalTime / 2
     const releaseTime = totalTime / 3
     const sustainTime = totalTime - attackTime - releaseTime;
 
