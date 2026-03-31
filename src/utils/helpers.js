@@ -57,8 +57,8 @@ export const playBeep = (frequency, duration = 200) => {
     const now = audioCtx.currentTime;
     const totalTime = duration / 1000;
 
-    const attackTime = totalTime / 2
-    const releaseTime = totalTime / 3
+    const attackTime = totalTime * (3 / 5)
+    const releaseTime = totalTime * (1 / 5)
     const sustainTime = totalTime - attackTime - releaseTime;
 
     oscillator.type = 'sine';

@@ -6,7 +6,7 @@ import { COMMANDS } from '../data/constants';
 const BEEP_DELAY = 250
 
 let timeout = null;
-const debouncedBeep = (freq, ms = 225, len = 150) => {
+const debouncedBeep = (freq, ms = 150, len = 80) => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
         playBeep(freq, len);
@@ -69,7 +69,7 @@ export const GapDecoder = () => {
                         <Scanner
                             sound={false}
                             allowMultiple={true}
-                            scanDelay={100}
+                            scanDelay={50}
                             constraints={{ facingMode: 'environment' }}
                             onScan={(result) => handleResult(result[0].rawValue)} />
                         <div className="text-center mt-4">
