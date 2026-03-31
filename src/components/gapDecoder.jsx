@@ -3,7 +3,7 @@ import { cycle, playBeep } from '../utils/helpers';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { COMMANDS } from '../data/constants';
 
-const BEEP_DELAY = 450
+const BEEP_DELAY = 250
 
 let timeout = null;
 const debouncedBeep = (freq, ms = 225, len = 150) => {
