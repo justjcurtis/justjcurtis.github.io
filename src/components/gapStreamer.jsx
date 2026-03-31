@@ -87,11 +87,11 @@ export const GapStreamer = ({ data }) => {
             updateExpected()
             drawFrame();
         } else if (index == COMMAND_IDX.PREV) {
-            drawPrevFrame()
+            // drawPrevFrame()
         }
     }
 
-    const { startListening, stopListening } = useDetectSound(onDetect, 30, 100);
+    const { startListening, stopListening } = useDetectSound(onDetect, 50, 50);
 
     // Start listening when component mounts
     useEffect(() => {

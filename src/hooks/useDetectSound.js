@@ -1,15 +1,18 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useVolumeLevel } from './useVolumeLevel';
+import { COMMANDS } from '../data/constants';
 
 const useDetectSound = (onDetect, threshold, debounceMs) => {
     const { startRecording, stopRecording, volume } = useVolumeLevel();
     const intervalRef = useRef(null);
     const timeoutRef = useRef(null);
+    const COMMAND_KEYS = Object.keys(COMMANDS);
 
     // Create a stable debounced function using useCallback
     const debouncedOnDetect = useCallback((index) => {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => {
+            console.log(`Detected ${COMMAND_KEYS[index]}`);
             onDetect(index);
         }, debounceMs);
     }, [onDetect, debounceMs]);

@@ -1,12 +1,10 @@
 const COMMANDS = {
     NEXT_A: 19000,
     NEXT_B: 18000,
-    PREV: 17000,
 }
 const COMMAND_IDX = {
     NEXT_A: 0,
     NEXT_B: 1,
-    PREV: 2
 }
 const ONE_MIN_MS = 60000
 const CONSTRUCTION_PERCENTAGE = 95

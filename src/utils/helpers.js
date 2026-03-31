@@ -6,6 +6,9 @@ export const debounce = (callback, timeout = 300) => {
     };
 }
 
+
+export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 export const getRandomInt = (max, min = 0) => min + Math.floor(Math.random() * (max - min + 1));
 
 export const getCurrentYearMonthString = () => new Date().toISOString().slice(0, 7)
