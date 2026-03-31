@@ -9,7 +9,10 @@ export const GapPage = () => {
     const [showDecoder, setShowDecoder] = useState(false);
 
     const handleTextSubmit = () => {
-        if (!text.trim()) return;
+        if (!text.trim()) {
+            setShowDecoder(true);
+            return;
+        }
         setShowStreamer(true);
     };
 
@@ -51,13 +54,6 @@ export const GapPage = () => {
                                                     className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
                                                 >
                                                     Jump Gap
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setShowDecoder(true)}
-                                                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ml-2"
-                                                >
-                                                    Observe Gap
                                                 </button>
                                             </div>
                                         </div>
