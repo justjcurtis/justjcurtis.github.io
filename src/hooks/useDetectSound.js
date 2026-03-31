@@ -12,7 +12,6 @@ const useDetectSound = (onDetect, threshold, debounceMs) => {
     const debouncedOnDetect = useCallback((index) => {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => {
-            console.log(`Detected ${COMMAND_KEYS[index]}`);
             onDetect(index);
         }, debounceMs);
     }, [onDetect, debounceMs]);
