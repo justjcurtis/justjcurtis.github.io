@@ -3,12 +3,14 @@ import { cycle, playBeep } from '../utils/helpers';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { COMMANDS } from '../data/constants';
 
+const BEEP_DELAY = 450
+
 let timeout = null;
-const debouncedBeep = (freq) => {
+const debouncedBeep = (freq, ms = 200) => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
         playBeep(freq);
-    }, 200);
+    }, ms);
 }
 export const GapDecoder = () => {
     const lastResult = useRef("");
@@ -23,7 +25,7 @@ export const GapDecoder = () => {
         if (isFinished) return;
         const now = Date.now();
         if (text === lastResult.current) {
-            if (!lastPlayed.current || now - lastPlayed.current > 450) {
+            if (!lastPlayed.current || now - lastPlayed.current > BEEP_DELAY) {
                 debouncedBeep(currentCommand.current);
                 lastPlayed.current = now;
             }
@@ -36,7 +38,7 @@ export const GapDecoder = () => {
         lastPlayed.current = now;
         if (text.length < 1000) {
             setIsFinished(true);
-            debouncedBeep(currentCommand.current);
+            debouncedBeep(currentCommand.current, BEEP_DELAY);
         }
     }
 
@@ -52,7 +54,7 @@ export const GapDecoder = () => {
             }
             clearInterval(interval)
 
-        }, 500)
+        }, BEEP_DELAY)
     }
 
     useEffect(() => {
