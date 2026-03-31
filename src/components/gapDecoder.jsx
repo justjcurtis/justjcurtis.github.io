@@ -54,7 +54,7 @@ export const GapDecoder = () => {
             }
             clearInterval(interval)
 
-        }, (BEEP_DELAY * 2) / 3)
+        }, (BEEP_DELAY * 4) / 3)
     }
 
     useEffect(() => {
