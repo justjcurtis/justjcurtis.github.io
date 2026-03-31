@@ -7,17 +7,20 @@ const useDetectSound = (onDetect, threshold, debounceMs) => {
     const timeoutRef = useRef(null);
 
     // Create a stable debounced function using useCallback
-    const debouncedOnDetect = useCallback((volumeLevel) => {
+    const debouncedOnDetect = useCallback((index) => {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => {
-            onDetect(volumeLevel);
+            onDetect(index);
         }, debounceMs);
     }, [onDetect, debounceMs]);
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
-            if (volume.current > threshold / 100) {
-                debouncedOnDetect(volume.current);
+            for (let i = 0; i < volume.current.length; i++) {
+                const vol = volume.current[i]
+                if (vol > threshold / 100) {
+                    debouncedOnDetect(i);
+                }
             }
         }, 40);
         return () => {

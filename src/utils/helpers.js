@@ -1,5 +1,3 @@
-import { TARGET_FREQ } from "../data/constants";
-
 export const debounce = (callback, timeout = 300) => {
     let timer;
     return (...args) => {
@@ -42,9 +40,14 @@ export const getRandomForToday = (dayOffset = 0) => {
 
 export const selectFromArrWithFloat = (arr, float) => arr[Math.floor(float * arr.length)]
 
+export const cycle = (value, arr) => {
+    const index = arr.indexOf(value)
+    if (index === -1) return arr[0]
+    return arr[(index + 1) % arr.length]
+}
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-export const playBeep = (frequency = TARGET_FREQ, duration = 200) => {
+export const playBeep = (frequency, duration = 200) => {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 

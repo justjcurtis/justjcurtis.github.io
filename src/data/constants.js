@@ -1,4 +1,13 @@
-const TARGET_FREQ = 18000
+const COMMANDS = {
+    NEXT_A: 19000,
+    NEXT_B: 18000,
+    PREV: 17000,
+}
+const COMMAND_IDX = {
+    NEXT_A: 0,
+    NEXT_B: 1,
+    PREV: 2
+}
 const ONE_MIN_MS = 60000
 const CONSTRUCTION_PERCENTAGE = 95
 const ENDPOINT = 'https://api-eu-west-2.hygraph.com/v2/clchjkt731a3801t81v2087ix/master'
@@ -159,4 +168,4 @@ const LOADING_MESSAGES = ["Reticulating splines..",
     "Baking ice cream..",
 ]
 
-export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES, LOADING_SECONDS, ONE_MIN_MS, TARGET_FREQ };
+export { CONSTRUCTION_PERCENTAGE, ENDPOINT, LOADING_MESSAGES, LOADING_SECONDS, ONE_MIN_MS, COMMANDS, COMMAND_IDX };

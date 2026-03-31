@@ -1,26 +1,27 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { playBeep } from '../utils/helpers';
+import { useState, useEffect, useRef } from 'react';
+import { cycle, playBeep } from '../utils/helpers';
 import { Scanner } from '@yudiel/react-qr-scanner';
+import { COMMANDS } from '../data/constants';
 
+let timeout = null;
+const debouncedBeep = (freq) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+        playBeep(freq);
+    }, 100);
+}
 export const GapDecoder = () => {
     const lastResult = useRef("");
     let finalResult = useRef("");
     const lastResultTimestamp = useRef(null);
     const [isFinished, setIsFinished] = useState(false);
     const intervalRef = useRef(null);
-    const timeoutRef = useRef(null);
     const isSleeping = useRef(false);
     const lastRepeatPlayed = useRef(null);
-
-
-    const debouncedBeep = useCallback(() => {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-            playBeep();
-        }, 100);
-    }, []);
+    const currentCommand = useRef(COMMANDS.NEXT_A);
 
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 
     const handleResult = async (text) => {
         if (isFinished || isSleeping.current) return;
@@ -28,7 +29,7 @@ export const GapDecoder = () => {
         if (text === lastResult.current) {
             if (lastResultTimestamp.current && (now - lastResultTimestamp.current) > 500) {
                 if (!lastRepeatPlayed.current || now - lastRepeatPlayed.current > 500) {
-                    debouncedBeep();
+                    debouncedBeep(currentCommand.current);
                 }
             }
             return; // Ignore duplicate results
@@ -40,16 +41,31 @@ export const GapDecoder = () => {
         lastResult.current = text;
         lastResultTimestamp.current = now;
         finalResult.current += text;
+        currentCommand.current = cycle(currentCommand.current, [COMMANDS.NEXT_A, COMMANDS.NEXT_B]);
         debouncedBeep();
         await sleep(100);
         isSleeping.current = false;
-        if (text.length < 1000) setIsFinished(true)
+        if (text.length < 1000) {
+            setIsFinished(true);
+            debouncedBeep(currentCommand.current);
+        }
+    }
+
+    const init = () => {
+        let interval
+        interval = setInterval(() => {
+            if (!lastResultTimestamp.current) {
+                debouncedBeep(currentCommand.current);
+                return
+            }
+            currentCommand.current = cycle(currentCommand.current, [COMMANDS.NEXT_A, COMMANDS.NEXT_B]);
+            clearInterval(interval)
+
+        }, 500)
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            debouncedBeep();
-        }, 50);
+        init()
     }, [])
 
     return (
@@ -70,7 +86,7 @@ export const GapDecoder = () => {
                                     setIsFinished(true);
                                     clearInterval(intervalRef.current);
                                 }}>
-                                Collapse Gap
+                                Collapse Gap {currentCommand.current == COMMANDS.NEXT_A ? "A" : "B"}
                             </button>
                         </div>
 

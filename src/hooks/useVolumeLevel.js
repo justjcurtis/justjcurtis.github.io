@@ -1,8 +1,8 @@
 import { useRef, useEffect, useCallback } from "react";
-import { TARGET_FREQ } from "../data/constants";
+import { COMMANDS } from "../data/constants";
 
-export const useVolumeLevel = (interval = 16, targetFreq = TARGET_FREQ) => {
-    const volume = useRef(0);
+export const useVolumeLevel = (interval = 16, targetFreqs = COMMANDS) => {
+    const volume = useRef(new Array(Object.keys(targetFreqs).length));
     const audioContextRef = useRef(null);
     const analyserRef = useRef(null);
     const sourceRef = useRef(null);
@@ -20,27 +20,33 @@ export const useVolumeLevel = (interval = 16, targetFreq = TARGET_FREQ) => {
 
         analyser.getByteFrequencyData(dataArray);
 
-        // Frequency resolution per bin
-        const binHz = sampleRate / fftSize;
+        const keys = Object.keys(targetFreqs)
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i]
+            const targetFreq = targetFreqs[key]
 
-        // Index of the bin closest to the target frequency
-        const targetIndex = Math.round(targetFreq / binHz);
+            // Frequency resolution per bin
+            const binHz = sampleRate / fftSize;
 
-        // Use a narrow window around target frequency (±1 bin)
-        const range = 1;
-        let sum = 0;
-        let count = 0;
+            // Index of the bin closest to the target frequency
+            const targetIndex = Math.round(targetFreq / binHz);
 
-        for (let i = targetIndex - range; i <= targetIndex + range; i++) {
-            if (i >= 0 && i < dataArray.length) {
-                sum += dataArray[i];
-                count++;
+            // Use a narrow window around target frequency (±1 bin)
+            const range = 1;
+            let sum = 0;
+            let count = 0;
+
+            for (let i = targetIndex - range; i <= targetIndex + range; i++) {
+                if (i >= 0 && i < dataArray.length) {
+                    sum += dataArray[i];
+                    count++;
+                }
             }
-        }
 
-        // Average and normalize
-        const avg = count > 0 ? sum / count : 0;
-        volume.current = avg / 255;
+            // Average and normalize
+            const avg = count > 0 ? sum / count : 0;
+            volume.current[i] = avg / 255;
+        }
     };
 
     const startRecording = useCallback(async () => {
@@ -96,7 +102,9 @@ export const useVolumeLevel = (interval = 16, targetFreq = TARGET_FREQ) => {
         analyserRef.current = null;
         sourceRef.current = null;
         dataArrayRef.current = null;
-        volume.current = 0; // Reset volume
+        for (let i = 0; i < volume.current.length; i++) {
+            volume.current[i] = 0
+        }
     }, []);
 
     useEffect(() => {

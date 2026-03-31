@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import useDetectSound from "../hooks/useDetectSound";
+import { COMMAND_IDX } from "../data/constants";
 
 const maxLength = 1000;
 const maxQrWidth = window.innerWidth - 100; // Adjusted for padding
@@ -11,6 +12,8 @@ export const GapStreamer = ({ data }) => {
     const frameData = useRef("");
     const currentFrameRef = useRef(0);
     const hasEnded = useRef(false);
+    const expected = useRef(0)
+    const isPrev = useRef(false)
 
     function drawFrame() {
         if (data.length === 0) {
@@ -23,9 +26,28 @@ export const GapStreamer = ({ data }) => {
             endStream();
             return;
         }
+        isPrev.current = false
         const nextFrame = data.slice(idx, idx + maxLength);
         frameData.current = nextFrame;
         currentFrameRef.current += 1;
+        setCurrentFrame(currentFrameRef.current);
+    }
+
+    function drawPrevFrame() {
+        if (data.length === 0) {
+            endStream();
+            return;
+        }
+        if (hasEnded.current || isPrev.current) return
+        const idx = currentFrameRef.current * maxLength;
+        if (idx >= data.length) {
+            endStream();
+            return;
+        }
+        isPrev.current = true
+        const prevFrame = data.slice(idx - maxLength, idx);
+        frameData.current = prevFrame;
+        currentFrameRef.current -= 1;
         setCurrentFrame(currentFrameRef.current);
     }
 
@@ -51,12 +73,21 @@ export const GapStreamer = ({ data }) => {
 
         setStreaming(true);
     }
-    const onDetect = (volume) => {
-        if (!streaming) {
+
+    const updateExpected = () => {
+        expected.current = +(!expected.current)
+    }
+
+    const onDetect = (index) => {
+        if (index == expected.current && !streaming) {
+            updateExpected()
             handleStartStreaming();
             drawFrame();
-        } else {
+        } else if (index == expected.current) {
+            updateExpected()
             drawFrame();
+        } else if (index == COMMAND_IDX.PREV) {
+            drawPrevFrame()
         }
     }
 
