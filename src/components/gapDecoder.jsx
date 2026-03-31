@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { cycle, playBeep, sleep } from '../utils/helpers';
+import { cycle, playBeep } from '../utils/helpers';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { COMMANDS } from '../data/constants';
 
@@ -8,7 +8,7 @@ const debouncedBeep = (freq) => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
         playBeep(freq);
-    }, 100);
+    }, 200);
 }
 export const GapDecoder = () => {
     const lastResult = useRef("");
@@ -36,9 +36,7 @@ export const GapDecoder = () => {
         lastPlayed.current = now;
         if (text.length < 1000) {
             setIsFinished(true);
-            sleep(100).then(() => {
-                debouncedBeep(currentCommand.current);
-            });
+            debouncedBeep(currentCommand.current);
         }
     }
 
