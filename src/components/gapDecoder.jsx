@@ -6,7 +6,7 @@ import { COMMANDS } from '../data/constants';
 const BEEP_DELAY = 450
 
 let timeout = null;
-const debouncedBeep = (freq, ms = 225, len = 100) => {
+const debouncedBeep = (freq, ms = 225, len = 150) => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
         playBeep(freq, len);
