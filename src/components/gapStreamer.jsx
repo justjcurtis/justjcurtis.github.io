@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import useDetectSound from "../hooks/useDetectSound";
 import { COMMAND_IDX, QR_MAX } from "../data/constants";
 import { QRByteSvg } from "./qrCode";
+import { motion as m } from "framer-motion";
 
 
 const stringToBytes = (str) => new TextEncoder().encode(str)
@@ -116,13 +117,13 @@ export const GapStreamer = ({ data }) => {
 
     const onDetect = (index) => {
         if (index == expected.current && !streaming) {
+            if (!startTime.current) {
+                startTime.current = Date.now();
+            }
             updateExpected()
             handleStartStreaming();
             drawFrame();
         } else if (index == expected.current) {
-            if (!startTime.current) {
-                startTime.current = Date.now();
-            }
             updateExpected()
             drawFrame();
         } else if (index == COMMAND_IDX.PREV) {
@@ -158,11 +159,44 @@ export const GapStreamer = ({ data }) => {
             )}
             {!streaming && currentFrame > 0 && (
                 <div className="text-sm text-green-600 text-center">
-                    <p>Gapped!</p>
-                    <hr className="border-green-400 my-1 w-screen" />
-                    <p>{startTime.current ? `Time: ${(startTime.current / 1000).toFixed(2)}s` : ""}</p>
-                    <p>{data.length} bytes</p>
-                    <p>{(((data.length * 8) / (startTime.current / 1000)) / 1000).toFixed(2)} kbps</p>
+                    <m.p
+                        className="mt-2"
+                        initial={{ opacity: 0, fontSize: "0.5rem", y: 10 }}
+                        animate={{ opacity: 1, fontSize: "1rem", y: 0 }}
+                        transition={{ delay: 0, duration: 0.3 }}
+                    >
+                        Gapped!
+                    </m.p>
+                    <m.hr
+                        className="border-green-400 my-1 justify-self-center"
+                        initial={{ width: 0 }}
+                        animate={{ width: "100vw" }}
+                        transition={{ delay: 0.5, duration: 1, ease: "easeIn" }}
+                    />
+                    <m.p
+                        className="mt-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.7, duration: 0.5 }}
+                    >
+                        {startTime.current ? `Time: ${(startTime.current / 1000).toFixed(2)}s` : ""}
+                    </m.p>
+                    <m.p
+                        className="mt-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 2.4, duration: 0.5 }}
+                    >
+                        {data.length > 1000 ? (data.length / 1000).toFixed(2) : data.length} {data.length > 1000 ? "KB" : "Bytes"}
+                    </m.p>
+                    <m.p
+                        className="mt-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 3.1, duration: 0.5 }}
+                    >
+                        {(((data.length * 8) / (startTime.current / 1000)) / 1000).toFixed(2)} Kbps
+                    </m.p>
                 </div>
             )}
         </div>
