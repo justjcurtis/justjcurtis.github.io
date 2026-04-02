@@ -32,6 +32,7 @@ export const GapStreamer = ({ data }) => {
     const expected = useRef(0)
     const isPrev = useRef(false)
     const [qrSize, setQrSize] = useState(Math.min(window.innerWidth - 50, window.innerHeight - 120));
+    const startTime = useRef(null);
 
     useEffect(() => {
         const el = window.addEventListener("resize", () => {
@@ -86,6 +87,7 @@ export const GapStreamer = ({ data }) => {
     }
 
     function endStream() {
+        startTime.current = Date.now() - startTime.current;
         hasEnded.current = true;
         setStreaming(false);
         frameData.current = "";
@@ -118,6 +120,9 @@ export const GapStreamer = ({ data }) => {
             handleStartStreaming();
             drawFrame();
         } else if (index == expected.current) {
+            if (!startTime.current) {
+                startTime.current = Date.now();
+            }
             updateExpected()
             drawFrame();
         } else if (index == COMMAND_IDX.PREV) {
@@ -152,8 +157,12 @@ export const GapStreamer = ({ data }) => {
                 </div>
             )}
             {!streaming && currentFrame > 0 && (
-                <div className="text-sm text-green-600">
-                    Gapped!
+                <div className="text-sm text-green-600 text-center">
+                    <p>Gapped!</p>
+                    <hr className="border-green-400 my-1 w-screen" />
+                    <p>{startTime.current ? `Time: ${(startTime.current / 1000).toFixed(2)}s` : ""}</p>
+                    <p>{data.length} bytes</p>
+                    <p>{(((data.length * 8) / (startTime.current / 1000)) / 1000).toFixed(2)} kbps</p>
                 </div>
             )}
         </div>
