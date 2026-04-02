@@ -34,7 +34,7 @@ export const QRByteSvg = ({
         return () => {
             cancelled = true
         }
-    }, [data, level, margin])
+    }, [data, level, margin, size])
 
     return (
         <div

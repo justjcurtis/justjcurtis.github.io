@@ -3,7 +3,6 @@ import useDetectSound from "../hooks/useDetectSound";
 import { COMMAND_IDX, QR_MAX } from "../data/constants";
 import { QRByteSvg } from "./qrCode";
 
-const maxQrWidth = window.innerWidth - 100; // Adjusted for padding
 
 const stringToBytes = (str) => new TextEncoder().encode(str)
 
@@ -32,6 +31,16 @@ export const GapStreamer = ({ data }) => {
     const hasEnded = useRef(false);
     const expected = useRef(0)
     const isPrev = useRef(false)
+    const [qrSize, setQrSize] = useState(Math.min(window.innerWidth - 50, window.innerHeight - 120));
+
+    useEffect(() => {
+        const el = window.addEventListener("resize", () => {
+            setQrSize(Math.min(window.innerWidth - 50, window.innerHeight - 120))
+        })
+        return () => {
+            window.removeEventListener("resize", el)
+        }
+    }, [])
 
     useEffect(() => {
         const prepareData = async () => {
@@ -135,10 +144,10 @@ export const GapStreamer = ({ data }) => {
                 </div>
             )}
             {streaming && frameData.current.length > 0 && (
-                <div className="flex flex-col items-center space-y-4 bg-white z-10 p-4">
+                <div className="flex flex-col items-center space-y-4 bg-white z-10 p-2">
                     <QRByteSvg
                         data={frameData.current}
-                        size={Math.min(maxQrWidth, 512)} // Limit QR code size
+                        size={qrSize}
                     />
                 </div>
             )}
