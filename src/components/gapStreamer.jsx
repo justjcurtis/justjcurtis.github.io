@@ -117,13 +117,13 @@ export const GapStreamer = ({ data }) => {
 
     const onDetect = (index) => {
         if (index == expected.current && !streaming) {
-            if (!startTime.current) {
-                startTime.current = Date.now();
-            }
             updateExpected()
             handleStartStreaming();
             drawFrame();
         } else if (index == expected.current) {
+            if (!startTime.current) {
+                startTime.current = Date.now();
+            }
             updateExpected()
             drawFrame();
         } else if (index == COMMAND_IDX.PREV) {
