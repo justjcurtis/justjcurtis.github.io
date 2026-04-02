@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { cycle, playBeep } from '../utils/helpers';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { COMMANDS } from '../data/constants';
+import { COMMANDS, QR_MAX } from '../data/constants';
 
 const BEEP_DELAY = 250
 
@@ -59,7 +59,7 @@ export const GapDecoder = () => {
         currentCommand.current = cycle(currentCommand.current, [COMMANDS.NEXT_A, COMMANDS.NEXT_B]);
         debouncedBeep();
         lastPlayed.current = now;
-        if (text.length < 1000) {
+        if (text.length < QR_MAX) {
             setIsFinished(true);
             debouncedBeep(currentCommand.current, BEEP_DELAY);
         }

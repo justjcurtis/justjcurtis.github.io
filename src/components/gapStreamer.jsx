@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import QRCode from "react-qr-code";
 import useDetectSound from "../hooks/useDetectSound";
-import { COMMAND_IDX } from "../data/constants";
+import { COMMAND_IDX, QR_MAX } from "../data/constants";
+import { QRByteSvg } from "./qrCode";
 
-const maxLength = 1000;
 const maxQrWidth = window.innerWidth - 100; // Adjusted for padding
 
 const stringToBytes = (str) => new TextEncoder().encode(str)
@@ -47,13 +46,13 @@ export const GapStreamer = ({ data }) => {
             return;
         }
         if (hasEnded.current) return
-        const idx = currentFrameRef.current * maxLength;
+        const idx = currentFrameRef.current * QR_MAX;
         if (idx >= compressedDataRef.current.length) {
             endStream();
             return;
         }
         isPrev.current = false
-        const nextFrame = compressedDataRef.current.slice(idx, idx + maxLength);
+        const nextFrame = compressedDataRef.current.slice(idx, idx + QR_MAX);
         frameData.current = nextFrame;
         currentFrameRef.current += 1;
         setCurrentFrame(currentFrameRef.current);
@@ -65,13 +64,13 @@ export const GapStreamer = ({ data }) => {
             return;
         }
         if (hasEnded.current || isPrev.current) return
-        const idx = currentFrameRef.current * maxLength;
+        const idx = currentFrameRef.current * QR_MAX;
         if (idx >= data.length) {
             endStream();
             return;
         }
         isPrev.current = true
-        const prevFrame = data.slice(idx - maxLength, idx);
+        const prevFrame = data.slice(idx - QR_MAX, idx);
         frameData.current = prevFrame;
         currentFrameRef.current -= 1;
         setCurrentFrame(currentFrameRef.current);
@@ -137,11 +136,9 @@ export const GapStreamer = ({ data }) => {
             )}
             {streaming && frameData.current.length > 0 && (
                 <div className="flex flex-col items-center space-y-4 bg-white z-10 p-4">
-                    <QRCode
-                        title="GapStreamer QR Code"
-                        value={frameData.current}
+                    <QRByteSvg
+                        data={frameData.current}
                         size={Math.min(maxQrWidth, 512)} // Limit QR code size
-
                     />
                 </div>
             )}
