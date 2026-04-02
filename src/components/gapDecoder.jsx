@@ -6,12 +6,27 @@ import { COMMANDS } from '../data/constants';
 const BEEP_DELAY = 250
 
 let timeout = null;
+
 const debouncedBeep = (freq, ms = 150, len = 80) => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
         playBeep(freq, len);
     }, ms);
 }
+
+const decodeCompressedString = async (compressed) => {
+    const binary = atob(compressed);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    const ds = new DecompressionStream('deflate');
+    const writer = ds.writable.getWriter();
+    writer.write(bytes);
+    writer.close();
+    return await new Response(ds.readable).text();
+}
+
 export const GapDecoder = () => {
     const lastResult = useRef("");
     let finalResult = useRef("");
@@ -19,7 +34,15 @@ export const GapDecoder = () => {
     const lastPlayed = useRef(Date.now());
     const currentCommand = useRef(COMMANDS.NEXT_A);
     const initialised = useRef(false);
+    const [decoded, setDecoded] = useState("")
 
+    useEffect(() => {
+        if (isFinished && finalResult.current) {
+            decodeCompressedString(finalResult.current).then(result => {
+                setDecoded(result)
+            })
+        }
+    }, [isFinished])
 
     const handleResult = async (text) => {
         if (isFinished) return;
@@ -91,7 +114,7 @@ export const GapDecoder = () => {
                         <textarea
                             id="textInput"
                             disabled
-                            defaultValue={finalResult.current}
+                            defaultValue={decoded}
                             className="w-full h-40 p-3 border border-gray-300 rounded-md resize-vertical focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             rows={6}
                         />

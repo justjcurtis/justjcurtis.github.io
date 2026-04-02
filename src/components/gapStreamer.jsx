@@ -6,7 +6,26 @@ import { COMMAND_IDX } from "../data/constants";
 const maxLength = 1000;
 const maxQrWidth = window.innerWidth - 100; // Adjusted for padding
 
+const stringToBytes = (str) => new TextEncoder().encode(str)
+
+const getCompressedString = async (data) => {
+    const bytes = stringToBytes(data);
+    const cs = new CompressionStream('deflate')
+    const writer = cs.writable.getWriter()
+    writer.write(bytes)
+    writer.close()
+    const buff = await new Response(cs.readable).arrayBuffer()
+    const compressed = new Uint8Array(buff);
+    let binary = "";
+    compressed.forEach(byte => {
+        binary += String.fromCharCode(byte);
+    });
+    return btoa(binary);
+}
+
+
 export const GapStreamer = ({ data }) => {
+    const compressedDataRef = useRef(null);
     const [streaming, setStreaming] = useState(false);
     const [currentFrame, setCurrentFrame] = useState(0);
     const frameData = useRef("");
@@ -15,6 +34,13 @@ export const GapStreamer = ({ data }) => {
     const expected = useRef(0)
     const isPrev = useRef(false)
 
+    useEffect(() => {
+        const prepareData = async () => {
+            compressedDataRef.current = await getCompressedString(data);
+        }
+        prepareData();
+    }, [data]);
+
     function drawFrame() {
         if (data.length === 0) {
             endStream();
@@ -22,12 +48,12 @@ export const GapStreamer = ({ data }) => {
         }
         if (hasEnded.current) return
         const idx = currentFrameRef.current * maxLength;
-        if (idx >= data.length) {
+        if (idx >= compressedDataRef.current.length) {
             endStream();
             return;
         }
         isPrev.current = false
-        const nextFrame = data.slice(idx, idx + maxLength);
+        const nextFrame = compressedDataRef.current.slice(idx, idx + maxLength);
         frameData.current = nextFrame;
         currentFrameRef.current += 1;
         setCurrentFrame(currentFrameRef.current);
