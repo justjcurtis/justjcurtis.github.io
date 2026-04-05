@@ -194,30 +194,34 @@ export const GapStreamer = ({ data }) => {
                         animate={{ width: "100vw" }}
                         transition={{ delay: 0.5, duration: 1, ease: "easeIn" }}
                     />
-                    {startTime.current > 1 && <m.p
+                    <m.p
                         className="mt-2"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.7, duration: 0.5 }}
                     >
-                        {startTime.current ? `Time: ${(startTime.current / 1000).toFixed(2)}s` : ""}
-                    </m.p>}
-                    <m.p
-                        className="mt-2"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 2.4, duration: 0.5 }}
-                    >
                         {data.length > 1000 ? (data.length / 1000).toFixed(2) : data.length} {data.length > 1000 ? "KB" : "Bytes"}
                     </m.p>
-                    {startTime.current > 1 && <m.p
-                        className="mt-2"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 3.1, duration: 0.5 }}
-                    >
-                        {(((data.length * 8) / (startTime.current / 1000)) / 1000).toFixed(2)} Kbps
-                    </m.p>}
+                    {startTime.current > 1 && (
+                        <>
+                            <m.p
+                                className="mt-2"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 2.4, duration: 0.5 }}
+                            >
+                                {startTime.current ? `Time: ${(startTime.current / 1000).toFixed(2)}s` : ""}
+                            </m.p>
+                            <m.p
+                                className="mt-2"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 3.1, duration: 0.5 }}
+                            >
+                                {(((data.length * 8) / (startTime.current / 1000)) / 1000).toFixed(2)} Kbps
+                            </m.p>
+                        </>
+                    )}
                 </div>
             )}
         </div>
