@@ -79,7 +79,7 @@ export const GapStreamer = ({ data }) => {
             return;
         }
         isPrev.current = false
-        const nextFrame = compressedDataRef.current.slice(idx, idx + qrLength.current);
+        let nextFrame = compressedDataRef.current.slice(idx, idx + qrLength.current);
         const isLastFrame = nextFrame.length < qrLength.current;
         if (isLastFrame) {
             // add end marker to last frame so decoder knows when to stop
