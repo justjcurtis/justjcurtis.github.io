@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { useGame } from '../../hooks/useGame';
 import QuadTree from '../../models/quadtree';
 
