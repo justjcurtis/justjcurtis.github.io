@@ -54,12 +54,14 @@ export const GapDecoder = () => {
             }
             return; // Ignore duplicate results
         }
+        const isFinal = text.endsWith(QR_END_MARKER)
+        if (isFinal) text = text.slice(0, -QR_END_MARKER.length)
         lastResult.current = text;
         finalResult.current += text;
         currentCommand.current = cycle(currentCommand.current, [COMMANDS.NEXT_A, COMMANDS.NEXT_B]);
         debouncedBeep();
         lastPlayed.current = now;
-        if (text.length < QR_MAX) {
+        if (isFinal) {
             setIsFinished(true);
             debouncedBeep(currentCommand.current, BEEP_DELAY);
         }

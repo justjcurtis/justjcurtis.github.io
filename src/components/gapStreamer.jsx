@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import useDetectSound from "../hooks/useDetectSound";
-import { COMMAND_IDX, QR_MAX } from "../data/constants";
+import { COMMAND_IDX, QR_MAX, QR_END_MARKER } from "../data/constants";
 import { QRByteSvg } from "./qrCode";
 import { motion as m } from "framer-motion";
 
@@ -32,12 +32,28 @@ export const GapStreamer = ({ data }) => {
     const hasEnded = useRef(false);
     const expected = useRef(0)
     const isPrev = useRef(false)
-    const [qrSize, setQrSize] = useState(Math.min(window.innerWidth - 50, window.innerHeight - 120));
     const startTime = useRef(null);
+    const qrLength = useRef(QR_MAX);
+
+    const getQRSize = () => {
+        let result = Math.min(window.innerWidth - 50, window.innerHeight - 120);
+        if (result < 600 && result >= 400) {
+            qrLength.current = 2000;
+        } else if (result < 400 && result >= 350) {
+            qrLength.current = 1000;
+        } else if (result < 350) {
+            qrLength.current = 600;
+        } else {
+            qrLength.current = QR_MAX;
+        }
+        return result;
+    }
+
+    const [qrSize, setQrSize] = useState(getQRSize());
 
     useEffect(() => {
         const el = window.addEventListener("resize", () => {
-            setQrSize(Math.min(window.innerWidth - 50, window.innerHeight - 120))
+            setQrSize(getQRSize())
         })
         return () => {
             window.removeEventListener("resize", el)
@@ -57,13 +73,18 @@ export const GapStreamer = ({ data }) => {
             return;
         }
         if (hasEnded.current) return
-        const idx = currentFrameRef.current * QR_MAX;
+        const idx = currentFrameRef.current * qrLength.current;
         if (idx >= compressedDataRef.current.length) {
             endStream();
             return;
         }
         isPrev.current = false
-        const nextFrame = compressedDataRef.current.slice(idx, idx + QR_MAX);
+        const nextFrame = compressedDataRef.current.slice(idx, idx + qrLength.current);
+        const isLastFrame = nextFrame.length < qrLength.current;
+        if (isLastFrame) {
+            // add end marker to last frame so decoder knows when to stop
+            nextFrame += QR_END_MARKER;
+        }
         frameData.current = nextFrame;
         currentFrameRef.current += 1;
         setCurrentFrame(currentFrameRef.current);
@@ -75,13 +96,13 @@ export const GapStreamer = ({ data }) => {
             return;
         }
         if (hasEnded.current || isPrev.current) return
-        const idx = currentFrameRef.current * QR_MAX;
-        if (idx >= data.length) {
+        const idx = currentFrameRef.current * qrLength.current;
+        if (idx >= compressedDataRef.current.length) {
             endStream();
             return;
         }
         isPrev.current = true
-        const prevFrame = data.slice(idx - QR_MAX, idx);
+        const prevFrame = compressedDataRef.current.slice(idx - QR_MAX, idx);
         frameData.current = prevFrame;
         currentFrameRef.current -= 1;
         setCurrentFrame(currentFrameRef.current);
