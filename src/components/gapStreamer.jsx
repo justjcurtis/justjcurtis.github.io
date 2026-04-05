@@ -37,14 +37,16 @@ export const GapStreamer = ({ data }) => {
 
     const getQRSize = () => {
         let result = Math.min(window.innerWidth - 50, window.innerHeight - 120);
-        if (result < 600 && result >= 400) {
-            qrLength.current = 2000;
-        } else if (result < 400 && result >= 350) {
-            qrLength.current = 1000;
-        } else if (result < 350) {
-            qrLength.current = 600;
-        } else {
-            qrLength.current = QR_MAX;
+        if (!streaming) {
+            if (result < 600 && result >= 400) {
+                qrLength.current = 2000;
+            } else if (result < 400 && result >= 350) {
+                qrLength.current = 1000;
+            } else if (result < 350) {
+                qrLength.current = 600;
+            } else {
+                qrLength.current = QR_MAX;
+            }
         }
         return result;
     }
