@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { cycle, playBeep } from '../utils/helpers';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { COMMANDS, QR_MAX } from '../data/constants';
+import { COMMANDS, QR_END_MARKER } from '../data/constants';
 
 const BEEP_DELAY = 250
 
