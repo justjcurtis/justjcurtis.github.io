@@ -40,7 +40,7 @@ export const GapDecoder = () => {
         if (isFinished && finalResult.current) {
             decodeCompressedString(finalResult.current).then(result => {
                 setDecoded(result)
-                debouncedBeep(currentCommand.current, BEEP_DELAY);
+                debouncedBeep(currentCommand.current, BEEP_DELAY, 300);
             })
         }
     }, [isFinished])
@@ -64,7 +64,7 @@ export const GapDecoder = () => {
         lastPlayed.current = now;
         if (isFinal) {
             setIsFinished(true);
-            debouncedBeep(currentCommand.current, BEEP_DELAY);
+            debouncedBeep(currentCommand.current, BEEP_DELAY, 300);
         }
     }
 
