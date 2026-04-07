@@ -35,6 +35,7 @@ export const GapDecoder = () => {
     const currentCommand = useRef(COMMANDS.NEXT_A);
     const initialised = useRef(false);
     const [decoded, setDecoded] = useState("")
+    const expectedIndex = useRef(0);
 
     useEffect(() => {
         if (isFinished && finalResult.current) {
@@ -57,11 +58,18 @@ export const GapDecoder = () => {
         }
         const isFinal = text.endsWith(QR_END_MARKER)
         if (isFinal) text = text.slice(0, -QR_END_MARKER.length)
+        const index = parseInt(text.split("#")[0])
+        if (isNaN(index) || index !== expectedIndex.current) {
+            debouncedBeep(COMMANDS.PREV, BEEP_DELAY, 300);
+            return; // Ignore out-of-order results
+        }
         lastResult.current = text;
+        text = text.split("#").slice(1).join("#")
         finalResult.current += text;
         currentCommand.current = cycle(currentCommand.current, [COMMANDS.NEXT_A, COMMANDS.NEXT_B]);
-        debouncedBeep();
+        debouncedBeep(currentCommand.current);
         lastPlayed.current = now;
+        expectedIndex.current += 1;
         if (isFinal) {
             setIsFinished(true);
             debouncedBeep(currentCommand.current, BEEP_DELAY, 300);

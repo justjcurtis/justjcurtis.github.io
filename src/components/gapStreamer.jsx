@@ -82,6 +82,7 @@ export const GapStreamer = ({ data }) => {
         }
         isPrev.current = false
         let nextFrame = compressedDataRef.current.slice(idx, idx + qrLength.current);
+        nextFrame = currentFrameRef.current + "#" + nextFrame
         const isLastFrame = nextFrame.length < qrLength.current;
         if (isLastFrame) {
             // add end marker to last frame so decoder knows when to stop
@@ -97,14 +98,15 @@ export const GapStreamer = ({ data }) => {
             endStream();
             return;
         }
-        if (hasEnded.current || isPrev.current) return
+        if (!currentFrame.current || isPrev.current) return
         const idx = currentFrameRef.current * qrLength.current;
         if (idx >= compressedDataRef.current.length) {
             endStream();
             return;
         }
         isPrev.current = true
-        const prevFrame = compressedDataRef.current.slice(idx - QR_MAX, idx);
+        let prevFrame = compressedDataRef.current.slice(idx - QR_MAX, idx);
+        prevFrame = (currentFrameRef.current - 1) + "#" + prevFrame
         frameData.current = prevFrame;
         currentFrameRef.current -= 1;
         setCurrentFrame(currentFrameRef.current);
@@ -150,7 +152,7 @@ export const GapStreamer = ({ data }) => {
             updateExpected()
             drawFrame();
         } else if (index == COMMAND_IDX.PREV) {
-            // drawPrevFrame()
+            drawPrevFrame()
         }
     }
 

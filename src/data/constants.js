@@ -1,12 +1,14 @@
 const COMMANDS = {
     NEXT_A: 19000,
-    NEXT_B: 18000,
+    NEXT_B: 18500,
+    PREV: 18000,
 }
 const COMMAND_IDX = {
     NEXT_A: 0,
     NEXT_B: 1,
+    PREV: 2,
 }
-const QR_MAX = 2953
+const QR_MAX = 2950
 const QR_END_MARKER = "!!!END!!!"
 const ONE_MIN_MS = 60000
 const CONSTRUCTION_PERCENTAGE = 95
