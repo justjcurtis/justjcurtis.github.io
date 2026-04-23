@@ -100,8 +100,11 @@ const HomePage = () => {
                     <m.div {...getMotionProps(0.3, -6, 25, -3, 15)} className="stats shadow bg-opacity-60 backdrop-blur-sm">
                         <div className="stat">
                             <div className="stat-title">Current Focus</div>
-                            <div className="stat-value text-accent underline">
-                                <a href='https://www.citnow.com/products/imaging/' target="_blank" rel="noreferrer">Imaging @CitNOW</a>
+                            <div className="stat-value text-accent underline flex items-center gap-2">
+                                <a href='https://www.onceforall.com' target="_blank" rel="noreferrer">Snr. Dev @OnceForAll</a>
+                                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-[#1a1a1a]">
+                                    <img src="https://www.onceforall.com/favicon.ico" alt="OnceForAll favicon" className="w-full h-full object-contain" />
+                                </div>
                             </div>
                             <div className="stat-desc mt-3">Thanks for stopping by   🌈</div>
                         </div>
